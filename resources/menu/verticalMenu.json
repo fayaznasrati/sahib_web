@@ -23,7 +23,7 @@
           
         }
       ]
-    },  {
+    },{
       "name": "Mange Posts",
       "icon": "menu-icon tf-icons bx bx-collection",
       "slug": "mange-posts",
@@ -32,16 +32,28 @@
         {
           "url": "/admin/posts-manager",
           "name": "Posts Manager",
-          "slug": "extended-ui-perfect-scrollbar"
+          "slug": "posts-manager"
         },
         {
-          "url": "extended/ui-text-divider",
-          "name": "Text Divider",
-          "slug": "extended-ui-text-divider"
+          "url": "/admin/admin-post-create",
+          "name": "Create Post",
+          "slug": "create-post"
         }
       ]
     },
-
+    {
+      "name": "Mange Users",
+      "icon": "menu-icon tf-icons bx bxs-user-account", 
+      "slug": "mange-users",
+      "url": "users",
+      "submenu": [
+        {
+          "url": "/admin/users-manager",
+          "name": "Users Manager",
+          "slug": "extended-ui-perfect-scrollbar"
+        }
+      ]
+    },
     {
       "menuHeader": "Pages"
     },

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Menu;
 use App\Models\User;
 use App\Models\AfgCity;
+use App\Models\Posts;
 use App\Models\SubMenu;
 class UserViewController extends Controller
 {
@@ -21,7 +22,17 @@ class UserViewController extends Controller
     {
         $menus = Menu::orderBy('id', 'desc')->take(9)->get();
         $submenus = SubMenu::All();
-        return view('index', compact('menus','submenus'));
+        $residentForRent = Posts::get()->where('menu_id',3)->all();
+        $residentForSell = Posts::get()->where('menu_id',4)->all();
+        $motors = Posts::get()->where('menu_id',5)->all();
+        return view('index', 
+        compact(
+            'menus',
+            'submenus',
+            'residentForRent',
+            'residentForSell',
+            'motors'
+        ));
     }
 
     
@@ -29,10 +40,31 @@ class UserViewController extends Controller
         // $id = Auth::id();
         $user = User::find(Auth::id());
         $afg_cities = AfgCity::get();
-        // dd($user);
+        // dd();
 
         return view('user-module.user-dashboard', compact('user','afg_cities'));
     }
+
+    public function userLogin()
+    {
+        return view('login');
+    }
+
+    public function userRegister()
+    {
+        return view('register');
+    }
+
+    public function categoryList()
+    {
+        return view('category-list');
+    }
+
+    public function singleProduct()
+    {
+        return view('single-product');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -111,7 +143,7 @@ class UserViewController extends Controller
             "mobile" => $request->mobile,
             "whatsapp" => $request->whatsapp,
             "dp_image"=>$user->dp_image,
-            "city" =>$request->city,
+            "city_id" =>$request->city_id,
             "zip_code" =>$request->zip_code,
             "business" =>$request->business,
             "address" =>$request->address,
@@ -144,7 +176,9 @@ class UserViewController extends Controller
             File::delete("dp_images/".$user->dp_image);
         }
         $user->delete();
+        // notify()->error('Welcome to Laravel Notify ⚡️');
         return redirect('/')->with('success', 'Your Account Deleted.');
+        // return redirect('/')->notify()->success('Welcome to Laravel Notify ⚡️');
     }
 
 

@@ -24,7 +24,7 @@ class User extends Authenticatable
         'whatsapp',
         'password',
         'address',
-        'city',
+        'city_id',
         'zip_code',
         'business',
         'dp_image',
@@ -57,5 +57,17 @@ class User extends Authenticatable
     public function posts(): HasMany
     {
         return $this->hasMany(Posts::class);
+    }
+    
+
+    public function afgcity()
+    {
+        return $this->belongsTo(AfgCity::class);
+    }
+
+    public function toggleIsActive()
+    {
+           $this->status = !$this->status;
+           return $this;
     }
 }

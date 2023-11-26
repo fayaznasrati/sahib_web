@@ -72,6 +72,12 @@
                     <button type="submit" class="btn btn-dark">Submit</button>
                   </div>
                 </div>
+                <div class="col-md-3 mt-3 ">
+                  <div class="d-grid col-md-12 mx-auto">
+                  <label for="html5-date-input" class="form-label"></label>
+                  <button type="reset" class="btn btn-warning">clear</button>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -115,7 +121,7 @@
                 <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
                   @if (count($post->images) > 0)
                     @foreach ($post->images as $img) 
-                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="{{ $post->name }}">
                             <img src="/images/{{ $img->image }}" alt="post image" style="height: auto; width:40px" >
                         </li>
                     @endforeach

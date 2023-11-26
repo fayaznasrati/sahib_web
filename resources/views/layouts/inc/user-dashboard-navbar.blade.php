@@ -70,17 +70,11 @@
                     <div class="col-xl-8 d-none d-xl-block">
                         <div class="main-menu position-relative">
                             <ul>
-                                <li><a href="/user/post"> <span>My Ads List</span></a></li>
-                                <li><a href="/user/post/create"> <span>Create New Ads</span></a></li>
+                                <li > <a href="/"><span>Home</span></a></li>
+                                <li><a href="/user/post"> <span>My Post List</span></a></li>
+                                <li><a class="{{ request()->is(url('/user/post/create')) ? 'active' : '' }}"  href="{{url('/user/post/create')}}"> <span>Create New Post</span></a></li>
                                 {{-- <li><a href="/user/crud"> <span>CRUD</span></a></li> --}}
                                 <li><a href="/user/dashboard"> <span>My Profile</span></a></li>
-                                <li class="has-children">
-                                    <a href="#"><span>Home</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/index">Home </a></li>
-                                        <li><a href="/index">Home </a></li>
-                                    </ul>
-                                </li>
                             </ul>
                         </div>
                     </div>

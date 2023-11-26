@@ -110,14 +110,12 @@
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="{{ route('submenus.edit',$submenu->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                  <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault();
-                                     document.getElementById('delete-menu').submit();">
-                       <i class="bx bx-trash me-1"></i> Delete
-                    </a>
                     <form id="delete-menu" action="{{ route('submenus.destroy', $submenu->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                    </form>
+                      @csrf
+                      @method('DELETE')
+                      <button  class="dropdown-item" type="submit" ><i class="bx bx-trash me-1"></i>Delete</button>                  
+                      </form>
+
                 </div>
               </div>
             </td>

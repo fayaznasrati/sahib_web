@@ -113,7 +113,7 @@ class SubmenuController extends Controller
      */
     public function destroy($id)
     {
-        
+        // dd($id);
         $submenu = SubMenu::findOrFail($id);
         $submenu->delete();
         return redirect()->route('submenus.index')

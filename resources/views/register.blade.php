@@ -114,7 +114,7 @@
                          <!-- Input phone Or Username Start -->
                     <div class="single-input-item mb-3">
                         {{-- <input type="text" placeholder="Your Phone Number"> --}}
-                        <input id="mobile_number" placeholder="Enter your mobile number" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" required autocomplete="mobile">
+                        <input id="mobile_number" placeholder="Enter your mobile number" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" autocomplete="mobile">
 
                         @error('mobile')
                             <span class="invalid-feedback" role="alert">
@@ -128,7 +128,7 @@
                     <!-- Input WhatsApp Number Or Username Start -->
                     <div class="single-input-item mb-3">
                         {{-- <input type="text" placeholder="Your WhatsApp Number"> --}}
-                        <input id="whatsapp_number" placeholder="Enter your WhatsApp number" type="text" class="form-control @error('whatsapp') is-invalid @enderror" name="whatsapp" required autocomplete="whatsapp">
+                        <input id="whatsapp_number" placeholder="Enter your WhatsApp number" type="text" class="form-control @error('whatsapp') is-invalid @enderror" name="whatsapp" autocomplete="whatsapp">
 
                         @error('whatsapp')
                             <span class="invalid-feedback" role="alert">

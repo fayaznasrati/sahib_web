@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('role')->default(0);   // 0 user, 1 admin 2 sub admin
             $table->string('name');
-            $table->string('dp_image');
+            $table->string('dp_image')->nullable();;
             $table->string('mobile')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('business')->nullable();
             $table->string('email')->unique();
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('city_id')->references('id')->on('afg_cities')->onDelete('cascade');
+
         });
     }
 

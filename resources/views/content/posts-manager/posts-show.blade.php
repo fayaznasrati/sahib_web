@@ -155,6 +155,8 @@
           <span><b>WhatsApp:</b> {{$posts->user->whatsapp}}</span><br>
           <span><b>Email:</b> {{$posts->user->email}}</span><br>
           <span><b>Address:</b> {{$posts->user->name}}</span><br>
+          <span><b>City:</b> {{$posts->user->afgCity}}</span><br>
+          <span><b>zip code:</b> {{$posts->user->zip_code}}</span><br>
       </div>
       </div>
       </div>

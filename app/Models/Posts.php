@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Posts extends Model
 {
@@ -102,6 +103,50 @@ class Posts extends Model
         return back();
 
     }
+    public function store(Request $request)
+    {
+        // dd($request->all());
+            if($request->hasFile("cover")){
+                $file=$request->file("cover");
+                $cover=time().'_'.$file->getClientOriginalName();
+                $file->move(\public_path("cover/"),$cover);
+                $thePuuid = "post-".time();
+                // dd($thePuuid);
+                $posts =new Posts([
+                  
+                   "menu_id" => $request->category_id,
+                   "sub_menu_id" => $request->sub_category_id,
+                   "name" => $request->name,
+                   "cover" =>$cover,
+                   "puuid" => "post-".time(),
+                   "colors" => $colors = json_encode($request->colors),
+                   "old_price" =>$request->old_price,
+                   "new_price" =>$request->new_price,
+                   "title" => $title = json_encode($request->title),
+                   "title_desc" => $title_desc = json_encode($request->title_desc),
+                    "description" =>$request->description                   
+                ]);
+                // dd($posts);
+               $posts->user_id = Auth::id();
+               $posts->save();
+            }
+    
+                if($request->hasFile("images")){
+                    $files=$request->file("images");
+                    foreach($files as $file){
+                        $imageName=time().'_'.$file->getClientOriginalName();
+                        $request['posts_id']=$posts->id;
+                        $request['image']=$imageName;
+                        $file->move(\public_path("/images"),$imageName);
+                        Image::create($request->all());
+    
+                    }
+                }
+        //   return redirect('/user/post')->with('success', 'Todos Has Been Created Successfully.');
+        return back();
 
+        }
+     
+   
 
 }

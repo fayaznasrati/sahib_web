@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 use App\Models\Posts;
+use App\Models\AfgCity;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use App\Models\Category;
@@ -64,10 +65,19 @@ class PostsController extends Controller
         return view('user-module.create-ad', ['category' => $category]);
     }
 
+
+
     public function adminPostCreate()
     {
-        $menus = Menus::all();
+        $menus = Menu::all();
         return view('content.posts-manager.posts-create', ['menus' => $menus]);
+    }
+
+    public function adminPostStore(Request $request){
+
+        $post = new Posts();
+        $post->store($request);
+         return redirect('/admin/posts-manager')->with("success, Post Created Successfully");
     }
 
     /**
@@ -75,46 +85,50 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+            // $$id = Posts::findOrFail($id);
+            $post = new Posts();
+            $post->store($request);
+             return redirect('/admin/posts-manager')->with("success, Post Created Successfully");
         // dd($request->all());
-            if($request->hasFile("cover")){
-                $file=$request->file("cover");
-                $cover=time().'_'.$file->getClientOriginalName();
-                $file->move(\public_path("cover/"),$cover);
-                $thePuuid = "post-".time();
-                // dd($thePuuid);
-                $posts =new Posts([
+     //if($request->hasFile("cover")){
+        //         $file=$request->file("cover");
+        //         $cover=time().'_'.$file->getClientOriginalName();
+        //         $file->move(\public_path("cover/"),$cover);
+        //         $thePuuid = "post-".time();
+        //         // dd($thePuuid);
+        //         $posts =new Posts([
                   
-                   "menu_id" => $request->category_id,
-                   "sub_menu_id" => $request->sub_category_id,
-                   "name" => $request->name,
-                   "cover" =>$cover,
-                   "puuid" => "post-".time(),
-                   "colors" => $colors = json_encode($request->colors),
-                   "old_price" =>$request->old_price,
-                   "new_price" =>$request->new_price,
-                   "title" => $title = json_encode($request->title),
-                   "title_desc" => $title_desc = json_encode($request->title_desc),
-                    "description" =>$request->description                   
-                ]);
-                // dd($posts);
-               $posts->user_id = Auth::id();
-               $posts->save();
-            }
+        //            "menu_id" => $request->category_id,
+        //            "sub_menu_id" => $request->sub_category_id,
+        //            "name" => $request->name,
+        //            "cover" =>$cover,
+        //            "puuid" => "post-".time(),
+        //            "colors" => $colors = json_encode($request->colors),
+        //            "old_price" =>$request->old_price,
+        //            "new_price" =>$request->new_price,
+        //            "title" => $title = json_encode($request->title),
+        //            "title_desc" => $title_desc = json_encode($request->title_desc),
+        //             "description" =>$request->description                   
+        //         ]);
+        //         // dd($posts);
+        //        $posts->user_id = Auth::id();
+        //        $posts->save();
+        //     }
     
-                if($request->hasFile("images")){
-                    $files=$request->file("images");
-                    foreach($files as $file){
-                        $imageName=time().'_'.$file->getClientOriginalName();
-                        $request['posts_id']=$posts->id;
-                        $request['image']=$imageName;
-                        $file->move(\public_path("/images"),$imageName);
-                        Image::create($request->all());
+        //         if($request->hasFile("images")){
+        //             $files=$request->file("images");
+        //             foreach($files as $file){
+        //                 $imageName=time().'_'.$file->getClientOriginalName();
+        //                 $request['posts_id']=$posts->id;
+        //                 $request['image']=$imageName;
+        //                 $file->move(\public_path("/images"),$imageName);
+        //                 Image::create($request->all());
     
-                    }
-                }
-          return redirect('/user/post')->with('success', 'Todos Has Been Created Successfully.');
+        //             }
+        // }
+        //   return redirect('/user/post')->with('success', 'Todos Has Been Created Successfully.');
 
-        }
+    }
      
     /**
      * Display the specified resource.
@@ -133,10 +147,9 @@ class PostsController extends Controller
     {
         $posts=Posts::findOrFail($id);
         $menus = Menu::all();
-        $Url = url()->current();
-        $currentUrl=urlencode($Url);
+        $afgCity = AfgCity::all();
         $submenus = Submenu::all();
-         return view('content.posts-manager.posts-show', compact('posts', 'menus', 'submenus','currentUrl'));
+         return view('content.posts-manager.posts-show', compact('posts', 'menus', 'submenus','afgCity'));
     }
 
     /**

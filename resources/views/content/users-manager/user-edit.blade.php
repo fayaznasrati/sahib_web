@@ -1,16 +1,18 @@
-@extends("layouts.user-dashboard-app")
-@section("user-dashboard-content")
+@extends('layouts/contentNavbarLayout')
 
+@section('title', 'menus')
 
+@section('page-script')
+<script src="{{asset('assets/js/form-basic-inputs.js')}}"></script>
+@endsection
+<!-- In your blade template -->
+
+@section('content')
 
  <!-- Shop Section Start -->
  <div class="section section-margin">
-
-  @error('delete_confirm')
-  <div class="toast-body">
-    {{ $message }}
-  </div>
-  @enderror  
+@include('content.alert.alert')
+ 
 {{-- {{$user->afgcity}} --}}
     <div class="container">
 
@@ -19,12 +21,12 @@
             <div class="col-md-12">
 
               <div class="card mb-4">
-                <h5 class="card-header">Profile Details</h5>
+                <h5 class="card-header">User Profile Details</h5>
                 <!-- Account -->
                 @if (isset($user))
                     
               
-            <form action="/user/update-my-profile/{{ $user->id }}" method="post" enctype="multipart/form-data">
+            <form action="/admin/admin-update-user-profile/{{ $user->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method("put")
                     @endif
@@ -38,7 +40,7 @@
                    
                     <div class="button-wrapper">
                       <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                        <span class="d-none d-sm-block">Upload Your photo</span>
+                        <span class="d-none d-sm-block">Upload New photo</span>
                         <i class="bx bx-upload d-block d-sm-none"></i>
                         <input type="file" id="upload" name="dp_image" class="account-file-input" hidden accept="image/png, image/jpeg" />
                       </label>
@@ -90,7 +92,7 @@
                         <label for="city" class="form-label">City</label>
                         <select id="city_id" name="city_id" class="select2 form-select">
                           <option >Select City</option>
-                          @foreach ($afg_cities as $city )
+                          @foreach ($afgCity as $city )
                           <option {{$user->city_id == $city->id? "selected":"14"}} value="{{$city->id}}">{{$city->name}}</option>
                           @endforeach
                          
@@ -115,16 +117,16 @@
                 <div class="card-body">
                   <div class="mb-3 col-12 mb-0">
                     <div class="alert alert-warning">
-                      <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
-                      <p class="mb-0">Once you delete your account, All your Posts will be removed, there is no going back. Please be certain.</p>
+                      <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete User account?</h6>
+                      <p class="mb-0">Once you delete User account, All user's Posts will be removed, there is no going back. Please be certain.</p>
                     </div>
                   </div>
-                  <form action="/user/delete-my-account/{{ $user->id }}" method="post">
+                  <form action="/admin/admin-delete-user-account/{{ $user->id }}" method="post">
                     @csrf
                     @method('delete')
                     <div class="form-check mb-3">
                       <input class="form-check-input"  type="checkbox" name="delete_confirm" id="delete_confirm" />
-                      <label class="form-check-label" for="delete_confirm">I confirm my account deactivation</label>
+                      <label class="form-check-label" for="delete_confirm">I confirm user's account deactivation</label>
                     </div>
                     <button type="submit"  class="btn btn-danger deactivate-account">Deactivate Account</button>
                   </form>

@@ -38,35 +38,19 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
 
 // ==========================Public Routes=================================
-Route::get('/get-sub-category', 'App\Http\Controllers\CategoryController@getSubCategory');
-Route::delete('/deletecover/{id}', [PostsController::class, 'deletecover']);
-Route::delete('/deleteimage/{id}', [PostsController::class, 'deleteimage']);
-Route::POST('/update-post-status', [CRUDController::class, 'updateStatus']);
-
-Route::get('/user-login', function () {
-    return view('login');
-});
-
-Route::get('/user-register', function () {
-    return view('register');
-});
-
-Route::get('/category-list', function () {
-    return view('category-list');
-});
-Route::get('/single-product', function () {
-    return view('single-product');
-});
-
-
 Route::get('/', [App\Http\Controllers\UserViewController::class, 'index'])->name('index');
+Route::get('/get-sub-category', 'App\Http\Controllers\CategoryController@getSubCategory');
+Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class, 'deletecover']);
+Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
+Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');
 Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
-// Route::POST('/update-post-status', [CRUDController::class, 'updateStatus']);
-// Route::get('/', [App\Http\Controllers\UserViewController::class, 'index'])->name('index');
-// Route::get('/', [App\Http\Controllers\UserViewController::class, 'index'])->name('index');
-// Route::get('/', [App\Http\Controllers\UserViewController::class, 'index'])->name('index');
+Route::get('/user-register', [App\Http\Controllers\UserViewController::class, 'userRegister'])->name('user-register');
+Route::get('/user-login', [App\Http\Controllers\UserViewController::class, 'userLogin'])->name('user-login');
+Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
+Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
+
 
 
 
@@ -86,10 +70,21 @@ Route::resource('submenus', SubmenuController::class);
 Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');
 Route::POST('/admin-post-status', [App\Http\Controllers\PostsController::class, 'adminPostStatus'])->name('admin-post-status');
 Route::Delete('/admin-post-delete/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('admin-post-delete');
+Route::get('/admin-post-create', [App\Http\Controllers\PostsController::class, 'adminPostCreate'])->name('admin-post-Create');
 Route::get('/admin-post-edit/{id}', [App\Http\Controllers\PostsController::class, 'adminPostEdit'])->name('admin-post-edit');
 Route::get('/admin-post-show/{id}', [App\Http\Controllers\PostsController::class, 'adminPostshow'])->name('admin-post-show');
 Route::Put('/admin-post-update/{id}', [App\Http\Controllers\PostsController::class, 'adminPostUpdate'])->name('admin-post-update');
 Route::get('/get-sub-menus', [App\Http\Controllers\PostsController::class, 'getSubMenus'])->name('get-sub-menus');
+
+// =================================USER Manager=========================================
+Route::get('/users-manager', [App\Http\Controllers\UserManagerController::class, 'usersManager'])->name('users-manager');
+Route::get('/admin-user-show/{id}', [App\Http\Controllers\UserManagerController::class, 'userShow'])->name('admin-user-show');
+Route::delete('/admin-user-delete/{id}', [App\Http\Controllers\UserManagerController::class, 'destroy'])->name('admin-user-delete');
+Route::get('/admin-user-edit/{id}', [App\Http\Controllers\UserManagerController::class, 'userEdit'])->name('admin-user-edit');
+Route::put('/admin-update-user-profile/{id}', [App\Http\Controllers\UserManagerController::class, 'updateUserProfile'])->name('update-user-profile');
+Route::POST('/admin-user-status', [App\Http\Controllers\UserManagerController::class, 'adminUserStatus'])->name('admin-user-status');
+Route::delete('/admin-delete-user-account/{id}', [App\Http\Controllers\UserManagerController::class, 'deleteUserAccount'])->name('delete-user-account');
+Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::class, 'filterUsersManager'])->name('admin-user-filter');
 
 
 
