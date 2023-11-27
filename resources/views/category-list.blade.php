@@ -267,30 +267,9 @@
 
                     <!-- Shop Wrapper Start -->
                     <div class="row shop_wrapper grid_4">
+                        @foreach ($posts as $post)
                         @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
-                        @include("layouts.inc.product-inner")
+                        @endforeach
                      </div>
                     <!-- Shop Wrapper End -->
 

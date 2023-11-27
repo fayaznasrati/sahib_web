@@ -40,6 +40,7 @@
                       </div>
                     </div>
                   </div> <br>
+                  
                 {{-- </div> --}}
             {{-- </div> --}}
             {{-- <div class="row mb-n10"> --}}
@@ -99,21 +100,22 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                                        <div class="col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                                             <div class="input-item mb-4">
                                                 <label for="name"><small>Product Name *:</small></label>
                                                 <input class="form-control" type="text" placeholder="Toyota Corola" name="name">
                                             </div>
                                         </div>
                                     
-                                        <div class="col-md-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-                                            <div class="input-item mb-4">
+                                        <div class="col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                                            <div class="input-item mb-4"  >
                                                 <label for="name"><small>Product Colors *:</small></label>
-                                                <select class="form-control" multiple data-role="tagsinput"  placeholder="eg: red" name="colors[]">
-                                                    <option value="red">Red</option>
+                                                <select class="form-control"  multiple data-role="tagsinput"  placeholder="eg: red" name="colors[]">
+                                                    {{-- <option value="">Red</option> --}}
                                                 </select>
                                             </div>
                                         </div>
+                                        
                                         <span class="row ">
                                             <div class="col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                                                 <div class="input-item mb-5">
@@ -170,16 +172,16 @@
                 </div>
             </div> <br>
 
-                <div class=" card contact-form-wrapper contact-form">
-                    <h5 class="card-header">Write Description</h5>
-                    <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-                        <div class="input-item mb-8">
-                            {{-- <label for="name"><b>More informations:</b></label> --}}
-                            <textarea class="form-control" name="description"  placeholder="Message" style="height: 200px;"></textarea>
-                        </div>
-                    </div>
-                    
-                </div><br>
+            <div class="card mb-4">
+                <h5 class="card-header">Write Description</h5>
+                <div class="card-body">
+                  <div class="mb-3 row">
+                     <div class="col-md-12">
+                      <textarea class="tinymce-editor form-control" name="description"></textarea>
+                   </div>
+                  </div>    
+                </div>
+              </div>
                 <center>
                     <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                         <button type="submit" id="submit" name="submit" class="btn btn-dark btn-hover-primary rounded-0">Create</button>

@@ -35,6 +35,25 @@ class UserViewController extends Controller
         ));
     }
 
+    public function showAllSubCategoryPosts($id){
+        // dd($id);
+        $posts = Posts::where('sub_menu_id', $id)->get();
+        return view('category-list', compact('posts'));
+        // dd($posts);
+    }
+
+    public function showSinglePost($id){
+        // dd($id);
+        $Url = url()->current();
+        $currentUrl=urlencode($Url);
+        $post = Posts::findOrFail($id);
+        return view('single-product', compact('post','currentUrl'));
+        // dd($posts);
+    }
+    public function goBack() {
+        // Your logic here
+        return redirect()->back();
+    }
     
    public function userDashboard() {
         // $id = Auth::id();

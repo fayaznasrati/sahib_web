@@ -1,18 +1,12 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
   <!-- ! Hide app brand if navbar-full -->
-  <div class="app-brand demo">
+  <div class="app-brand">
     <a href="{{url('/')}}" class="app-brand-link">
-      <span class="app-brand-logo demo"> sahib.af
-        {{-- @include('_partials.macros',["width"=>25,"withbg"=>'#696cff']) --}}
-        <a href="/"><img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" /></a>
-      </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">{{config('variables.templateName')}}</span>
-    </a>
+      <span class="app-brand-logo ">
+        <a href="/"><img style="width: 90px" src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" /></a>
+      </span> </a>
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-autod-block d-xl-none">
-      <i class="bx bx-chevron-left bx-sm align-middle"></i>
-    </a>
   </div>
 
   <div class="menu-inner-shadow"></div>

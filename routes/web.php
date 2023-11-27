@@ -50,7 +50,9 @@ Route::get('/user-register', [App\Http\Controllers\UserViewController::class, 'u
 Route::get('/user-login', [App\Http\Controllers\UserViewController::class, 'userLogin'])->name('user-login');
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
 Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
-
+Route::get('/show-all-subcategory-posts/{id}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
+Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
+Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
 
 
 

@@ -17,7 +17,7 @@
                       <th>Cover</th>
                       <th>Name</th>
                       <th>Price</th>
-                      <th>Expires at</th>
+                      <th>Expires_at</th>
                       <th>Post ID</th>
                       <th>Category</th>
                       <th>Subcategory</th>
@@ -37,7 +37,14 @@
                         <td><img src="../cover/{{$post->cover}}" alt="post image" style="height: auto; width:50px"></td>
                         <td>{{$post->name}}</td>
                         <td>{{$post->new_price}}</td>
-                        <td>{{$post->expired_at}}</td>
+                        <td>
+                          @if (\Carbon\Carbon::now()> \Carbon\Carbon::parse($post->expired_at))
+                          out Date
+                            @else
+                           Expires in {{ \Carbon\Carbon::parse($post->expired_at)->diffInDays(\Carbon\Carbon::now()) }} days
+                          @endif
+                        
+                        </td>
                         <td>{{$post->puuid}}</td>
                         <td>{{$post->menu->name}}</td>
                         <td>{{$post->subMenu->name}}</td>
@@ -58,10 +65,12 @@
                           @endif
                          </ul>
                          </table>
-                         <td style="color: {{$post->status==0? "red": 'green'}};width:40px">{{$post->status==0? 'pending': 'active'}}</td>
+                         <td
+                         data-toggle="tooltip" data-placement="top" title="{{$post->status==0? 'Will be Activated After Review': 'Approved'}}"
+                          style="color: {{$post->status==0? "red": 'green'}};width:40px">{{$post->status==0? 'pending': 'active'}}</td>
                         <td>
                           <small>
-                            show all to see descriptions
+                           View to see descriptions
                             {{-- {!!  Str::limit($post->description,20) == null? "" : ""!!} --}}
                           </small>
                         </td>
@@ -83,6 +92,7 @@
                     @endforeach
                   </tbody>
                 </table>
+                {{ $posts->links() }} 
               </div>
             </div>
             </div>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Carbon\Carbon;
 class Posts extends Model
 {
     use HasFactory;
@@ -23,6 +23,7 @@ class Posts extends Model
         'title',
         'title_desc',
         'description',
+        'expired_at',
     ];
 
     public function category()
@@ -86,7 +87,8 @@ class Posts extends Model
             "new_price" =>$request->new_price,
             "title" => $title = json_encode($request->title),
             "title_desc" => $title_desc = json_encode($request->title_desc),
-             "description" =>$request->description 
+             "description" =>$request->description,
+             
         ]);
 
         if($request->hasFile("images")){
@@ -112,6 +114,7 @@ class Posts extends Model
                 $file->move(\public_path("cover/"),$cover);
                 $thePuuid = "post-".time();
                 // dd($thePuuid);
+                $expiration_date = Carbon::now()->addDays(30);
                 $posts =new Posts([
                   
                    "menu_id" => $request->category_id,
@@ -124,7 +127,8 @@ class Posts extends Model
                    "new_price" =>$request->new_price,
                    "title" => $title = json_encode($request->title),
                    "title_desc" => $title_desc = json_encode($request->title_desc),
-                    "description" =>$request->description                   
+                    "description" =>$request->description,
+                    "expired_at"=>$expiration_date,                 
                 ]);
                 // dd($posts);
                $posts->user_id = Auth::id();

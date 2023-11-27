@@ -122,7 +122,7 @@
                   @if (count($post->images) > 0)
                     @foreach ($post->images as $img) 
                         <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="{{ $post->name }}">
-                            <img src="/images/{{ $img->image }}" alt="post image" style="height: auto; width:40px" >
+                            <img src="/images/{{ $img->image }}" alt="post image" style="height: 40px; width:60px" >
                         </li>
                     @endforeach
                   @endif
@@ -174,10 +174,13 @@
           @endforeach
         </tbody>
       </table>
-    </div>
-  </div>
-  <!--/ Striped Rows -->
 
+    </div>
+  {{ $posts->links() }}
+<br>
+  </div>
+
+  <!--/ Striped Rows -->
 @endsection
 
 

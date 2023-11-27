@@ -25,7 +25,9 @@
                     <a href="{{$menu->url}}"> <b class="cat-title">{{$menu->name}}</b></a>
                      <div class="categroy-name-list">
                    @foreach ($menu->submenu as $submenu)
-                    <li><a href="{{$submenu->url}}" target="_blank" rel="Category Name">{{$submenu->name}}</a></li>
+                    <li>
+                      {{-- <a href="{{$submenu->url}}" target="_blank" rel="Category Name">{{$submenu->name}}</a></li> --}}
+                      <a href="{{ route('show-all-subcategory-posts', ['id' => $submenu->id]) }}" target="_blank" rel="Category Name">{{$submenu->name}}</a></li>
                     @endforeach                    
                     <li><a href="{{$menu->url}}" target="_blank" rel="Category Name">See All
                     <i class="fa fa-arrow-right" id="arrow-right" aria-hidden="true"></i>

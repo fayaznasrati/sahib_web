@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Image;
 use App\Models\Posts;
 use App\Models\AfgCity;
 use App\Models\Menu;
+use Carbon\Carbon;
 use App\Models\SubMenu;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -27,14 +29,15 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts=Posts::all();
+        $posts=Posts::latest()
+        ->paginate(5);
         // dd($posts);
         return view('user-module.my-ad-list')->with('posts',$posts);
 
     }
 
     public function posts_manager(){
-        $posts=Posts::all();
+        $posts=Posts::latest()->paginate(5);
         $menus = Menu::all();
         // dd($posts);
         return view('content.posts-manager.posts-index',compact('posts','menus'));  
@@ -88,7 +91,7 @@ class PostsController extends Controller
             // $$id = Posts::findOrFail($id);
             $post = new Posts();
             $post->store($request);
-             return redirect('/admin/posts-manager')->with("success, Post Created Successfully");
+             return redirect('/user/post')->with("success, Post Created Successfully");
         // dd($request->all());
      //if($request->hasFile("cover")){
         //         $file=$request->file("cover");

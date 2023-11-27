@@ -103,7 +103,7 @@
                                                         <div class="input-item mb-4">
                                                             <label for="name"><small>Product Colors *:</small></label>
                                                             <select class="input-item" multiple data-role="tagsinput"  placeholder="eg: red" name="colors[]">
-                                                                <option value="red">Red</option>
+                                                                {{-- <option value="red">Red</option> --}}
                                                             </select>
                                                         </div>
                                                     </div>

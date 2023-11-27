@@ -20,8 +20,6 @@
 
     @include("layouts.inc.bottom-navbar")
     @include("layouts.inc.made-in")
-    @include('notify::components.notify')
 </body>
 @include("layouts.inc.footer-links")
-@notifyJs
 </html>

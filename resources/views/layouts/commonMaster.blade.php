@@ -15,20 +15,19 @@
   <link rel="canonical" href="{{ config('variables.productPage') ? config('variables.productPage') : '' }}">
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+  <!-- notifyCss was added to fix the pagination design confects -->
+  @notifyCss
 
   <!-- Include Styles -->
   @include('layouts/sections/styles')
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
   @include('layouts/sections/scriptsIncludes')
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
 </head>
 
 <body>
   <!-- Layout Content -->
   @yield('layoutContent')
-  <!--/ Layout Content -->
 
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')

@@ -67,8 +67,8 @@
           <h5 class="card-header">Post Details</h5>
           <div class="card-body">
             <div class="mb-3 row">
-              <label for="html5-text-input" class="col-md-2 col-form-label">Category & SubCategory:</label>
-              <div class="col-md-5">
+              {{-- <label for="html5-text-input" class="col-md-2 col-form-label">Category & SubCategory:</label> --}}
+              <div class="col-md-6">
                 <label for="name"><small>Select Category *:</small></label>
               <select name="category_id" id="select-menus" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
                 <option>Select Category</option>
@@ -77,7 +77,7 @@
                 @endforeach
             </select>
               </div>
-              <div class="col-md-5">
+              <div class="col-md-6">
                 <label for="name"><small>Select Sub-Category *:</small></label>
                 <select class="form-select" name="sub_category_id" id="sub-menu" aria-label="Default select example">
                   <option value="{{$posts->subMenu->id}}">{{$posts->subMenu->name}}</option>
@@ -86,16 +86,13 @@
               </div>
           </div>
           <div class="mb-3 row">
-            <label for="html5-text-input" class="col-md-2 col-form-label">Name:</label>
-            <div class="col-md-10">
+            <div class="col-md-6">
+            <label for="html5-text-input" class="col-form-label">Name:</label>
               <input class="form-control" type="text" name="name" value="{{ $posts->name }}" id="html5-text-input">
             </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="html5-text-input" class="col-md-2 col-form-label">Colors:</label>
-            <div class="col-md-10">
-              {{-- <input class="form-control" type="text" name="name" value="{{ $posts->name }}" id="html5-text-input"> --}}
-              <label for="name"><small>Product Colors *:</small></label>
+            <div class="col-md-6">
+            <label for="html5-text-input" class="col-form-label">Colors:</label>
+               <label for="name"><small>Product Colors *:</small></label>
               @php
                   $colors = json_decode($posts->colors,true);
               @endphp
@@ -114,11 +111,13 @@
             </div>
           </div>
             <div class="mb-3 row">
-              <label for="html5-search-input" class="col-md-2 col-form-label">old Prices and New price:</label>
-              <div class="col-md-5">
+              {{-- <label for="html5-search-input" class="col-md-2 col-form-label">old Prices and New price:</label> --}}
+              <div class="col-md-6">
+                <label for="html5-text-input" class="col-form-label">Old Price:</label>
                 <input class="form-control" type="number" value="100" id="html5-number-input">
               </div>
-              <div class="col-md-5">
+              <div class="col-md-6">
+               <label for="html5-text-input" class="col-form-label">New Price:</label>
                 <input class="form-control" type="number" name="new_price"  placeholder="eg:900 "  value="{{ $posts->new_price }}"  id="html5-number-input">
               </div>
             </div>  
@@ -166,9 +165,11 @@
           <h5 class="card-header">Update Post Description</h5>
           <div class="card-body">
             <div class="mb-3 row">
-              <label for="html5-search-input" class="col-md-2 col-form-label">name and description</label>
-              <div class="col-md-10">
-                <textarea class="form-control" name="description" id="html5-number-input" cols="30" rows="10">{!! $posts->description !!}</textarea>
+              {{-- <label for="html5-search-input" class="col-md-2 col-form-label">name and description</label> --}}
+              <div class="col-md-12">
+                <textarea class="tinymce-editor form-control" name="description">{!! $posts->description !!}</textarea>
+
+                {{-- <textarea class="form-control" name="description" id="html5-number-input" cols="30" rows="10">{!! $posts->description !!}</textarea> --}}
               </div>
              
             </div>    
