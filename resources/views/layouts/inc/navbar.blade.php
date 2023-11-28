@@ -29,8 +29,8 @@
                     <p class="header-top-message">Create ads for free. 
                         <a href="/user/post/create"><span class="ad-Button">Create Ads</span></a>
                         @guest
-                        <a href="/user-login">login</a>
-                        <a href="/user-register">Register</a></p>
+                        <a href="/login">login</a>
+                        <a href="/register">Register</a></p>
                         @else
                         Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
@@ -218,7 +218,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html"> <span>Contact</span></a></li>
+                                <li><a href="contact.html"><span>Contact</span></a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -245,7 +246,13 @@
                             <!-- Shopping Cart Header Action Button Start -->
                             <a href="javascript:void(0)"  class="header-action-btn header-action-btn-cart ">
                                 <i class="pe-7s-like"></i>
-                                <span class="header-action-num">3</span>
+                                @php
+                                $wishlists = App\Models\Wishlist::where('user_id',Auth::id())->get();
+                                @endphp
+                                @if (count($wishlists)>=1)
+                                <span class="header-action-num">{{count($wishlists)}}</span>
+                                    
+                                @endif
                             </a>
                             <!-- Shopping Cart Header Action Button End -->
 
@@ -435,20 +442,22 @@
                 <!-- Offcanvas Cart Title Start -->
                 <h2 class="offcanvas-cart-title mb-10">Liked Items</h2>
                 <!-- Offcanvas Cart Title End -->
-
+              {{-- {{$wishlists}} --}}
+         @if (count($wishlists)>=1)
+            @foreach ($wishlists as $wish)         
                 <!-- Cart Product/Price Start -->
                 <div class="cart-product-wrapper mb-6">
 
                     <!-- Single Cart Product Start -->
                     <div class="single-cart-product">
                         <div class="cart-product-thumb">
-                            <a href="single-product.html"><img src="assets/images/products/small-product/1.jpg" alt="Cart Product"></a>
+                            <a href="single-product.html"><img src="../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
                         </div>
                         <div class="cart-product-content">
-                            <h3 class="title"><a href="single-product.html">Brother Hoddies in Grey</a></h3>
+                            <h3 class="title"><a href="single-product.html">{{$wish->posts->name}}</a></h3>
                             <span class="price">
-                                <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">20.00 </span>
-                            <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">40.00</span>
+                                <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->new_price}} </span>
+                            <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->old_price}}</span>
                             </span>
                         </div>
                     </div>
@@ -461,60 +470,12 @@
                     <!-- Product Remove End -->
 
                 </div>
+            @endforeach
+            @else
+            <b>No Thing On Wishlist Yet!</b>
+        @endif
+        
                 <!-- Cart Product/Price End -->
-
-                <!-- Cart Product/Price Start -->
-                <div class="cart-product-wrapper mb-6">
-
-                    <!-- Single Cart Product Start -->
-                    <div class="single-cart-product">
-                        <div class="cart-product-thumb">
-                            <a href="single-product.html"><img src="assets/images/products/small-product/2.jpg" alt="Cart Product"></a>
-                        </div>
-                        <div class="cart-product-content">
-                            <h3 class="title"><a href="single-product.html">Basic Jogging Shorts</a></h3>
-                            <span class="price">
-                                <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">20.00 </span>
-                            <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">40.00</span>
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Single Cart Product End -->
-
-                    <!-- Product Remove Start -->
-                    <div class="cart-product-remove">
-                        <a href="#"><i class="fa fa-trash"></i></a>
-                    </div>
-                    <!-- Product Remove End -->
-
-                </div>
-                <!-- Cart Product/Price End -->
-
-                <!-- Cart Product/Price Start -->
-                <div class="cart-product-wrapper mb-6">
-
-                    <!-- Single Cart Product Start -->
-                    <div class="single-cart-product">
-                        <div class="cart-product-thumb">
-                            <a href="single-product.html"><img src="assets/images/products/small-product/3.jpg" alt="Cart Product"></a>
-                        </div>
-                        <div class="cart-product-content">
-                            <h3 class="title"><a href="single-product.html">Enjoy The Rest T-Shirt</a></h3>
-                            <span class="price">
-                                <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">20.00 </span>
-                            <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">40.00</span>
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Single Cart Product End -->
-
-                    <!-- Product Remove Start -->
-                    <div class="cart-product-remove">
-                        <a href="#"><i class="fa fa-trash"></i></a>
-                    </div>
-                    <!-- Product Remove End -->
-
-                </div>
 
             </div>
             <!-- Offcanvas Cart Content End -->

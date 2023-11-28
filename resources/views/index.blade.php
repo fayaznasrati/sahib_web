@@ -57,7 +57,7 @@
                                     <!-- Single Brand Logo Start -->
                                     @foreach ($residentForRent as $post ) 
                                     <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
-                                      <div class="polaroid"><a href="{{$post->menu->slug}}/{{$post->submenu->slug}}/{{$post->puuid}}">
+                                      <div class="polaroid"><a href="{{ route('show-single-post', ['id' => $post->id]) }}">
                                         <img src="../cover/{{$post->cover}}" alt="Norway" style="width:100%">
                                         <div class="container ">
                                           <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
@@ -103,7 +103,7 @@
                                         <!-- Single Brand Logo Start -->
                                         @foreach ($residentForSell as $post ) 
                                         <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
-                                          <div class="polaroid"><a href="{{$post->menu->slug}}/{{$post->submenu->slug}}/{{$post->puuid}}">
+                                          <div class="polaroid"><a href="{{ route('show-single-post', ['id' => $post->id]) }}">
                                             <img src="../cover/{{$post->cover}}" alt="Norway" style="width:100%">
                                             <div class="container ">
                                               <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
@@ -149,7 +149,7 @@
                                         <!-- Single Brand Logo Start -->
                                         @foreach ($motors as $post ) 
                                         <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
-                                          <div class="polaroid"><a href="{{$post->menu->slug}}/{{$post->submenu->slug}}/{{$post->puuid}}">
+                                          <div class="polaroid"><a href="{{ route('show-single-post', ['id' => $post->id]) }}">
                                             <img src="../cover/{{$post->cover}}" alt="Norway" style="width:100%">
                                             <div class="container ">
                                               <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}

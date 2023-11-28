@@ -28,7 +28,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
     Route::resource('crud', CRUDController::class);
     Route::resource('post', PostsController::class);
-
+    Route::post('/wishlist/add/{post}', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
 
     Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
@@ -46,14 +46,13 @@ Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');
 Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
-Route::get('/user-register', [App\Http\Controllers\UserViewController::class, 'userRegister'])->name('user-register');
-Route::get('/user-login', [App\Http\Controllers\UserViewController::class, 'userLogin'])->name('user-login');
+// Route::get('/user-register', [App\Http\Controllers\UserViewController::class, 'userRegister'])->name('user-register');
+// Route::get('/user-login', [App\Http\Controllers\UserViewController::class, 'userLogin'])->name('user-login');
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
 Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
 Route::get('/show-all-subcategory-posts/{id}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
 Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
-
 
 
 // Route::fallback(function () {
@@ -72,7 +71,8 @@ Route::resource('submenus', SubmenuController::class);
 Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');
 Route::POST('/admin-post-status', [App\Http\Controllers\PostsController::class, 'adminPostStatus'])->name('admin-post-status');
 Route::Delete('/admin-post-delete/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('admin-post-delete');
-Route::get('/admin-post-create', [App\Http\Controllers\PostsController::class, 'adminPostCreate'])->name('admin-post-Create');
+Route::get('/admin-post-create', [App\Http\Controllers\PostsController::class, 'adminPostCreate'])->name('admin-post-create');
+Route::post('/admin-post-store', [App\Http\Controllers\PostsController::class, 'adminPostStore'])->name('admin-post-store');
 Route::get('/admin-post-edit/{id}', [App\Http\Controllers\PostsController::class, 'adminPostEdit'])->name('admin-post-edit');
 Route::get('/admin-post-show/{id}', [App\Http\Controllers\PostsController::class, 'adminPostshow'])->name('admin-post-show');
 Route::Put('/admin-post-update/{id}', [App\Http\Controllers\PostsController::class, 'adminPostUpdate'])->name('admin-post-update');

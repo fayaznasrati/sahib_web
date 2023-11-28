@@ -65,6 +65,12 @@ class User extends Authenticatable
         return $this->belongsTo(AfgCity::class);
     }
 
+        // User.php
+    public function wishlist()
+    {
+        return $this->belongsToMany(Posts::class, 'wishlists');
+    }
+
     public function toggleIsActive()
     {
            $this->status = !$this->status;

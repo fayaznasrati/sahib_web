@@ -146,16 +146,12 @@
                         <!-- Product Meta End -->
 
                         <!-- Product Color Variation Start -->
-                        <div class="product-color-variation mb-3">
-                            {{-- <button type="button" class="btn bg-danger"></button>
-                            <button type="button" class="btn bg-primary"></button>
-                            <button type="button" class="btn bg-dark"></button>
-                            <button type="button" class="btn bg-success"></button> --}}
+                        <div id="show-post-colors" class=" mb-3">
                             @php  $colors = json_decode($post->colors) @endphp
-                            <b>Colors:</b>
                             @if ($colors != null)
+                            <b>Colors:</b>
                             @foreach ($colors as $col)
-                            <div id="show-post-colors" style="background-color:{{$col}}; border: 2px solid {{$col}};"></div>
+                            <div  style="background-color:{{$col}}; border: 2px solid {{$col}};"></div>
                             @endforeach      
                             @else
                             <b>No Colors</b>
@@ -167,7 +163,10 @@
                         <div class="cart-wishlist-btn mb-4">
                            
                             <div class="add-to-wishlist">
-                                <a class="btn btn-outline-dark btn-hover-primary" href="wishlist.html">Add to Wishlist</a>
+                                <form action="{{ route('wishlist.add', $post) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-dark btn-hover-primary">Add to Wishlist</button>
+                                </form>
                             </div>
                         </div>
                         <!-- Cart & Wishlist Button End -->
@@ -218,11 +217,52 @@
             </div>
         </div>
     </div>
-      <div class="container">
+{{-- {{count($posts)}} --}}
+    @if (count($posts)>=1)
+    <div class="container">
         <h2>You may also like!</h2>
-        @include("layouts.inc.category-post")  
-        @include("layouts.inc.category-post")  
+        <!-- Brand Logo Start -->
+        <div class="section">
+            <div class="container">
+                <div class="border-top">
+                    <div class="row">
+                        <div class="col-12 mt-5">
+                        {{-- <h5>Residentioals for Rent  <i class="fa fa-arrow-right myCatArrow"  id="arrow-right" style="font-size:16px" aria-hidden="true"></i></h5>  --}}
+                            <!-- Brand Logo Wrapper Start -->
+                            <div class="brand-logo-carousel">
+                                <div class="swiper-container" style="padding-bottom: 15px">
+                                
+                                    <div class="swiper-wrapper" >
+    
+                                        <!-- Single Brand Logo Start -->
+                                        @foreach ($posts as $ps )
+                                        <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
+                                        <div class="polaroid"><a href="/category-list">
+                                            <img src="../cover/{{$ps->cover}}" alt="Norway" style="width:100%">
+                                            <div class="container ">
+                                            <span id="price"> <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="AFG" >{{$ps->new_price}}
+                                            </span>
+                                            </span><br>
+                                            <span class="desc">{{$ps->name}}</span><br>
+                                            <small class="address"> {!! Str::limit($ps->description,30)!!} </small>
+                                            </div>
+                                        </div></a>
+                                        </div>
+                                        @endforeach
+                                        <!-- Single Brand Logo End -->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Brand Logo Wrapper End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand Logo End -->
       </div>
+    @endif
     <!-- Single Product Section End -->
     @include("layouts.inc.bottom-user-contact")
 @endsection

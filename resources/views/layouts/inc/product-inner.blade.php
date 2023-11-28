@@ -8,7 +8,12 @@
                     <img src="../cover/{{$post->cover}}" alt="Product" />
                 </a>
                 <div class="actions">
-                    <a href="#" title="Wishlist" class="action wishlist"><i class="pe-7s-like"></i></a>
+                    <form action="{{ route('wishlist.add', $post) }}" method="POST">
+                        @csrf
+                    {{-- <a href="javascript:void(0)"type="submit" title="Wishlist" class="action wishlist"><i class="pe-7s-like"></i></a> --}}
+
+                        <button type="submit"><i class="pe-7s-like"></i></button>
+                    </form>
                 </div>
             </div>
             <div class="content">

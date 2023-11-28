@@ -22,7 +22,7 @@
                 <div class="title-border-bottom"></div>
             </div>
             <!-- Section Title End -->
-        <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin-post-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-4"></div>

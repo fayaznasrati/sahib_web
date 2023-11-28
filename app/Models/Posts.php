@@ -59,9 +59,13 @@ class Posts extends Model
            $this->status = !$this->status;
            return $this;
     }
-      /**
-     * Update the specified resource in storage.
-     */
+
+        // Post.php
+    public function wishlist()
+    {
+        return $this->belongsToMany(User::class, 'wishlists');
+    }
+    
     public function updatePost(Request $request, $id)
     {
         // dd($request->all());

@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("content")
- 
+
  <!-- Shop Section Start -->
     <div class="section section-margin">
         <div class="container">
@@ -267,6 +267,7 @@
 
                     <!-- Shop Wrapper Start -->
                     <div class="row shop_wrapper grid_4">
+                        @include('alert')
                         @foreach ($posts as $post)
                         @include("layouts.inc.product-inner")
                         @endforeach

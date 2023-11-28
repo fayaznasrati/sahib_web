@@ -80,7 +80,7 @@ class PostsController extends Controller
 
         $post = new Posts();
         $post->store($request);
-         return redirect('/admin/posts-manager')->with("success, Post Created Successfully");
+         return redirect('/admin/posts-manager')->with("success"," Post Created Successfully");
     }
 
     /**
@@ -91,7 +91,7 @@ class PostsController extends Controller
             // $$id = Posts::findOrFail($id);
             $post = new Posts();
             $post->store($request);
-             return redirect('/user/post')->with("success, Post Created Successfully");
+             return redirect('/user/post')->with("success"," Post Created Successfully");
         // dd($request->all());
      //if($request->hasFile("cover")){
         //         $file=$request->file("cover");
@@ -179,7 +179,7 @@ class PostsController extends Controller
         // $$id = Posts::findOrFail($id);
         $post = new Posts();
         $post->updatePost($request,$id);
-         return redirect('/admin/posts-manager')->with("success, Post Updated Successfully");
+         return redirect('/admin/posts-manager')->with("success"," Post Updated Successfully");
 
        
     }
@@ -190,7 +190,7 @@ class PostsController extends Controller
     {
         $post = new Posts();
         $post->updatePost($request,$id);
-         return redirect('/user/post')->with("success, Post Updated Successfully");
+         return redirect('/user/post')->with("success"," Post Updated Successfully");
 
         // dd($request->all());
     //  $post = Posts::findOrFail($id);

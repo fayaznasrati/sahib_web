@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\AfgCity;
 use App\Models\Posts;
 use App\Models\SubMenu;
+use App\Models\Wishlist;
 class UserViewController extends Controller
 {
     /**
@@ -47,32 +48,50 @@ class UserViewController extends Controller
         $Url = url()->current();
         $currentUrl=urlencode($Url);
         $post = Posts::findOrFail($id);
-        return view('single-product', compact('post','currentUrl'));
+        $posts = Posts::get()->where('sub_menu_id', $post->sub_menu_id)->take(10);
+        return view('single-product', compact('post','currentUrl','posts'));
         // dd($posts);
     }
     public function goBack() {
         // Your logic here
         return redirect()->back();
     }
+
+    public function wishlistAdd(Posts $post){
+    // Get the authenticated user
+      $user = Auth::user();
+    // // Check if the post is already in the wishlist
+    if ($user->wishlist()->where('posts_id', $post->id)->exists()) {
+        return redirect()->back()->with("error"," post is already in the wishlist");
+    }
+
+    // // // Add the post to the wishlist
+    $user->wishlist()->attach($post);
+
+    // return response()->json(['message' => 'Post added to wishlist'], 200);
+    return redirect()->back()->with("success"," post is added in the wishlist");
+
+    }
     
-   public function userDashboard() {
+   public function userDashboard()
+    {
         // $id = Auth::id();
         $user = User::find(Auth::id());
         $afg_cities = AfgCity::get();
         // dd();
 
         return view('user-module.user-dashboard', compact('user','afg_cities'));
-    }
+     }
 
-    public function userLogin()
-    {
-        return view('login');
-    }
+    // public function userLogin()
+    // {
+    //     return view('auth.login');
+    // }
 
-    public function userRegister()
-    {
-        return view('register');
-    }
+    // public function userRegister()
+    // {
+    //     return view('auth.register');
+    // }
 
     public function categoryList()
     {
