@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Subscriber;
+use App\Models\TearmAndCondation;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +43,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        $tearms = TearmAndCondation::where('tearm_on', 'register')->orderBy('updated_at', 'desc')->take(1)->get();
+        return view('auth.register', compact('tearms'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,11 +57,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+
+        return Validator::make($data, [  
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']         
         ]);
+
+        
+       
     }
 
     /**
@@ -64,13 +76,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'mobile' => $data['mobile'],
-            'whatsapp' => $data['whatsapp'],
-            'password' => Hash::make($data['password']),
-        ]);
+      
+
+        if(isset($data['subscription'])){
+            Subscriber::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+            ]);
+            $create =  User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'mobile' => $data['mobile'],
+                'whatsapp' => $data['whatsapp'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }else{
+            $create =  User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'mobile' => $data['mobile'],
+                'whatsapp' => $data['whatsapp'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+        }
+
+        return $create;
+     
     }
 
 }

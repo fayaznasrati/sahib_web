@@ -8,7 +8,7 @@
     },
     {
       "name": "Menus",
-      "icon": "menu-icon tf-icons ",
+      "icon": "menu-icon tf-icons bx bx-detail",
       "slug": "meuns",
       "submenu": [
         {
@@ -45,14 +45,23 @@
       "name": "Mange Users",
       "icon": "menu-icon tf-icons bx bxs-user-account", 
       "slug": "mange-users",
-      "url": "users",
-      "submenu": [
-        {
-          "url": "/admin/users-manager",
-          "name": "Users Manager",
-          "slug": "extended-ui-perfect-scrollbar"
-        }
-      ]
+      "url": "/admin/users-manager"
+
+    },
+    {
+      "name": "Tearm and Condations",
+      "icon": "menu-icon tf-icons bx bx-detail",
+      "slug": "Tearm",
+      "url": "/admin/tearms"
+    },
+    {
+      "name": "Subscribers",
+      "icon": "menu-icon tf-icons bx bx-detail",
+      "slug": "Tearm",
+      "url": "/admin/subscribers"
+
+
+      
     },
     {
       "menuHeader": "Pages"

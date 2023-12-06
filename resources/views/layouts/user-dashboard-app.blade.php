@@ -13,7 +13,7 @@
 </head>
 <body style="background-color: rgb(245 245 249);">
     @include("layouts.inc.user-dashboard-navbar")
-    
+    @include('sweetalert::alert')
     <main class="py-4">
         @yield('user-dashboard-content')
     </main>

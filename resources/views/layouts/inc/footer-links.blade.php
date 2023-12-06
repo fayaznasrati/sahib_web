@@ -24,11 +24,8 @@
     <script src="{{asset('assets/js/plugins/thia-sticky-sidebar.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
-    <script>
-        
+    <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
 
-
-        </script>
 
     <!--Main JS-->
     <script src="{{asset('assets/js/user_main.js')}}"></script>

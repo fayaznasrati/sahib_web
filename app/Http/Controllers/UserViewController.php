@@ -57,21 +57,55 @@ class UserViewController extends Controller
         return redirect()->back();
     }
 
-    public function wishlistAdd(Posts $post){
+    public function wishlistAdd(Request $request){
     // Get the authenticated user
-      $user = Auth::user();
+    //   $user = Auth::user();
     // // Check if the post is already in the wishlist
-    if ($user->wishlist()->where('posts_id', $post->id)->exists()) {
-        return redirect()->back()->with("error"," post is already in the wishlist");
+    // if ($user->wishlist()->where('posts_id', $request->post_id)->exists()) {
+    //     // return redirect()->back()->with("error"," post is already in the wishlist");
+    // //    return response()->json(['error' => 'post is already added to wish list ']);
+    //     return response()->json(['error' => 'Product already added to wishlist']);
+    // }
+    $productId = $request->post_id;
+    $userId = auth()->user()->id;
+
+    // Check if the product is already added to the wishlist
+    $wishlistItem = Wishlist::where('user_id', $userId)
+        ->where('posts_id', $productId)
+        ->first();
+
+    if ($wishlistItem) {
+        return response()->json(['error' => 'Product already added to wishlist']);
     }
 
-    // // // Add the post to the wishlist
-    $user->wishlist()->attach($post);
+    // // // // Add the post to the wishlist
+    // // $user->wishlist()->attach($post);
+    $wishlist = new Wishlist;
+    $wishlist->user_id = auth()->user()->id;
+    $wishlist->posts_id = $request->post_id;
+    $wishlist->save();
 
-    // return response()->json(['message' => 'Post added to wishlist'], 200);
-    return redirect()->back()->with("success"," post is added in the wishlist");
+    // // return response()->json(['message' => 'Post added to wishlist'], 200);
+    // return redirect()->back()->with("success"," post is added in the wishlist");
 
+    
+        // $wishlist = new Wishlist;
+        // $wishlist->user_id = auth()->user()->id;
+        // $wishlist->posts_id = $request->post_id;
+        // $wishlist->save();
+
+        return response()->json(['success' => true]);
     }
+
+    public function removeFromWishlist(Request $request)
+    {
+        Wishlist::where('user_id', auth()->user()->id)
+                ->where('posts_id', $request->post_id)
+                ->delete();
+
+        return response()->json(['success' => true]);
+    }
+
     
    public function userDashboard()
     {

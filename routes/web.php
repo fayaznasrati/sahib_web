@@ -7,9 +7,11 @@ use App\Http\Controllers\CRUDController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\UserViewController;
+use App\Http\Controllers\SubscribersController;
+use App\Http\Controllers\TearmAndCondationController;
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routes 
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -28,8 +30,8 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
     Route::resource('crud', CRUDController::class);
     Route::resource('post', PostsController::class);
-    Route::post('/wishlist/add/{post}', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
-
+    // Route::post('/wishlist/add/{post}', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
+    Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
     Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
     Route::get('/all', 'App\Http\Controllers\CRUDController@all');
@@ -39,15 +41,13 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
 // ==========================Public Routes=================================
 Route::get('/', [App\Http\Controllers\UserViewController::class, 'index'])->name('index');
-Route::get('/get-sub-category', 'App\Http\Controllers\CategoryController@getSubCategory');
+Route::get('/get-sub-category', [App\Http\Controllers\CategoryController::class,'getSubCategory']);
 Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class, 'deletecover']);
 Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
 Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');
 Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
-// Route::get('/user-register', [App\Http\Controllers\UserViewController::class, 'userRegister'])->name('user-register');
-// Route::get('/user-login', [App\Http\Controllers\UserViewController::class, 'userLogin'])->name('user-login');
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
 Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
 Route::get('/show-all-subcategory-posts/{id}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
@@ -65,9 +65,11 @@ Auth::routes();
 Route::prefix('admin')->group(function () {
 
 Route::resource('menus', MenuController::class);
-Route::get('/get-subMenu', [App\Http\Controllers\MenuController::class,'getSubMenu'])->name('get-subMenu');;
-
 Route::resource('submenus', SubmenuController::class);
+Route::resource('tearms', TearmAndCondationController::class);
+Route::resource('subscribers', SubscribersController::class);
+
+Route::get('/get-subMenu', [App\Http\Controllers\MenuController::class,'getSubMenu'])->name('get-subMenu');;
 Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');
 Route::POST('/admin-post-status', [App\Http\Controllers\PostsController::class, 'adminPostStatus'])->name('admin-post-status');
 Route::Delete('/admin-post-delete/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('admin-post-delete');
@@ -95,7 +97,7 @@ Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::cl
 $controller_path = 'App\Http\Controllers';
 
 // Main Page Route
-Route::get('/admin', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
+Route::get('/admin/dashboard', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 
 // layout
 Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');

@@ -162,12 +162,15 @@
                         <!-- Cart & Wishlist Button Start -->
                         <div class="cart-wishlist-btn mb-4">
                            
-                            <div class="add-to-wishlist">
-                                <form action="{{ route('wishlist.add', $post) }}" method="POST">
+                            {{-- <div class="add-to-wishlist">
+                                <form id="addToWishlist" action="{{ route('wishlist.add', $post) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-dark btn-hover-primary">Add to Wishlist</button>
                                 </form>
-                            </div>
+                            </div> --}}
+                            <button id="add-to-wishlist" data-post-id="{{ $post->id }}">Add to Wishlist</button>
+
+                           
                         </div>
                         <!-- Cart & Wishlist Button End -->
                         <div class="size-tab table-responsive-lg">
@@ -263,6 +266,10 @@
         <!-- Brand Logo End -->
       </div>
     @endif
+
     <!-- Single Product Section End -->
     @include("layouts.inc.bottom-user-contact")
+    <!-- Ajax script -->
+
 @endsection
+

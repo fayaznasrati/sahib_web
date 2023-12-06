@@ -16,6 +16,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightgallery.min.css')}}" />
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <!-- Main Style CSS -->
-
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />

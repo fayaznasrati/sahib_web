@@ -17,6 +17,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Models\toggleIsActive;
 use App\Models\Posts\updatePost;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class PostsController extends Controller
 {
 
@@ -91,7 +93,10 @@ class PostsController extends Controller
             // $$id = Posts::findOrFail($id);
             $post = new Posts();
             $post->store($request);
-             return redirect('/user/post')->with("success"," Post Created Successfully");
+            Alert::success('Success', 'Post Created Successfully');
+            // Alert::warning("warning", "warning capture");
+
+             return redirect('/user/post');
         // dd($request->all());
      //if($request->hasFile("cover")){
         //         $file=$request->file("cover");
@@ -190,6 +195,7 @@ class PostsController extends Controller
     {
         $post = new Posts();
         $post->updatePost($request,$id);
+        Alert::success('Success', 'Post Updated Successfully');
          return redirect('/user/post')->with("success"," Post Updated Successfully");
 
         // dd($request->all());
@@ -258,6 +264,7 @@ class PostsController extends Controller
         }
          }
          $posts->delete();
+        Alert::success('Success', 'post deleted Successfully.');
          return redirect('/user/post')->with('success', 'post deleted Successfully.');
     }
 
