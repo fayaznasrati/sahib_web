@@ -9,6 +9,8 @@ use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\SubscribersController;
 use App\Http\Controllers\TearmAndCondationController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SellerBrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes 
@@ -32,11 +34,14 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::resource('post', PostsController::class);
     // Route::post('/wishlist/add/{post}', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
     Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
+    Route::post('/wishlist/remove', [App\Http\Controllers\UserViewController::class,'removeFromWishlist'])->name('wishlist.remove');
     Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
     Route::get('/all', 'App\Http\Controllers\CRUDController@all');
     Route::post('/create', 'App\Http\Controllers\CRUDController@submit')->name('crud.submit');
 });
+
+Route::get('/user/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
 
 
 // ==========================Public Routes=================================
@@ -46,6 +51,7 @@ Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class,
 Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
 Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
+Route::get('/user/seller/dashboard', [App\Http\Controllers\UserViewController::class, 'sellerDashboard'])->name('seller-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');
 Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
@@ -53,6 +59,8 @@ Route::get('/single-product', [App\Http\Controllers\UserViewController::class, '
 Route::get('/show-all-subcategory-posts/{id}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
 Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
+Route::post('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
+Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
 
 
 // Route::fallback(function () {
@@ -68,6 +76,8 @@ Route::resource('menus', MenuController::class);
 Route::resource('submenus', SubmenuController::class);
 Route::resource('tearms', TearmAndCondationController::class);
 Route::resource('subscribers', SubscribersController::class);
+Route::resource('slider', SliderController::class);
+Route::POST('/admin-slid-status', [App\Http\Controllers\SliderController::class, 'adminSlidStatus'])->name('admin-slid-status');
 
 Route::get('/get-subMenu', [App\Http\Controllers\MenuController::class,'getSubMenu'])->name('get-subMenu');;
 Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');

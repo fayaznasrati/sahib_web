@@ -8,12 +8,12 @@
                     <img src="../cover/{{$post->cover}}" alt="Product" />
                 </a>
                 <div class="actions">
-                    <form action="{{ route('wishlist.add', $post) }}" method="POST">
-                        @csrf
-                    {{-- <a href="javascript:void(0)"type="submit" title="Wishlist" class="action wishlist"><i class="pe-7s-like"></i></a> --}}
-
+                    {{-- <form action="{{ route('wishlist.add', $post) }}" method="POST">
+                        @csrf --}}
+                    <a type="submit"  data-post-id="{{ $post->id }}" class="action wishlist add-to-wishlist"><i class="pe-7s-like"></i></a>
+                        {{-- <input type="hidden" name="post_id" value="{{$post->id}}">
                         <button type="submit"><i class="pe-7s-like"></i></button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <div class="content">
@@ -21,7 +21,7 @@
                      <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">  {{$post->new_price}}
                 </span>
                 <h5 class="title"><a href="{{ route('show-single-post', ['id' => $post->id]) }}" >{{$post->name}}</a></h5>
-                <h4 class="sub-title"><a href="{{ route('show-single-post', ['id' => $post->id]) }}" >{!! Str::limit($post->description, 30) !!}</a></h4>
+                <h4 class="sub-title"><a href="{{ route('show-single-post', ['id' => $post->id]) }}" >{!! Str::limit($post->note, 30) !!}</a></h4>
             </div>
         </div>
     </div>

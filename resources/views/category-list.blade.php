@@ -268,9 +268,14 @@
                     <!-- Shop Wrapper Start -->
                     <div class="row shop_wrapper grid_4">
                         @include('alert')
+                        <div class="row">
                         @foreach ($posts as $post)
+             
                         @include("layouts.inc.product-inner")
+
                         @endforeach
+
+                    </div>
                      </div>
                     <!-- Shop Wrapper End -->
 

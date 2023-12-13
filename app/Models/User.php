@@ -58,6 +58,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Posts::class);
     }
+
+    public function brands(): HasOne
+    {
+        return $this->hasOne(Brands::class);
+    }
+
+    public function sliders(): HasMany
+    {
+        return $this->hasMany(Slider::class);
+    }
     
 
     public function afgcity()

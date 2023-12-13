@@ -31,8 +31,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts=Posts::latest()
-        ->paginate(5);
+        $posts=Posts::latest()->where('user_id',Auth::id())->paginate(5);
         // dd($posts);
         return view('user-module.my-ad-list')->with('posts',$posts);
 
@@ -90,6 +89,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        
             // $$id = Posts::findOrFail($id);
             $post = new Posts();
             $post->store($request);
@@ -97,45 +97,6 @@ class PostsController extends Controller
             // Alert::warning("warning", "warning capture");
 
              return redirect('/user/post');
-        // dd($request->all());
-     //if($request->hasFile("cover")){
-        //         $file=$request->file("cover");
-        //         $cover=time().'_'.$file->getClientOriginalName();
-        //         $file->move(\public_path("cover/"),$cover);
-        //         $thePuuid = "post-".time();
-        //         // dd($thePuuid);
-        //         $posts =new Posts([
-                  
-        //            "menu_id" => $request->category_id,
-        //            "sub_menu_id" => $request->sub_category_id,
-        //            "name" => $request->name,
-        //            "cover" =>$cover,
-        //            "puuid" => "post-".time(),
-        //            "colors" => $colors = json_encode($request->colors),
-        //            "old_price" =>$request->old_price,
-        //            "new_price" =>$request->new_price,
-        //            "title" => $title = json_encode($request->title),
-        //            "title_desc" => $title_desc = json_encode($request->title_desc),
-        //             "description" =>$request->description                   
-        //         ]);
-        //         // dd($posts);
-        //        $posts->user_id = Auth::id();
-        //        $posts->save();
-        //     }
-    
-        //         if($request->hasFile("images")){
-        //             $files=$request->file("images");
-        //             foreach($files as $file){
-        //                 $imageName=time().'_'.$file->getClientOriginalName();
-        //                 $request['posts_id']=$posts->id;
-        //                 $request['image']=$imageName;
-        //                 $file->move(\public_path("/images"),$imageName);
-        //                 Image::create($request->all());
-    
-        //             }
-        // }
-        //   return redirect('/user/post')->with('success', 'Todos Has Been Created Successfully.');
-
     }
      
     /**

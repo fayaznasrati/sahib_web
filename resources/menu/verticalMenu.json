@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url": "/",
+      "url": "/admin/dashboard",
       "name": "Dashboard",
       "icon": "menu-icon tf-icons bx bx-home-circle",
       "slug": "dashboard-analytics"
@@ -40,6 +40,13 @@
           "slug": "create-post"
         }
       ]
+    },
+    {
+      "name": "Mange Slider",
+      "icon": "menu-icon tf-icons bx bxs-user-account", 
+      "slug": "mange-slider",
+      "url": "/admin/slider"
+
     },
     {
       "name": "Mange Users",

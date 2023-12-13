@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Menu;
+use App\Models\Slider;
 use App\Models\User;
 use App\Models\AfgCity;
 use App\Models\Posts;
@@ -21,14 +22,18 @@ class UserViewController extends Controller
      */
     public function index()
     {
+        $data = null;
+        $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
         $menus = Menu::orderBy('id', 'desc')->take(9)->get();
         $submenus = SubMenu::All();
-        $residentForRent = Posts::get()->where('menu_id',3)->all();
-        $residentForSell = Posts::get()->where('menu_id',4)->all();
-        $motors = Posts::get()->where('menu_id',5)->all();
+        $residentForRent = Posts::get()->where('menu_id',3)->where('status',1)->all();
+        $residentForSell = Posts::get()->where('menu_id',4)->where('status',1)->all();
+        $motors = Posts::get()->where('menu_id',5)->where('status',1)->all();
         return view('index', 
         compact(
+            'data',
             'menus',
+            'slider',
             'submenus',
             'residentForRent',
             'residentForSell',
@@ -36,9 +41,32 @@ class UserViewController extends Controller
         ));
     }
 
+    
+// ============Search post ===============
+    public function searchAjax(){
+        $posts= Posts::select('name')->where('status',1)->get();
+        $data=[];
+        foreach($posts as $post){
+            $data[] = $post['name'];
+        }
+        return $data;
+
+    }
+// ============show Searched post ===============
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $posts = Posts::where('name', 'LIKE', "%$query%")->get();
+        // dd($data);
+        return view('category-list', compact('posts'));
+
+    }
+
+
     public function showAllSubCategoryPosts($id){
         // dd($id);
-        $posts = Posts::where('sub_menu_id', $id)->get();
+        $posts = Posts::where('sub_menu_id', $id)->where('status',1)->get();
         return view('category-list', compact('posts'));
         // dd($posts);
     }
@@ -48,7 +76,7 @@ class UserViewController extends Controller
         $Url = url()->current();
         $currentUrl=urlencode($Url);
         $post = Posts::findOrFail($id);
-        $posts = Posts::get()->where('sub_menu_id', $post->sub_menu_id)->take(10);
+        $posts = Posts::get()->where('sub_menu_id', $post->sub_menu_id)->where('status',1)->take(10);
         return view('single-product', compact('post','currentUrl','posts'));
         // dd($posts);
     }
@@ -59,13 +87,7 @@ class UserViewController extends Controller
 
     public function wishlistAdd(Request $request){
     // Get the authenticated user
-    //   $user = Auth::user();
-    // // Check if the post is already in the wishlist
-    // if ($user->wishlist()->where('posts_id', $request->post_id)->exists()) {
-    //     // return redirect()->back()->with("error"," post is already in the wishlist");
-    // //    return response()->json(['error' => 'post is already added to wish list ']);
-    //     return response()->json(['error' => 'Product already added to wishlist']);
-    // }
+
     $productId = $request->post_id;
     $userId = auth()->user()->id;
 
@@ -78,21 +100,13 @@ class UserViewController extends Controller
         return response()->json(['error' => 'Product already added to wishlist']);
     }
 
-    // // // // Add the post to the wishlist
-    // // $user->wishlist()->attach($post);
+    // Add the post to the wishlist
+
     $wishlist = new Wishlist;
     $wishlist->user_id = auth()->user()->id;
     $wishlist->posts_id = $request->post_id;
     $wishlist->save();
-
-    // // return response()->json(['message' => 'Post added to wishlist'], 200);
-    // return redirect()->back()->with("success"," post is added in the wishlist");
-
-    
-        // $wishlist = new Wishlist;
-        // $wishlist->user_id = auth()->user()->id;
-        // $wishlist->posts_id = $request->post_id;
-        // $wishlist->save();
+    Alert::success('Success', 'product added to wishlist Successfully');
 
         return response()->json(['success' => true]);
     }
@@ -102,20 +116,27 @@ class UserViewController extends Controller
         Wishlist::where('user_id', auth()->user()->id)
                 ->where('posts_id', $request->post_id)
                 ->delete();
-
+            Alert::success('Success', 'product Removed Successfully');
         return response()->json(['success' => true]);
     }
 
     
-   public function userDashboard()
+    public function userDashboard()
     {
         // $id = Auth::id();
         $user = User::find(Auth::id());
         $afg_cities = AfgCity::get();
         // dd();
-
         return view('user-module.user-dashboard', compact('user','afg_cities'));
      }
+
+     public function sellerDashboard()
+     {
+         // $id = Auth::id();
+         $user = User::find(Auth::id());
+         $afg_cities = AfgCity::get();
+         return view('seller-module.seller-dashboard', compact('user','afg_cities'));
+      }
 
     // public function userLogin()
     // {

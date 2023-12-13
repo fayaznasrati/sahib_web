@@ -103,7 +103,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>Poblished at</th>
-            <th>Expires at</th>
+            <th>Expires In</th>
             <th>Colors</th>
             {{-- <th>Description</th> --}}
             <th>Status</th>
@@ -133,7 +133,15 @@
             <td>{{$post->name}}</td>
             <td>{{$post->new_price}}</td>
             <td>{{$post->updated_at}}</td>
-            <td data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="in 30 days will be expired after date of its createtion">{{$post->exprire_at == null ? "in 30 Days": $post->exprire_at}}</td>
+             <td>
+              @if (\Carbon\Carbon::now()>= \Carbon\Carbon::parse($post->expired_at))
+              <span style="color: red">Expired at {{\Carbon\Carbon::parse($post->expired_at)->format('Y-m-d')}}</span>
+                @else
+               Expires in {{ \Carbon\Carbon::parse($post->expired_at)->diffInDays(\Carbon\Carbon::now()) }} days
+              @endif
+            
+            </td>
+            {{-- <td data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="in 30 days will be expired after date of its createtion">{{$post->exprire_at == null ?  \Carbon\Carbon::parse($post->expired_at)->diffInDays(\Carbon\Carbon::now()) : $post->exprire_at}}</td> --}}
             <td>
                 @php $colors = json_decode($post->colors) @endphp
                  <table>

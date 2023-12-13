@@ -18,7 +18,6 @@
                        
                      </div>
                      <div class="col-md-6">
-                        {{-- {{$posts->status == 1 ? 'ac' : 'dea '}} --}}
                         <select name="status" >
                            <option {{$posts->status == 1 ? 'selected': ''}} value="1">Active</option>
                            <option {{$posts->status == 0 ? "selected": ''}} value="0">deactive</option>

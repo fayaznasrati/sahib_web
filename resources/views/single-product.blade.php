@@ -106,7 +106,11 @@
                             <div class="col-md-7 owner-prifile">
                                 <div class="user-profile">
                                     <div class="profile-header">
-                                      <img src="../dp_images/{{$post->user->dp_image}}" alt="Profile Image">
+                                        @if ($post->user->dp_image != null)
+                                           <img src="../dp_images/{{$post->user->dp_image}}" alt="Profile Image">
+                                            @else
+                                            <img src="../assets/img/avatars/no-user-img.png" alt="user-avatar" class="d-block rounded " height="100" width="100" id="uploadedAvatar">
+                                        @endif
                                     </div>
                                     <div class="profile-body">
                                         <div>
@@ -161,16 +165,7 @@
 
                         <!-- Cart & Wishlist Button Start -->
                         <div class="cart-wishlist-btn mb-4">
-                           
-                            {{-- <div class="add-to-wishlist">
-                                <form id="addToWishlist" action="{{ route('wishlist.add', $post) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-dark btn-hover-primary">Add to Wishlist</button>
-                                </form>
-                            </div> --}}
-                            <button id="add-to-wishlist" data-post-id="{{ $post->id }}">Add to Wishlist</button>
-
-                           
+                             <a   data-post-id="{{ $post->id }}" class="btn btn-outline-dark btn-hover-primary add-to-wishlist" href="javascript:void(0)">Add to Wishlist</a>
                         </div>
                         <!-- Cart & Wishlist Button End -->
                         <div class="size-tab table-responsive-lg">
@@ -240,7 +235,8 @@
                                         <!-- Single Brand Logo Start -->
                                         @foreach ($posts as $ps )
                                         <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="polaroid"><a href="/category-list">
+                                        <div class="polaroid">
+                                    <a href="/show-single-post/{{$ps->id}}">
                                             <img src="../cover/{{$ps->cover}}" alt="Norway" style="width:100%">
                                             <div class="container ">
                                             <span id="price"> <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="AFG" >{{$ps->new_price}}
@@ -249,7 +245,8 @@
                                             <span class="desc">{{$ps->name}}</span><br>
                                             <small class="address"> {!! Str::limit($ps->description,30)!!} </small>
                                             </div>
-                                        </div></a>
+                                        </div>
+                                    </a>
                                         </div>
                                         @endforeach
                                         <!-- Single Brand Logo End -->
@@ -265,8 +262,9 @@
         </div>
         <!-- Brand Logo End -->
       </div>
+      
     @endif
-
+   
     <!-- Single Product Section End -->
     @include("layouts.inc.bottom-user-contact")
     <!-- Ajax script -->

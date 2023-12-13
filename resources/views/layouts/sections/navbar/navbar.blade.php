@@ -52,7 +52,23 @@ $navbarDetached = ($navbarDetached ?? '');
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
               <div class="avatar avatar-online">
-                <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                <div class="col">
+                    
+                 
+                      {{-- Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
+                        @if ($user->dp_image==null)
+              <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: auto; width:40px"/>
+                @else
+              <img src="../dp_images/{{$user->dp_image}}" alt="user image" style="height: auto; width:40px">
+              @endif
+                      --}}
+                  
+              </div>
+              @if (Auth::user()->dp_image==null)
+              <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: auto; width:40px"/>
+                @else
+                <img src="../../../dp_images/{{ Auth::user()->dp_image }}" alt class="w-px-40 h-auto rounded-circle">
+              @endif
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -61,12 +77,24 @@ $navbarDetached = ($navbarDetached ?? '');
                   <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
                       <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                        @if (Auth::user()->dp_image==null)
+                        <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: auto; width:40px"/>
+                          @else
+                        <img src="../../../dp_images/{{ Auth::user()->dp_image }}" alt class="w-px-40 h-auto rounded-circle">
+                        @endif
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <span class="fw-semibold d-block">John Doe</span>
-                      <small class="text-muted">Admin</small>
+                      <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                      <small class="text-muted">
+                        @if (Auth::user()->role = 1)
+                        Admin
+                        @elseif (Auth::user()->role = 2)
+                        Author
+                        @else
+                        User
+                        @endif
+                      </small>
                     </div>
                   </div>
                 </a>
@@ -75,12 +103,12 @@ $navbarDetached = ($navbarDetached ?? '');
                 <div class="dropdown-divider"></div>
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
+                <a class="dropdown-item" href="/admin/admin-user-edit/{{Auth::user()->id}}">
                   <i class="bx bx-user me-2"></i>
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
-              <li>
+              {{-- <li>
                 <a class="dropdown-item" href="javascript:void(0);">
                   <i class='bx bx-cog me-2'></i>
                   <span class="align-middle">Settings</span>
@@ -94,15 +122,21 @@ $navbarDetached = ($navbarDetached ?? '');
                     <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
                   </span>
                 </a>
-              </li>
+              </li> --}}
               <li>
                 <div class="dropdown-divider"></div>
               </li>
+              {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a> --}}
+               
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                   <i class='bx bx-power-off me-2'></i>
-                  <span class="align-middle">Log Out</span>
+                  <span class="align-middle">
+                   Log Out
+                    </span>
                 </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
+
               </li>
             </ul>
           </li>

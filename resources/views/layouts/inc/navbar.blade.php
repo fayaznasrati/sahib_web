@@ -45,35 +45,35 @@
     <!-- Header Top End -->
 
     <!-- Header Bottom Start -->
-    <div class="header-bottom">
-        <div class="header-sticky">
+    <div class="header-bottom" >
+        <div class="header-sticky" >
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row align-items-center" >
 
                     <!-- Header Logo Start -->
                     <div class="col-xl-2 col-6">
-                        <div class="header-logo">
-                            <a href="/"><img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" /></a>
+                        <div class="header-logo" >
+                            <a href="/"  ><img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" /></a>
                         </div>
                     </div>
                     <!-- Header Logo End -->
 
                     <!-- Header Menu Start -->
                     <div class="col-xl-8 d-none d-xl-block">
-                        <div class="main-menu position-relative">
+                        <div class="main-menu position-relative" style="margin-top: -20px; hight:100px">
                             <ul>
                                 <li class="has-children">
                                     <a href="#"><span>Home</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
+                                    <ul class="sub-menu" style="margin-top: -20px;">
                                         <li><a href="/index">Home </a></li>
                                         <li><a href="/index">Home </a></li>
                                         <li><a href="/index">Home </a></li>
                                         <li><a href="/index">Home </a></li>
                                     </ul>
                                 </li>
-                                <li class="has-children position-static">
+                                <li class="has-children position-static" >
                                     <a href="#"><span>Category A</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="mega-menu row-cols-4">
+                                    <ul class="mega-menu row-cols-4" style="margin-top: -20px">
                                         <li class="col">
                                             <h4 class="mega-menu-title">Shop </h4>
                                             <ul class="mb-n2">
@@ -120,104 +120,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-children position-static">
-                                    <a href="#"><span>Category B</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="mega-menu row-cols-4">
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Shop </h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="shop-grid.html">Shop Grid</a></li>
-                                                <li><a href="shop-left-sidebar.html">Left Sidebar</a></li>
-                                                <li><a href="shop-right-sidebar.html">Right Sidebar</a></li>
-                                                <li><a href="shop-list-fullwidth.html">List Fullwidth</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">List Left Sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">List Right Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Categroy B</h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="single-product.html">Single Product</a></li>
-                                                <li><a href="single-product-sale.html">Single Product Sale</a></li>
-                                                <li><a href="single-product-group.html">Single Product Group</a></li>
-                                                <li><a href="single-product-normal.html">Single Product Normal</a></li>
-                                                <li><a href="single-product-affiliate.html">Single Product Affiliate</a></li>
-                                                <li><a href="single-product-slider.html">Single Product Slider</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Categroy C</h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="single-product-gallery-left.html">Gallery Left</a></li>
-                                                <li><a href="single-product-gallery-right.html">Gallery Right</a></li>
-                                                <li><a href="single-product-tab-style-left.html">Tab Style Left</a></li>
-                                                <li><a href="single-product-tab-style-right.html">Tab Style Right</a></li>
-                                                <li><a href="single-product-sticky-left.html">Sticky Left</a></li>
-                                                <li><a href="single-product-sticky-right.html">Sticky Right</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Other Pages</h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="my-account.html">My Account</a></li>
-                                                <li><a href="login-register.html">Loging | Register</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
-                                                <li><a href="cart.html">Cart</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="compare.html">Compare</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-children position-static">
-                                    <a href="#"><span>Category C</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="mega-menu row-cols-4">
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Shop </h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="shop-grid.html">Shop Grid</a></li>
-                                                <li><a href="shop-left-sidebar.html">Left Sidebar</a></li>
-                                                <li><a href="shop-right-sidebar.html">Right Sidebar</a></li>
-                                                <li><a href="shop-list-fullwidth.html">List Fullwidth</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">List Left Sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">List Right Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Categroy B</h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="single-product.html">Single Product</a></li>
-                                                <li><a href="single-product-sale.html">Single Product Sale</a></li>
-                                                <li><a href="single-product-group.html">Single Product Group</a></li>
-                                                <li><a href="single-product-normal.html">Single Product Normal</a></li>
-                                                <li><a href="single-product-affiliate.html">Single Product Affiliate</a></li>
-                                                <li><a href="single-product-slider.html">Single Product Slider</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Categroy C</h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="single-product-gallery-left.html">Gallery Left</a></li>
-                                                <li><a href="single-product-gallery-right.html">Gallery Right</a></li>
-                                                <li><a href="single-product-tab-style-left.html">Tab Style Left</a></li>
-                                                <li><a href="single-product-tab-style-right.html">Tab Style Right</a></li>
-                                                <li><a href="single-product-sticky-left.html">Sticky Left</a></li>
-                                                <li><a href="single-product-sticky-right.html">Sticky Right</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">Other Pages</h4>
-                                            <ul class="mb-n2">
-                                                <li><a href="my-account.html">My Account</a></li>
-                                                <li><a href="login-register.html">Loging | Register</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
-                                                <li><a href="cart.html">Cart</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="compare.html">Compare</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
+   
                                 <li><a href="contact.html"><span>Contact</span></a></li>
 
                             </ul>
@@ -227,24 +130,13 @@
 
                     <!-- Header Action Start -->
                     <div class="col-xl-2 col-6">
-                        <div class="header-actions">
-
-                            <!-- Search Header Action Button Start -->
-                            <a href="javascript:void(0)" class="header-action-btn header-action-btn-search"><i class="pe-7s-search"></i></a>
-                            <!-- Search Header Action Button End -->
+                        <div class="header-actions" style="margin-top: -20px">
 
                             <!-- User Account Header Action Button Start -->
                             <a href="/my-profile" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
                             <!-- User Account Header Action Button End -->
-
-                            <!-- Wishlist Header Action Button Start -->
-                            {{-- <a href="wishlist.html" class="header-action-btn header-action-btn-wishlist d-none d-md-block">
-                                <i class="pe-7s-like"></i>
-                            </a> --}}
-                            <!-- Wishlist Header Action Button End -->
-
                             <!-- Shopping Cart Header Action Button Start -->
-                            <a href="javascript:void(0)"  class="header-action-btn header-action-btn-cart ">
+                            <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-cart ">
                                 <i class="pe-7s-like"></i>
                                 @php
                                 $wishlists = App\Models\Wishlist::where('user_id',Auth::id())->get();
@@ -271,7 +163,7 @@
         </div>
     </div>
     <!-- Header Bottom End -->
-
+ 
     <!-- Mobile Menu Start -->
     <div class="mobile-menu-wrapper">
         <div class="offcanvas-overlay"></div>
@@ -439,6 +331,7 @@
 
             <!-- Offcanvas Cart Content Start -->
             <div class="offcanvas-cart-content">
+                <div id="toBeReloadSection"  >
                 <!-- Offcanvas Cart Title Start -->
                 <h2 class="offcanvas-cart-title mb-10">Liked Items</h2>
                 <!-- Offcanvas Cart Title End -->
@@ -451,10 +344,10 @@
                     <!-- Single Cart Product Start -->
                     <div class="single-cart-product">
                         <div class="cart-product-thumb">
-                            <a href="single-product.html"><img src="../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
+                            <a href="/show-single-post/{{$wish->posts->id}}"><img src="../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
                         </div>
                         <div class="cart-product-content">
-                            <h3 class="title"><a href="single-product.html">{{$wish->posts->name}}</a></h3>
+                            <h3 class="title"><a href="/show-single-post/{{$wish->posts->id}}">{{$wish->posts->name}}</a></h3>
                             <span class="price">
                                 <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->new_price}} </span>
                             <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->old_price}}</span>
@@ -465,7 +358,8 @@
 
                     <!-- Product Remove Start -->
                     <div class="cart-product-remove">
-                        <a href="#"><i class="fa fa-trash"></i></a>
+                        <a class="remove-from-wishlist" data-post-id="{{$wish->posts->id}}"><i class="fa fa-trash"></i></a>
+                   {{-- <button class="remove-from-wishlist"><i class="fa fa-trash"></i></button> --}}
                     </div>
                     <!-- Product Remove End -->
 
@@ -484,5 +378,6 @@
         <!-- Cart Offcanvas Inner End -->
     </div>
     <!-- Cart Offcanvas End -->
-
 </div>
+</div>
+@include('layouts.inc.search-box')

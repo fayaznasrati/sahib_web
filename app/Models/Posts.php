@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
 class Posts extends Model
 {
     use HasFactory;
@@ -15,6 +17,7 @@ class Posts extends Model
         'user_id',
         'sub_menu_id',
         'name',
+        'slug',
         'cover',
         'puuid',
         'colors',
@@ -23,6 +26,7 @@ class Posts extends Model
         'title',
         'title_desc',
         'description',
+        'note',
         'expired_at',
     ];
 
@@ -69,6 +73,19 @@ class Posts extends Model
     public function updatePost(Request $request, $id)
     {
         // dd($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ]);
+
+        $slug = Str::slug($validatedData['name']);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Posts::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
      $post = Posts::findOrFail($id);
      if($request->hasFile("cover")){
          if (File::exists("cover/".$post->cover)) {
@@ -86,6 +103,7 @@ class Posts extends Model
             "sub_menu_id" => $request->sub_category_id,
             "name" => $request->name,
             "cover"=>$post->cover,
+            "slug" => $slug.'-'.time(),
             "colors" => $colors = json_encode($request->colors),
             "old_price" =>$request->old_price,
             "new_price" =>$request->new_price,
@@ -112,6 +130,20 @@ class Posts extends Model
     public function store(Request $request)
     {
         // dd($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ]);
+
+        $note = Str::limit(strip_tags($validatedData['description']),50);
+        $slug = Str::slug($validatedData['name']);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Posts::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
             if($request->hasFile("cover")){
                 $file=$request->file("cover");
                 $cover=time().'_'.$file->getClientOriginalName();
@@ -124,6 +156,8 @@ class Posts extends Model
                    "menu_id" => $request->category_id,
                    "sub_menu_id" => $request->sub_category_id,
                    "name" => $request->name,
+                   "slug" => $slug.'-'.time(),
+                   "note" =>$note,
                    "cover" =>$cover,
                    "puuid" => "post-".time(),
                    "colors" => $colors = json_encode($request->colors),
