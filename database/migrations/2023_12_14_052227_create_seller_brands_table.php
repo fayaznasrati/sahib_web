@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('seller_brands', function (Blueprint $table) {
             $table->id();
-           
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('brand_logo')->nullable();
             $table->string('mobile')->nullable();
@@ -42,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('seller_brands');
     }
 };

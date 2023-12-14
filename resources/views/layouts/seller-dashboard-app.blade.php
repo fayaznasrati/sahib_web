@@ -14,7 +14,8 @@
 <body style="background-color: rgb(245 245 249);">
     @include("layouts.inc.seller-dashboard-navbar")
     @include('sweetalert::alert')
-    <main class="py-4">
+
+    <main class="py-4 ">
         @yield('seller-dashboard-content')
     </main>
 

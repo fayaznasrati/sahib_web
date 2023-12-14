@@ -6,14 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Models\Menu;
-use App\Models\Slider;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\AfgCity;
-use App\Models\Posts;
-use App\Models\Brand;
-use App\Models\SubMenu;
-use App\Models\Wishlist;
+use App\Models\SellerBrand;
+
 class SellerBrandController extends Controller
 {
     /**
@@ -24,12 +21,13 @@ class SellerBrandController extends Controller
 
     public function brandDashboard()
     {
-    // $id = Auth::id();
     $user = User::find(Auth::id());
-    $brand = Brand::where();
+    $brand = SellerBrand::where('user_id', Auth::id())->latest()->first();
     $afg_cities = AfgCity::get();
-    return view('seller-module.brand-dashboard', compact('user','afg_cities'));
+    // dd($brand);
+    return view('seller-module.brand-dashboard', compact('user','afg_cities','brand'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,6 +49,55 @@ class SellerBrandController extends Controller
     {
         //
     }
+
+    public function createBrand(Request $request)
+    {
+            // dd($request->all());
+            $validatedData = $request->validate([
+                'name' => 'required|max:255',
+            ]);
+    
+            // $note = Str::limit(strip_tags($validatedData['description']),50);
+            $slug = Str::slug($validatedData['name']);
+    
+            if($request->hasFile("brand_logo")){
+                $file=$request->file("brand_logo");
+                $brand_logo=time().'_'.$file->getClientOriginalName();
+                $file->move(\public_path("brand_logo/"),$brand_logo);
+            }
+            if($request->hasFile("brand_certificate_img")){
+                $file=$request->file("brand_certificate_img");
+                $brand_certificate_img=time().'_'.$file->getClientOriginalName();
+                $file->move(\public_path("brand_certificate_img/"),$brand_certificate_img);
+            }
+                   $theBranduuid = "brand-".time();
+                    $brand =new SellerBrand([
+                       "name" => $request->name,
+                       "slug" => $slug.'-'.time(),
+                       "brand_logo" =>$brand_logo,
+                       "brand_certificate_img" =>$brand_certificate_img,
+                       "branduuid" => $theBranduuid,
+                       "mobile" => $request->mobile,
+                       "whatsapp" => $request->whatsapp,
+                       "email" => $request->email,
+                       "address" => $request->address,
+                       "city_id" => $request->city_id,
+                       "zip_code" => $request->zip_code,
+                       "brand_certificate_no" => $request->brand_certificate_no,
+                       "brand_found_date" => $request->brand_found_date,
+                       "brand_polices" => $request->brand_polices,
+                    ]);
+                    // dd($brand);
+                   $brand->user_id = Auth::id();
+                   $brand->save();
+            
+    
+              return redirect()->back()->with('success', 'Brand created Created Successfully.');
+            // return back();
+    
+            }
+         
+    
 
     /**
      * Display the specified resource.

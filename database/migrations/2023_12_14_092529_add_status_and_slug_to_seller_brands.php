@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('brand_id')->nullable();
-            // $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-            
+        Schema::table('seller_brands', function (Blueprint $table) {
+            $table->string('status')->default(0);
+            $table->string('slug')->unique();
+            $table->string('branduuid')->unique();
         });
     }
 
@@ -27,8 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('brand_id');
+        Schema::table('seller_brands', function (Blueprint $table) {
+            $table->dropColumn('status');
+            $table->dropColumn('slug');
+            $table->dropColumn('branduuid');
         });
     }
 };

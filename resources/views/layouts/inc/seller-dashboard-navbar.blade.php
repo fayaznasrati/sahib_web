@@ -1,4 +1,5 @@
-<div class="header section">
+
+<div class="header section" >
 
     <!-- Header Top Start -->
     <div class="header-top bg-light">
@@ -53,7 +54,7 @@
     <!-- Header Top End -->
 
     <!-- Header Bottom Start -->
-    <div class="header-bottom">
+    <div class="header-bottom" >
         <div class="header-sticky">
             <div class="container">
                 <div class="row align-items-center">

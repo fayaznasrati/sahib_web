@@ -59,9 +59,9 @@ class User extends Authenticatable
         return $this->hasMany(Posts::class);
     }
 
-    public function brands(): HasOne
+    public function sellerBrand(): HasOne
     {
-        return $this->hasOne(Brands::class);
+        return $this->hasOne(SellerBrands::class);
     }
 
     public function sliders(): HasMany

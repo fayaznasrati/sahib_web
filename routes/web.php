@@ -42,6 +42,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
 });
 
 Route::get('/user/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
+Route::post('/user/seller/create-brand', [App\Http\Controllers\SellerBrandController::class, 'createBrand'])->name('create-brand');
 
 
 // ==========================Public Routes=================================
