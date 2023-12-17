@@ -1,5 +1,5 @@
-@extends("layouts.user-dashboard-app")
-@section("user-dashboard-content")
+@extends("layouts.seller-dashboard-app")
+@section("seller-dashboard-content")
 
  <!-- Shop Section Start -->
  <div class="section section-margin">

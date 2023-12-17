@@ -25,6 +25,7 @@ class SellerBrand extends Model
         'status',
         'branduuid',
         'slug',
+        'about',
         'brand_logo',
     ];
 
@@ -32,4 +33,6 @@ class SellerBrand extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+  
 }

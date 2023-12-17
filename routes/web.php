@@ -32,7 +32,12 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
     Route::resource('crud', CRUDController::class);
     Route::resource('post', PostsController::class);
-    // Route::post('/wishlist/add/{post}', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
+
+    Route::get('/seller/brand/product/{id}/edit', [App\Http\Controllers\PostsController::class, 'edit'])->name('edit-products');
+    Route::get('/seller/brand/product/{id}', [App\Http\Controllers\PostsController::class, 'show'])->name('show-products');
+    Route::delete('/seller/brand/product/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('destroy-products');
+    Route::get('/seller/brand/products', [App\Http\Controllers\PostsController::class, 'index'])->name('seller-products');
+    Route::get('/seller/create/brand/products', [App\Http\Controllers\PostsController::class, 'create'])->name('seller-create-products');
     Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
     Route::post('/wishlist/remove', [App\Http\Controllers\UserViewController::class,'removeFromWishlist'])->name('wishlist.remove');
     Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
@@ -43,6 +48,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
 Route::get('/user/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
 Route::post('/user/seller/create-brand', [App\Http\Controllers\SellerBrandController::class, 'createBrand'])->name('create-brand');
+Route::put('/user/seller/update-brand-profile/{id}', [App\Http\Controllers\SellerBrandController::class, 'updateBrand'])->name('update-brand');
 
 
 // ==========================Public Routes=================================
@@ -62,6 +68,8 @@ Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::c
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
 Route::post('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
 Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
+Route::get('/seller/brand/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
+
 
 
 // Route::fallback(function () {

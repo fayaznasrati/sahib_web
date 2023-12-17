@@ -33,6 +33,7 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
     /**
      * Create a new controller instance.
      *
@@ -63,6 +64,8 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed']         
         ]);
+
+      
 
         
        
@@ -102,6 +105,11 @@ class RegisterController extends Controller
         }
 
         return $create;
+
+        // $userid = User::find(Auth::id());;
+        // dd($userid);
+
+
      
     }
 

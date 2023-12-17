@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('seller_brands', function (Blueprint $table) {
             $table->string('status')->default(0);
             $table->string('slug')->unique();
+            $table->string('about')->nullable();
             $table->string('branduuid')->unique();
         });
     }
@@ -30,6 +31,7 @@ return new class extends Migration
         Schema::table('seller_brands', function (Blueprint $table) {
             $table->dropColumn('status');
             $table->dropColumn('slug');
+            $table->dropColumn('about');
             $table->dropColumn('branduuid');
         });
     }

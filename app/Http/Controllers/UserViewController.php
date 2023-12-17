@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\AfgCity;
 use App\Models\Posts;
 use App\Models\SubMenu;
+use App\Models\SellerBrand;
 use App\Models\Wishlist;
 class UserViewController extends Controller
 {
@@ -76,8 +77,9 @@ class UserViewController extends Controller
         $Url = url()->current();
         $currentUrl=urlencode($Url);
         $post = Posts::findOrFail($id);
+        $userx = User::get();
         $posts = Posts::get()->where('sub_menu_id', $post->sub_menu_id)->where('status',1)->take(10);
-        return view('single-product', compact('post','currentUrl','posts'));
+        return view('single-product', compact('userx','post','currentUrl','posts'));
         // dd($posts);
     }
     public function goBack() {
@@ -185,9 +187,11 @@ class UserViewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function sellerBrandInfo($slug)
     {
-        //
+        $brand = SellerBrand::where('slug', $slug)->first();
+
+        dd($brand);
     }
 
     /**

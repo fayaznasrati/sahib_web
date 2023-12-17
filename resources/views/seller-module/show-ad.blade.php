@@ -1,5 +1,5 @@
-@extends("layouts.user-dashboard-app")
-@section("user-dashboard-content")
+@extends("layouts.seller-dashboard-app")
+@section("seller-dashboard-content")
 
     <!-- Breadcrumb Section Start -->
     <div class="section">
@@ -9,7 +9,7 @@
   <div class="section section-margin">
       <div class="container">
           <span class="arrow-back-page">
-              <a href="/user/post"><i class="fa fa-arrow-left"></i> Go Back </a>
+              <a href="/user/seller/brand/products"><i class="fa fa-arrow-left"></i> Go Back </a>
           </span>
           <div class="row">
               <div class="col-lg-6 offset-lg-0 col-md-8 offset-md-2 col-custom">

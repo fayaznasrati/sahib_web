@@ -72,9 +72,8 @@
                         <div class="main-menu position-relative">
                             <ul>
                                 <li > <a href="/user/seller/brand-dashboard"><span>My Brand Profile</span></a></li>
-                                <li><a href="/user/post"> <span>My product List</span></a></li>
-                                <li><a class="{{ request()->is(url('/user/post/create')) ? 'active' : '' }}"  href="{{url('/user/post/create')}}"> <span>Create New Product</span></a></li>
-                                {{-- <li><a href="/user/crud"> <span>CRUD</span></a></li> --}}
+                                <li><a href="{{route('seller-products')}}"> <span>My product List</span></a></li>
+                                <li><a class="{{ request()->is(url('/user/post/create')) ? 'active' : '' }}"  href="{{route('seller-create-products')}}"> <span>Create New Product</span></a></li>
                                 <li><a href="/user/seller/dashboard"> <span>My Profile</span></a></li>
                             </ul>
                         </div>

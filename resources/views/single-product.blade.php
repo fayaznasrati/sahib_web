@@ -75,6 +75,9 @@
                         <div class="row pt-0">
                             <div class="col-md-5">
                                 <!-- Product Head Start -->
+                        
+
+                                
                                 <div class="product-head mb-3">
                                     <h2 class="product-title">{{$post->name}}</h2>
                                 </div>
@@ -111,17 +114,28 @@
                                             @else
                                             <img src="../assets/img/avatars/no-user-img.png" alt="user-avatar" class="d-block rounded " height="100" width="100" id="uploadedAvatar">
                                         @endif
+                                        <br>
+                                       <div style="margin-top: 25px; padding-left:5px" > Company:</div>
                                     </div>
                                     <div class="profile-body">
                                         <div>
                                             <b>{{$post->user->name}} </b> <br>
                                             <small>Contact Owner With:</small>
+                                            
                                         </div>
                                         <div class="owner-contact-buttons">
                                             <a  href="https://api.whatsapp.com/send?phone={{$post->user->whatsapp}}" target="_blank"><button class="contact-btn whatsBtn"><i class="fa fa-whatsapp"></i></button></a>   
                                             <a href="mailto:{{$post->user->email}}"><button class="contact-btn mailBtn"><i class="pe-7s-mail"></i></button></a>   
                                             <a href="{{$post->user->mobile}}"><button class="contact-btn phoneBtn"><i class="pe-7s-phone"></i></button></a>   
                                           </div> 
+                                          <hr>
+                                          @php
+                                          $user = App\Models\User::where('id',$post->user_id)->latest()->first();
+                                        //   echo ($user->id);
+                                          $sellerb = App\Models\SellerBrand::where('user_id', $user->id)->latest()->first()
+                                      @endphp
+        
+                                    <a href="/seller/brand/{{$sellerb->slug}}"> {{$sellerb->name}}</a>
                                       </div>
                                  
                                   </div>

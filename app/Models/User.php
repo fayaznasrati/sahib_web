@@ -59,9 +59,14 @@ class User extends Authenticatable
         return $this->hasMany(Posts::class);
     }
 
-    public function sellerBrand(): HasOne
+    public function seller_brand()
     {
-        return $this->hasOne(SellerBrands::class);
+        // return $this->hasOne(SellerBrand::class);
+        return $this->hasOne('seller_brands', 'user_id', 'id');
+    }
+    public function brand()
+    {
+        return $this->hasOne(SellerBrand::class);
     }
 
     public function sliders(): HasMany

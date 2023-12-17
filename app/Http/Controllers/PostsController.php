@@ -33,7 +33,7 @@ class PostsController extends Controller
     {
         $posts=Posts::latest()->where('user_id',Auth::id())->paginate(5);
         // dd($posts);
-        return view('user-module.my-ad-list')->with('posts',$posts);
+        return view('seller-module.my-ad-list')->with('posts',$posts);
 
     }
 
@@ -66,7 +66,7 @@ class PostsController extends Controller
     public function create()
     {
         $category = Menu::all();
-        return view('user-module.create-ad', ['category' => $category]);
+        return view('seller-module.create-ad', ['category' => $category]);
     }
 
 
@@ -109,7 +109,7 @@ class PostsController extends Controller
         $Url = url()->current();
         $currentUrl=urlencode($Url);
         $subCategory = SubMenu::all();
-         return view('user-module.show-ad', compact('posts', 'category', 'subCategory','currentUrl'));
+         return view('seller-module.show-ad', compact('posts', 'category', 'subCategory','currentUrl'));
     }
 
     public function adminPostshow(string $id)
@@ -129,7 +129,7 @@ class PostsController extends Controller
         $posts=Posts::findOrFail($id);
         $menus = Menu::all();
         $submenus = SubMenu::all();
-         return view('user-module.edit-post', compact('posts', 'menus', 'submenus'));
+         return view('seller-module.edit-post', compact('posts', 'menus', 'submenus'));
      }
 
      public function adminPostEdit(string $id){
@@ -159,60 +159,11 @@ class PostsController extends Controller
         Alert::success('Success', 'Post Updated Successfully');
          return redirect('/user/post')->with("success"," Post Updated Successfully");
 
-        // dd($request->all());
-    //  $post = Posts::findOrFail($id);
-    //  if($request->hasFile("cover")){
-    //      if (File::exists("cover/".$post->cover)) {
-    //          File::delete("cover/".$post->cover);
-    //      }
-    //      $file=$request->file("cover");
-    //      $post->cover=time()."_".$file->getClientOriginalName();
-    //      $file->move(\public_path("/cover"),$post->cover);
-    //      $request['cover']=$post->cover;
-
-    //  }
-
-    //     $post->update([
-    //         "menu_id" => $request->category_id,
-    //         "sub_menu_id" => $request->sub_category_id,
-    //         "name" => $request->name,
-    //         "cover"=>$post->cover,
-    //         "colors" => $colors = json_encode($request->colors),
-    //         "old_price" =>$request->old_price,
-    //         "new_price" =>$request->new_price,
-    //         "title" => $title = json_encode($request->title),
-    //         "title_desc" => $title_desc = json_encode($request->title_desc),
-    //          "description" =>$request->description 
-    //     ]);
-
-    //     if($request->hasFile("images")){
-    //         $files=$request->file("images");
-    //         // dd($id);
-    //         foreach($files as $file){
-    //             $imageName=time().'_'.$file->getClientOriginalName();
-    //             $request["posts_id"]=$id;
-    //             $request["image"]=$imageName;
-    //             $file->move(\public_path("images"),$imageName);
-    //             Image::create($request->all());
-    //         }
-    //     }
-    //     return redirect(('/user/post'))->with("success","updated");
-
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy($id)
     {
-        // dd($id);
+        dd($id);
          $posts=Posts::findOrFail($id);
 
          if (File::exists("cover/".$posts->cover)) {

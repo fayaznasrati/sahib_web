@@ -1,5 +1,5 @@
-@extends("layouts.user-dashboard-app")
-@section("user-dashboard-content")
+@extends("layouts.seller-dashboard-app")
+@section("seller-dashboard-content")
 
  <!-- Shop Section Start -->
  <div class="section ">
@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
           <div class="card">
-            <h5 class="card-header">Your Posts List</h5>
+            <h5 class="card-header">Product List</h5>
             <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -34,7 +34,7 @@
                    @foreach ($posts as $post )
                     <tr style="font-size:12px;">
                         <td>{{$i++}}</td>
-                        <td><img src="../cover/{{$post->cover}}" alt="post image" style="height: auto; width:50px"></td>
+                        <td><img src="../../../cover/{{$post->cover}}" alt="{{$post->name}}" style="height: auto; width:50px"></td>
                         <td>{{$post->name}}</td>
                         <td>{{$post->new_price}}</td>
                         <td>
@@ -76,10 +76,10 @@
                           </small>
                         </td>
                         <td class="data-table-action">
-                          <a href="post/{{$post->id}}/edit" data-toggle="tooltip" data-placement="left" title="Edit Item"><i class="pe-7s-pen"></i></a>
-                          <a href="post/{{$post->id}}"data-toggle="tooltip" data-placement="left" title="View Item"><i class="pe-7s-look"></i></a>
+                          <a href="product/{{$post->id}}/edit" data-toggle="tooltip" data-placement="left" title="Edit Item"><i class="pe-7s-pen"></i></a>
+                          <a href="product/{{$post->id}}"data-toggle="tooltip" data-placement="left" title="View Item"><i class="pe-7s-look"></i></a>
               
-                          <form action="/user/post/{{ $post->id }}" method="post">
+                          <form action="product/{{ $post->id }}" method="post">
                             @csrf
                             @method('delete')
                            <button id="deleteBtn" type="submit" onclick="return confirm('Are you sure?');" >
