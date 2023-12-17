@@ -7,7 +7,7 @@
         <div class="breadcrumb-area bg-light">
             <div class="container-fluid">
                 <div class="breadcrumb-content text-center">
-                    <h1 class="title"> Register As Buyer</h1>
+                    <h1 class="title"> Register As Seller</h1>
                     <ul>
                         <li>
                             <a href="index.html">Home </a>
@@ -72,7 +72,7 @@
                         <!-- Login Title & Content End -->
 
                         <!-- Form Action Start -->
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register-seller') }}">
                             @csrf
 
 
@@ -130,8 +130,8 @@
                             </div>
                             <!-- Input Password End -->
 
-                            {{-- <!-- Checkbox & Subscribe Label Start -->
-                            <div class="single-input-item mb-3">
+                            <!-- Checkbox & Subscribe Label Start -->
+                            {{-- <div class="single-input-item mb-3">
                                 <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                     <div class="remember-meta mb-3">
                                         <div class="custom-control custom-checkbox">
@@ -143,9 +143,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- Checkbox & Subscribe Label End -->
-                            <div id="seller-phone-whatsapp">
+                            {{-- <div id="seller-phone-whatsapp">
                                 <!-- Input phone Or Username Start -->
                                 <div class="single-input-item mb-3">
                                     <input type="text" placeholder="Your Phone Number">
@@ -177,8 +177,9 @@
                                 </div>
                                 <!-- Input WhatsApp Number Or Username End -->
                             </div> --}}
-                            <br><br>
+
                             <!-- Checkbox & Subscribe Label Start -->
+                            <br><br>
                             <div class="single-input-item mb-3">
                             <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                 <div class="remember-meta mb-3">

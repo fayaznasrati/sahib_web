@@ -4,7 +4,7 @@
             <div class="thumb">
                 {{-- <a href="{{ route('show-single-post', ['id' => $post->id]) }}" target="_blank" rel="Category Name">{{$post->name}}</a></li> --}}
 
-                <a href="{{ route('show-single-post', ['id' => $post->id]) }}"  class="image">
+                <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}"  class="image">
                     <img src="../cover/{{$post->cover}}" alt="Product" />
                 </a>
                 <div class="actions">
@@ -20,8 +20,8 @@
                 <span id="price">
                      <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">  {{$post->new_price}}
                 </span>
-                <h5 class="title"><a href="{{ route('show-single-post', ['id' => $post->id]) }}" >{{$post->name}}</a></h5>
-                <h4 class="sub-title"><a href="{{ route('show-single-post', ['id' => $post->id]) }}" >{!! Str::limit($post->note, 30) !!}</a></h4>
+                <h5 class="title"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" >{{$post->name}}</a></h5>
+                <h4 class="sub-title"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" >{!! Str::limit($post->note, 30) !!}</a></h4>
             </div>
         </div>
     </div>

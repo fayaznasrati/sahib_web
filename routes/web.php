@@ -10,6 +10,7 @@ use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\SubscribersController;
 use App\Http\Controllers\TearmAndCondationController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SellerBrandController;
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
     Route::resource('crud', CRUDController::class);
     Route::resource('post', PostsController::class);
+    route::get('/dashboard', function(){
+    dd('djad');
+    });
 
     Route::get('/seller/brand/product/{id}/edit', [App\Http\Controllers\PostsController::class, 'edit'])->name('edit-products');
     Route::get('/seller/brand/product/{id}', [App\Http\Controllers\PostsController::class, 'show'])->name('show-products');
@@ -57,6 +61,9 @@ Route::get('/get-sub-category', [App\Http\Controllers\CategoryController::class,
 Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class, 'deletecover']);
 Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
 Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
+Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getTegisterSeller'])->name('get-register-seller');
+Route::post('/register/seller', [App\Http\Controllers\UserViewController::class, 'registerSeller'])->name('register-seller');
+Route::get('/ask-to-register', [App\Http\Controllers\UserViewController::class, 'askToRagisterPage'])->name('ask-to-register');
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::get('/user/seller/dashboard', [App\Http\Controllers\UserViewController::class, 'sellerDashboard'])->name('seller-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');
@@ -64,13 +71,17 @@ Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewCont
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
 Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
 Route::get('/show-all-subcategory-posts/{id}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
-Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
+// Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
+Route::get('/show-single-post/{subMenu}/{slug}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
 Route::post('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
 Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
 Route::get('/seller/brand/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
 
+// Route::get('/show-single-post/{subMenu}/{id}', function($subMenu, $id){
 
+//     dd($subMenu);
+// });
 
 // Route::fallback(function () {
 //     return redirect('/');

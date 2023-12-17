@@ -30,7 +30,7 @@
                         <a href="/user/post/create"><span class="ad-Button">Create Ads</span></a>
                         @guest
                         <a href="/login">login</a>
-                        <a href="/register">Register</a></p>
+                        <a href="/ask-to-register">Register</a></p>
                         @else
                         Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
@@ -344,10 +344,11 @@
                     <!-- Single Cart Product Start -->
                     <div class="single-cart-product">
                         <div class="cart-product-thumb">
-                            <a href="/show-single-post/{{$wish->posts->id}}"><img src="../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
+                             <a href="/show-single-post/{{$wish->user->name}}/{{$wish->posts->slug}}"><img src="../../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
                         </div>
                         <div class="cart-product-content">
-                            <h3 class="title"><a href="/show-single-post/{{$wish->posts->id}}">{{$wish->posts->name}}</a></h3>
+                            
+                            <h3 class="title"><a href="/show-single-post/{{$wish->user->name}}/{{$wish->posts->slug}}">{{$wish->posts->name}}</a></h3>
                             <span class="price">
                                 <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->new_price}} </span>
                             <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->old_price}}</span>

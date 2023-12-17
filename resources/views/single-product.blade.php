@@ -36,8 +36,8 @@
                             <div class="swiper-wrapper popup-gallery">
                                 @if (count($post->images)>0)
                                 @foreach ($post->images as $img)
-                                <a class="swiper-slide w-100" href="/images/{{ $img->image }}">
-                                   <img class="w-100" src="/images/{{ $img->image }}" alt="Product" style="max-height: 500px">
+                                <a class="swiper-slide w-100" href="images/{{ $img->image }}">
+                                   <img class="w-100" src="../../../images/{{ $img->image }}" alt="Product" style="max-height: 500px">
                                </a>
                                 @endforeach
                                 @endif
@@ -110,9 +110,9 @@
                                 <div class="user-profile">
                                     <div class="profile-header">
                                         @if ($post->user->dp_image != null)
-                                           <img src="../dp_images/{{$post->user->dp_image}}" alt="Profile Image">
+                                           <img src="../../dp_images/{{$post->user->dp_image}}" alt="Profile Image">
                                             @else
-                                            <img src="../assets/img/avatars/no-user-img.png" alt="user-avatar" class="d-block rounded " height="100" width="100" id="uploadedAvatar">
+                                            <img src="../../assets/img/avatars/no-user-img.png" alt="user-avatar" class="d-block rounded " height="100" width="100" id="uploadedAvatar">
                                         @endif
                                         <br>
                                        <div style="margin-top: 25px; padding-left:5px" > Company:</div>
@@ -135,7 +135,10 @@
                                           $sellerb = App\Models\SellerBrand::where('user_id', $user->id)->latest()->first()
                                       @endphp
         
-                                    <a href="/seller/brand/{{$sellerb->slug}}"> {{$sellerb->name}}</a>
+                                          @if ($sellerb != null)
+                                       <a href="/seller/brand/{{$sellerb->slug}}"> {{$sellerb->name}}</a>
+                                              
+                                          @endif
                                       </div>
                                  
                                   </div>
@@ -247,17 +250,17 @@
                                     <div class="swiper-wrapper" >
     
                                         <!-- Single Brand Logo Start -->
-                                        @foreach ($posts as $ps )
+                                        @foreach ($posts as $post )
                                         <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
                                         <div class="polaroid">
-                                    <a href="/show-single-post/{{$ps->id}}">
-                                            <img src="../cover/{{$ps->cover}}" alt="Norway" style="width:100%">
+                                    <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                            <img src="../../cover/{{$post->cover}}" alt="Norway" style="width:100%">
                                             <div class="container ">
-                                            <span id="price"> <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="AFG" >{{$ps->new_price}}
+                                            <span id="price"> <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="AFG" >{{$post->new_price}}
                                             </span>
                                             </span><br>
-                                            <span class="desc">{{$ps->name}}</span><br>
-                                            <small class="address"> {!! Str::limit($ps->description,30)!!} </small>
+                                            <span class="desc">{{$post->name}}</span><br>
+                                            <small class="address"> {!! Str::limit($post->description,30)!!} </small>
                                             </div>
                                         </div>
                                     </a>

@@ -43,29 +43,29 @@
                         <div class="brand-logo-carousel">
                             <div class="swiper-container" style="padding-bottom: 15px">
                               
-                                <div class="swiper-wrapper" >
-  
-                                    <!-- Single Brand Logo Start -->
-                                    @foreach ($residentForRent as $post ) 
-                                    <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
-                                      <div class="polaroid"><a href="{{ route('show-single-post', ['id' => $post->id]) }}">
-                                        <img src="../cover/{{$post->cover}}" alt="{{$post->cover}}" style="width:100%">
-                                        <div class="container ">
-                                          <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
-                                           </span>
-                                           </span><br>
-                                          
-                                           <span class="desc">{{$post->name}}</span><br>
-                                           <p>{!! Str::limit($post->note, 50) !!} </p>
-                                         {{-- <small class="address">{!! Str::limit($post->description, 50) !!} </small> --}}
-                                         {{-- {{ Str::limit($string, 100) }} --}}
-                                        </div>
-                                      </div></a>
+                              <div class="swiper-wrapper" >
+      
+                                <!-- Single Brand Logo Start -->
+                                @foreach ($residentForRent as $post ) 
+                                <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
+                                  <div class="polaroid"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                    <img src="../cover/{{$post->cover}}" alt="{{$post->cover}}" style="width:100%">
+                                    <div class="container ">
+                                      <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
+                                       </span>
+                                       </span><br>
+                                        <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                        {{$post->name}}</a></span><br>
+                                       {{-- <span class="desc">{{$post->name}}</span><br> --}}
+                                     <p>{!! Str::limit($post->note, 50) !!} </p>
+                                     {{-- {{ Str::limit($string, 100) }} --}}
                                     </div>
-                                    <!-- Single Brand Logo End -->
-                                    @endforeach
-  
+                                  </div></a>
                                 </div>
+                                <!-- Single Brand Logo End -->
+                                @endforeach
+
+                            </div>
                             </div>
                         </div>
                         <!-- Brand Logo Wrapper End -->
@@ -90,28 +90,29 @@
                             <div class="brand-logo-carousel">
                                 <div class="swiper-container" style="padding-bottom: 15px">
                                   
-                                    <div class="swiper-wrapper" >
+                                  <div class="swiper-wrapper" >
       
-                                        <!-- Single Brand Logo Start -->
-                                        @foreach ($residentForSell as $post ) 
-                                        <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
-                                          <div class="polaroid"><a href="{{ route('show-single-post', ['id' => $post->id]) }}">
-                                            <img src="../cover/{{$post->cover}}" alt="{{$post->cover}}" style="width:100%">
-                                            <div class="container ">
-                                              <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
-                                               </span>
-                                               </span><br>
-                                              
-                                               <span class="desc">{{$post->name}}</span><br>
-                                               <p>{!! Str::limit($post->note, 50) !!} </p>
-                                             {{-- {{ Str::limit($string, 100) }} --}}
-                                            </div>
-                                          </div></a>
+                                    <!-- Single Brand Logo Start -->
+                                    @foreach ($residentForSell as $post ) 
+                                    <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
+                                      <div class="polaroid"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                        <img src="../cover/{{$post->cover}}" alt="{{$post->cover}}" style="width:100%">
+                                        <div class="container ">
+                                          <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
+                                           </span>
+                                           </span><br>
+                                            <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                            {{$post->name}}</a></span><br>
+                                           {{-- <span class="desc">{{$post->name}}</span><br> --}}
+                                         <p>{!! Str::limit($post->note, 50) !!} </p>
+                                         {{-- {{ Str::limit($string, 100) }} --}}
                                         </div>
-                                        <!-- Single Brand Logo End -->
-                                        @endforeach
-      
+                                      </div></a>
                                     </div>
+                                    <!-- Single Brand Logo End -->
+                                    @endforeach
+  
+                                </div>
                                 </div>
                             </div>
                             <!-- Brand Logo Wrapper End -->
@@ -124,7 +125,7 @@
         <!-- residentForSell End -->
        
     
-       <!-- motors Start -->
+     <!-- motors Start -->
      @if (count($motors)>=1)
          <div class="section">
             <div class="container">
@@ -141,14 +142,15 @@
                                         <!-- Single Brand Logo Start -->
                                         @foreach ($motors as $post ) 
                                         <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
-                                          <div class="polaroid"><a href="{{ route('show-single-post', ['id' => $post->id]) }}">
+                                          <div class="polaroid"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
                                             <img src="../cover/{{$post->cover}}" alt="{{$post->cover}}" style="width:100%">
                                             <div class="container ">
                                               <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
                                                </span>
                                                </span><br>
-                                              
-                                               <span class="desc">{{$post->name}}</span><br>
+                                                <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                                {{$post->name}}</a></span><br>
+                                               {{-- <span class="desc">{{$post->name}}</span><br> --}}
                                              <p>{!! Str::limit($post->note, 50) !!} </p>
                                              {{-- {{ Str::limit($string, 100) }} --}}
                                             </div>

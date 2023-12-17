@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Menu;
 use App\Models\Slider;
 use App\Models\User;
 use App\Models\AfgCity;
 use App\Models\Posts;
+use App\Models\TearmAndCondation;
 use App\Models\SubMenu;
 use App\Models\SellerBrand;
 use App\Models\Wishlist;
@@ -72,11 +75,11 @@ class UserViewController extends Controller
         // dd($posts);
     }
 
-    public function showSinglePost($id){
+    public function showSinglePost($subMenu, $slug){
         // dd($id);
         $Url = url()->current();
         $currentUrl=urlencode($Url);
-        $post = Posts::findOrFail($id);
+        $post = Posts::where('slug', $slug)->firstOrFail();
         $userx = User::get();
         $posts = Posts::get()->where('sub_menu_id', $post->sub_menu_id)->where('status',1)->take(10);
         return view('single-product', compact('userx','post','currentUrl','posts'));
@@ -145,9 +148,62 @@ class UserViewController extends Controller
     //     return view('auth.login');
     // }
 
-    // public function userRegister()
+    public function askToRagisterPage()
+    {
+        return view('auth.ask');
+    }
+    public function getTegisterSeller()
+    {
+        $tearms = TearmAndCondation::where('tearm_on', 'register')->orderBy('updated_at', 'desc')->take(1)->get();
+
+        return view('auth.seller-register', compact('tearms'));
+    }
+
+    protected function registerSeller(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:custom_users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // if ($validator->fails()) {
+        //     return redirect('custom-register')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+
+        // Login the user after registration
+        auth()->login($user);
+        return redirect('/user/seller/dashboard')->with('success', 'Registration successful!'); // Replace '/dashboard' with the actual URL
+
+        // return redirect('/dashboard'); // Redirect to dashboard after successful registration
+    }
+         
+    // public function registerSeller(Request $request)
     // {
-    //     return view('auth.register');
+
+    // //    dd($request->all());
+    //     $validatedData = $request->validate([
+    //         'name' => 'required',
+    //         'email' => 'required|email|unique:users',
+    //         'password' => 'required|min:8',
+    //     ]);
+
+    //     $user = User::create([
+    //         'name' => $validatedData['name'],
+    //         'email' => $validatedData['email'],
+    //         'password' => Hash::make($validatedData['password']),
+    //     ]);
+
+    //     // Optionally, redirect to another page after successful registration
+    //     return redirect('/user/seller/dashboard')->with('success', 'Registration successful!'); // Replace '/dashboard' with the actual URL
     // }
 
     public function categoryList()

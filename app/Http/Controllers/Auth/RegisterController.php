@@ -50,13 +50,16 @@ class RegisterController extends Controller
         return view('auth.register', compact('tearms'));
     }
 
+
+
+
     /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data, )
     {
 
         return Validator::make($data, [  
@@ -64,10 +67,6 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed']         
         ]);
-
-      
-
-        
        
     }
 
@@ -77,6 +76,11 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+
+ 
+
+    
+
     protected function create(array $data)
     {
       
@@ -89,28 +93,41 @@ class RegisterController extends Controller
             $create =  User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'mobile' => $data['mobile'],
-                'whatsapp' => $data['whatsapp'],
                 'password' => Hash::make($data['password']),
             ]);
         }else{
             $create =  User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'mobile' => $data['mobile'],
-                'whatsapp' => $data['whatsapp'],
                 'password' => Hash::make($data['password']),
             ]);
 
         }
 
         return $create;
+        
+     }
 
-        // $userid = User::find(Auth::id());;
-        // dd($userid);
+    //  public function registerSeller(Request $request)
+    //  {
+ 
+    //  //    dd($request->all());
+    //      $validatedData = $request->validate([
+    //          'name' => 'required',
+    //          'email' => 'required|email|unique:users',
+    //          'password' => 'required|min:8',
+    //      ]);
+ 
+    //      $user = User::create([
+    //          'name' => $validatedData['name'],
+    //          'email' => $validatedData['email'],
+    //          'password' => Hash::make($validatedData['password']),
+    //      ]);
+ 
+    //      // Optionally, redirect to another page after successful registration
+    //      return redirect('/user/seller/dashboard')->with('success', 'Registration successful!'); // Replace '/dashboard' with the actual URL
+    //  }
+ 
 
-
-     
-    }
 
 }
