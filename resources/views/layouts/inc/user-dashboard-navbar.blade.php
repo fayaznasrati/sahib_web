@@ -70,9 +70,10 @@
                     <div class="col-xl-8 d-none d-xl-block">
                         <div class="main-menu position-relative">
                             <ul>
-                                <li > <a href="/"><span>Home</span></a></li>
-                                <li><a href="/user/post"> <span>My Post List</span></a></li>
-                                <li><a class="{{ request()->is(url('/user/post/create')) ? 'active' : '' }}"  href="{{url('/user/post/create')}}"> <span>Create New Post</span></a></li>
+                                {{-- <li > <a href="/"><span>Home</span></a></li> --}}
+                                <li><a href="/user/my-wishlist"> <span>My Wishlit</span></a></li>
+                                <li><a href="/user/my-shopping-cart"> <span>My Shopping Cart</span></a></li>
+                                {{-- <li><a class="{{ request()->is(url('/user/post/create')) ? 'active' : '' }}"  href="{{url('/user/post/create')}}"> <span>Create New Post</span></a></li> --}}
                                 {{-- <li><a href="/user/crud"> <span>CRUD</span></a></li> --}}
                                 <li><a href="/user/dashboard"> <span>My Profile</span></a></li>
                             </ul>

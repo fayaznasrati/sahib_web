@@ -44,6 +44,8 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('/seller/create/brand/products', [App\Http\Controllers\PostsController::class, 'create'])->name('seller-create-products');
     Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
     Route::post('/wishlist/remove', [App\Http\Controllers\UserViewController::class,'removeFromWishlist'])->name('wishlist.remove');
+    Route::get('/my-wishlist', [App\Http\Controllers\UserViewController::class,'myWishlist'])->name('my-wishlist');
+    Route::get('/my-shopping-cart', [App\Http\Controllers\UserViewController::class,'myShoppingCart'])->name('my-shopping-cart');
     Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
     Route::get('/all', 'App\Http\Controllers\CRUDController@all');
@@ -76,12 +78,9 @@ Route::get('/show-single-post/{subMenu}/{slug}', [App\Http\Controllers\UserViewC
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
 Route::post('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
 Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
-Route::get('/seller/brand/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
+Route::get('seller/comapany-info/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
+Route::get('/admin/dashboard', [App\Http\Controllers\UserViewController::class, 'adminDashboard'])->name('admin.dashboard');
 
-// Route::get('/show-single-post/{subMenu}/{id}', function($subMenu, $id){
-
-//     dd($subMenu);
-// });
 
 // Route::fallback(function () {
 //     return redirect('/');
@@ -127,7 +126,8 @@ Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::cl
 $controller_path = 'App\Http\Controllers';
 
 // Main Page Route
-Route::get('/admin/dashboard', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
+// Route::get('/admin/dashboard', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
+// Route::get('/admin/dashboard', $controller_path . '\dashboard\Analytics@index')->name('admin.dashboard');
 
 // layout
 Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');

@@ -34,7 +34,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="text-muted mb-1">Logo Image JPG, GIF or PNG. Max size of 800K</label>
                                     <input type="file" id="upload" name="brand_logo"
-                                    class="account-file-input"  accept="image/png, image/jpeg" />
+                                    class="form-control"  accept="image/png, image/jpeg" />
                                     {{-- <div class="button-wrapper">
                                         <label for="upload" class="btn btn-primary me-2 " tabindex="0">
                                             <span class="d-none d-sm-block">Upload Your Brand Logo</span>
@@ -53,7 +53,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="text-muted mb-1">Brand Gov Certificate JPG, GIF or PNG. Max size of 800K</label>
                                     <input type="file" id="upload" name="brand_certificate_img"
-                                                class="account-file-input"   accept="image/png, image/jpeg" />
+                                    class="form-control"   accept="image/png, image/jpeg" />
                                     {{-- <div class="button-wrapper">
                                         <label for="upload" class="btn btn-primary me-2 " tabindex="0">
                                             <span class="d-none d-sm-block">Upload Your Brand Gov Certificate Image</span>
@@ -102,14 +102,19 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-12 offset-md-2">
-                                  <label for="name" class="form-label">Your Brand Privacey And Policy </label>
-                                  <textarea class="form-control" type="text" id="brand_polices" name="brand_polices" autofocus>
+                                  <label for="name" class="form-label">Write More About Your Brand  </label>
+                                  <textarea class="form-control" type="text" id="about" name="about" autofocus>
                                   </textarea>
                               </div>
+                              <div class="mb-3 col-md-12 offset-md-2">
+                                <label for="name" class="form-label">Your Brand Privacey And Policy </label>
+                                <textarea class="form-control" type="text" id="brand_polices" name="brand_polices" autofocus>
+                                </textarea>
+                            </div>
                               <br>
-                              <button class="btn btn-info  btn-sm" type="submit" >
-                                Submit
-                               </button>
+                              <center> <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                                <button type="submit" id="submit" name="submit" class="btn btn-dark btn-hover-primary rounded-0">Submit</button>
+                                </div>  </center>
                                 
                             </div>
                         </div>

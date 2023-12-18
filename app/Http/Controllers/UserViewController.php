@@ -24,6 +24,12 @@ class UserViewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function adminDashboard()
+    {
+        return view('content.dashboard.dashboards-analytics');
+    }
+
+
     public function index()
     {
         $data = null;
@@ -105,6 +111,8 @@ class UserViewController extends Controller
         return response()->json(['error' => 'Product already added to wishlist']);
     }
 
+   
+
     // Add the post to the wishlist
 
     $wishlist = new Wishlist;
@@ -114,6 +122,17 @@ class UserViewController extends Controller
     Alert::success('Success', 'product added to wishlist Successfully');
 
         return response()->json(['success' => true]);
+    }
+
+    public function myWishlist(){
+        $wishlists = Wishlist::where('user_id',Auth::id())->get();
+        return view('my-wishlist',compact('wishlists'));
+    }
+
+    public function myShoppingCart(){
+        $wishlists = Wishlist::where('user_id',Auth::id())->get();
+        
+        return view('my-shopping-cart',compact('wishlists'));
     }
 
     public function removeFromWishlist(Request $request)
@@ -161,23 +180,27 @@ class UserViewController extends Controller
 
     protected function registerSeller(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:custom_users',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // if ($validator->fails()) {
-        //     return redirect('custom-register')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
-
+        if ($validator->fails()) {
+            return redirect('get-register-seller')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $sellerRole = 2;
         $user = User::create([
             'name' => $request->input('name'),
+            'role' => $sellerRole, 
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
+
+        // dd($user);
 
         // Login the user after registration
         auth()->login($user);
@@ -246,8 +269,10 @@ class UserViewController extends Controller
     public function sellerBrandInfo($slug)
     {
         $brand = SellerBrand::where('slug', $slug)->first();
+        $posts = Posts::get();
+        // dd($posts);
 
-        dd($brand);
+        return view('seller-brand-info', compact('brand','posts'));
     }
 
     /**

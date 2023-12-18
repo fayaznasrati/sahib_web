@@ -78,7 +78,7 @@
 
                             <!-- Input First Name Start -->
                             <div class="single-input-item mb-3">
-                                {{-- <input type="text" placeholder="First Name"> --}}
+                                <input type="text" name="role" hidden value="2">
                                 <input id="name" placeholder="Full Name" type="text"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                     value="{{ old('name') }}" required autocomplete="name" autofocus>

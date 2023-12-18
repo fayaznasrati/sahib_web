@@ -1,4 +1,6 @@
 @extends("layouts.app")
+
+@section('title', 'index')
 @section("content")
 
 @include('layouts.inc.hero2-slider')

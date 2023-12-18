@@ -1,5 +1,7 @@
 @extends("layouts.app")
 @section("content")
+@section('title', $post->name)
+
     <!-- Breadcrumb Section Start -->
     <div class="section">
 
@@ -13,6 +15,7 @@
                             <a href="/index">Home </a>
                         </li>
                         <li class="active"> Single Product</li>
+                        <li class="active"> {{$post->name}}</li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +139,7 @@
                                       @endphp
         
                                           @if ($sellerb != null)
-                                       <a href="/seller/brand/{{$sellerb->slug}}"> {{$sellerb->name}}</a>
+                                       <a href="/seller/comapany-info/{{$sellerb->slug}}"> {{$sellerb->name}}</a>
                                               
                                           @endif
                                       </div>

@@ -1,5 +1,6 @@
 @extends("layouts.app")
 @section("content")
+@section('title', 'Category list')
 
  <!-- Shop Section Start -->
     <div class="section section-margin">
