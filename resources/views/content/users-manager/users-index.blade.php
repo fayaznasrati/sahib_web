@@ -83,6 +83,7 @@
             <th>User ID</th>
             <th>Roule</th>
             <th>DP Profile</th>
+            <th>Brand</th>
             <th>Name</th>
             <th>Email</th>
            <th>Mobile</th>
@@ -103,7 +104,11 @@
             
             <td>{{$i++}}</td>
             <td>{{$user->id}}</td>
-            <td>{{$user->role == 1? "Admin": "User"}}</td>
+            <td>@if ($user->role == 1) <span style="color: red">Admin</span>
+                @elseif ($user->role == 2) <span style="color: green">Seller</span>
+                @else Buyer
+               @endif
+              {{-- {{$user->role == 1? "Admin": "Buyer"}}</td> --}}
             <td>
               @if ($user->dp_image==null)
               <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: auto; width:40px"/>
@@ -112,6 +117,15 @@
               @endif
               </td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$user->name}}</strong></td>
+            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+              @if ($user->seller_brand != null)
+              <a href="admin/user-brand-info/{{$user->seller_brand->slug}}">{{$user->seller_brand->name}}</a>
+              @else
+              no brand yet
+              @endif
+              {{-- {{$user->seller_brand != null ?$user->seller_brand->name:'No_Brand'}} --}}
+
+            </strong></td>
             <td>{{$user->email}}</td>
             <td>{{$user->mobile != null ? $user->mobile: "No Mobile" }}</td>
              {{--<td>{{$user->whatsapp != null ? $user->whatsapp: "No WhatsApp"}}</td>

@@ -110,7 +110,7 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody class="table-border-bottom-0">
+<tbody class="table-border-bottom-0">
             @php $i = 1 @endphp
          @foreach ($posts as $post )
           <tr>
@@ -180,7 +180,7 @@
             </td>
           </tr>
           @endforeach
-        </tbody>
+  </tbody>
       </table>
 
     </div>

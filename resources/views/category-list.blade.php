@@ -267,7 +267,7 @@
                     <!--shop toolbar end-->
 
                     <!-- Shop Wrapper Start -->
-                    <div class="row shop_wrapper grid_4">
+                    {{-- <div class="row shop_wrapper grid_4">
                         @include('alert')
                         <div class="row">
                         @foreach ($posts as $post)
@@ -277,7 +277,46 @@
                         @endforeach
 
                     </div>
-                     </div>
+                     </div> --}}
+                     {{-- <div class="col-lg-8 col-12 order-1 order-lg-2"> --}}
+
+                        <div class="row mb-n8">
+                            @include('alert') 
+
+                            @foreach ($posts as $post)
+
+                            @include("layouts.inc.product-inner")
+
+                            @endforeach
+                        </div>
+    
+                        <div class="row mb-2 mb-lg-0">
+    
+                            <!-- Pagination Start -->
+                            <div class="col aos-init" data-aos="fade-up" data-aos-delay="300">
+                                <nav class="mt-8 pt-8 border-top d-flex justify-content-center">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Pagination End -->
+    
+                        </div>
+    
+                    </div>
                     <!-- Shop Wrapper End -->
 
                     <!--shop toolbar start-->

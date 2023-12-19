@@ -62,8 +62,8 @@ class User extends Authenticatable
 
     public function seller_brand()
     {
-        // return $this->hasOne(SellerBrand::class);
-        return $this->hasOne('seller_brands', 'user_id', 'id');
+        return $this->hasOne(SellerBrand::class);
+        // return $this->hasOne(SellerBrand::class, 'user_id', 'id');
     }
     public function brand()
     {

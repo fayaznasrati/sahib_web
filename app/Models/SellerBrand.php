@@ -34,5 +34,12 @@ class SellerBrand extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function sellerBrandInfo($slug)
+    {
+        $brand = SellerBrand::where('slug', $slug)->first();
+        $posts = Posts::get();
+        return back()->with('posts',$posts)->with('brand',$brand);
+        // return view('seller-brand-info', compact('brand','posts'));
+    }
   
 }

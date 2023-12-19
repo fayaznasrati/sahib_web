@@ -118,6 +118,7 @@ Route::put('/admin-update-user-profile/{id}', [App\Http\Controllers\UserManagerC
 Route::POST('/admin-user-status', [App\Http\Controllers\UserManagerController::class, 'adminUserStatus'])->name('admin-user-status');
 Route::delete('/admin-delete-user-account/{id}', [App\Http\Controllers\UserManagerController::class, 'deleteUserAccount'])->name('delete-user-account');
 Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::class, 'filterUsersManager'])->name('admin-user-filter');
+Route::get('admin/user-brand-info/{slug}', [App\Http\Controllers\UserManagerController::class, 'userBrandInfo'])->name('user-brand-info');
 
 
 

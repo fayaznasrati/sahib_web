@@ -266,11 +266,12 @@ class UserViewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function sellerBrandInfo($slug)
     {
         $brand = SellerBrand::where('slug', $slug)->first();
         $posts = Posts::get();
-        // dd($posts);
+        dd($posts);
 
         return view('seller-brand-info', compact('brand','posts'));
     }

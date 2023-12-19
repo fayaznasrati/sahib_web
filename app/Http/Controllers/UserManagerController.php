@@ -12,6 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Posts;
+use App\Models\SellerBrand;
 use App\Models\AfgCity;
 class UserManagerController extends Controller
 {
@@ -25,7 +26,13 @@ class UserManagerController extends Controller
 
         return view('content.users-manager.users-index',compact('users'));  
     }
+    public function userBrandInfo($slug){
+        // dd($slug);
+        $brand = SellerBrand::where('slug', $slug)->first();
+        // $posts = Posts::get();
+        return view('content.users-manager.user-brand-info', compact('brand'));
 
+    }
     public function filterUsersManager(Request $request){
 
         // $varstartDate ="2023-01-01"; 
