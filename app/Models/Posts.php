@@ -80,13 +80,13 @@ class Posts extends Model
         ]);
 
         $slug = Str::slug($validatedData['name']);
-        $originalSlug = $slug;
-        $count = 1;
+        // $originalSlug = $slug;
+        // $count = 1;
 
-        while (Posts::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count;
-            $count++;
-        }
+        // while (Posts::where('slug', $slug)->exists()) {
+        //     $slug = $originalSlug . '-' . $count;
+        //     $count++;
+        // }
      $post = Posts::findOrFail($id);
      if($request->hasFile("cover")){
          if (File::exists("cover/".$post->cover)) {

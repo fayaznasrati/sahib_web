@@ -14,6 +14,11 @@ class AfgCity extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function sellerBrand()
+    {
+        return $this->belongsTo(SellerBrand::class);
+    }
 }
 
     

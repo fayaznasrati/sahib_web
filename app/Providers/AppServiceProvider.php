@@ -33,10 +33,12 @@ class AppServiceProvider extends ServiceProvider
   {
   
     $wishlists = Wishlist::where('user_id',Auth::id())->get();
-    $menus = Menu::orderBy('id', 'desc')->take(9)->get();
+    $menus1_4 = Menu::orderBy('id', 'desc')->limit(4)->get();
+    $menus4_8 = Menu::orderBy('id', 'desc')->offset(4)->limit(4)->get();
     $submenus = SubMenu::All();
-    View::share('submenus', $submenus,'menus',$menus );
-    View::share('menus',$menus );
+    View::share('submenus', $submenus );
+    View::share('menus1_4',$menus1_4 );
+    View::share('menus4_8',$menus4_8 );
     
   }
 }

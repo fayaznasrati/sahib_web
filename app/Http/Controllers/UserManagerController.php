@@ -16,20 +16,19 @@ use App\Models\SellerBrand;
 use App\Models\AfgCity;
 class UserManagerController extends Controller
 {
-    /**
+
+    
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function usersManager(){
         $users = User::all();
-
         return view('content.users-manager.users-index',compact('users'));  
     }
     public function userBrandInfo($slug){
-        // dd($slug);
         $brand = SellerBrand::where('slug', $slug)->first();
-        // $posts = Posts::get();
         return view('content.users-manager.user-brand-info', compact('brand'));
 
     }
@@ -77,6 +76,14 @@ class UserManagerController extends Controller
         $user=User::where('id',$userId)->first();
         $user->toggleIsActive()->save();
         return response()->json(['success' => true])->with('success',"status Updated");
+    }
+
+    public function adminBrandStatus(Request $request)
+    {
+        $brandId = $request->input('id');
+        $brand=SellerBrand::where('id',$brandId)->first();
+        $brand->toggleIsActive()->save();
+        return response()->json(['success' => true]);
     }
 
 

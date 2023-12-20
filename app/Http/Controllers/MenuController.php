@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
 class MenuController extends Controller
@@ -50,23 +51,33 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             
+            
         ]);
+
+        // dd($request->all());
+        $slug = Str::slug($validatedData['name']);
+
+        // dd($slug);
         if($request->hasFile("icon")){
             $file=$request->file("icon");
             $icon=time().'_'.$file->getClientOriginalName();
             $file->move(\public_path("menu-icon/"),$icon);
             $thePuuid = "icon-".time();
+        }else{
+            $icon = 'noimage.png';
+        }
         $menu = new  Menu([
             "name" => $request->name,
-            "slug" => $request->slug,
+            "slug" => $slug.'-'.time(),
             "url" => $request->url,
             "icon"=>$icon
         ]);
+        // dd($menu);
         $menu->save(); 
-    }
+    
         $request->session()->flash('success', 'Menu created successfully');       
         return redirect()->back();
     }

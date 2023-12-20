@@ -72,7 +72,7 @@ Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewControl
 Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
 Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
-Route::get('/show-all-subcategory-posts/{id}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
+Route::get('/show-all-subcategory-posts/{menu}/{slug}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
 // Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/show-single-post/{subMenu}/{slug}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
@@ -116,6 +116,7 @@ Route::delete('/admin-user-delete/{id}', [App\Http\Controllers\UserManagerContro
 Route::get('/admin-user-edit/{id}', [App\Http\Controllers\UserManagerController::class, 'userEdit'])->name('admin-user-edit');
 Route::put('/admin-update-user-profile/{id}', [App\Http\Controllers\UserManagerController::class, 'updateUserProfile'])->name('update-user-profile');
 Route::POST('/admin-user-status', [App\Http\Controllers\UserManagerController::class, 'adminUserStatus'])->name('admin-user-status');
+Route::POST('/admin-brand-status', [App\Http\Controllers\UserManagerController::class, 'adminBrandStatus'])->name('admin-brand-status');
 Route::delete('/admin-delete-user-account/{id}', [App\Http\Controllers\UserManagerController::class, 'deleteUserAccount'])->name('delete-user-account');
 Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::class, 'filterUsersManager'])->name('admin-user-filter');
 Route::get('admin/user-brand-info/{slug}', [App\Http\Controllers\UserManagerController::class, 'userBrandInfo'])->name('user-brand-info');

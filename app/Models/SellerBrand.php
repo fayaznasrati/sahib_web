@@ -34,12 +34,17 @@ class SellerBrand extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sellerBrandInfo($slug)
+    public function afgcity()
     {
-        $brand = SellerBrand::where('slug', $slug)->first();
-        $posts = Posts::get();
-        return back()->with('posts',$posts)->with('brand',$brand);
-        // return view('seller-brand-info', compact('brand','posts'));
+        return $this->hasMany(AfgCity::class);
+    }
+
+
+
+    public function toggleIsActive()
+    {
+           $this->status = !$this->status;
+           return $this;
     }
   
 }

@@ -74,8 +74,11 @@ class UserViewController extends Controller
     }
 
 
-    public function showAllSubCategoryPosts($id){
-        // dd($id);
+    public function showAllSubCategoryPosts($slug){
+        
+        $subMenu = SubMenu::where('slug', $slug)->get();
+        dd($subMenu);
+
         $posts = Posts::where('sub_menu_id', $id)->where('status',1)->get();
         return view('category-list', compact('posts'));
         // dd($posts);
