@@ -6,7 +6,7 @@
         <div class="blog-single-post-wrapper">
             <div class="blog-thumb">
                 <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}"  class="blog-overlay" >
-                    <img src="../cover/{{$post->cover}}" alt="Product" style="max-height: 180px" />
+                    <img src="../../../cover/{{$post->cover}}" alt="Product" style="max-height: 180px" />
                 </a>
                 <a type="submit"  data-post-id="{{ $post->id }}" class="action wishlist add-to-wishlist"><i class="pe-7s-like"></i></a>
             </div>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("slideruuid")->unique();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->string('url');
             $table->string('slug')->unique();
             $table->longtext('description')->nullable();
             $table->text('note');

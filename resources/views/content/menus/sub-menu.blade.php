@@ -34,7 +34,7 @@
      @csrf
         <div class="form-floating">
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <select id="largeSelect"  name="menu_id" class="form-select form-select-lg">
                   <option>Select Menu</option>
                   @foreach ($menus as $menu )
@@ -53,14 +53,14 @@
                     <div id="floatingInputHelp" class="form-text">Write the name of the menu here</div>
                 </div>
             </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="form-floating">
 
                     <input type="text"  name="slug" value="{{ old('slug', $submenu->slug ?? '') }}" class="form-control" id="floatingInput" placeholder="eg: home-slug" aria-describedby="floatingInputHelp" />
                     <label for="floatingInput">Slug</label>
                     <div id="floatingInputHelp" class="form-text">Write the Slug of the menu here</div>
             </div>
-            </div>
+            </div> --}}
                 <div class="col-md-3">
                     <div class="form-floating">
 
@@ -123,8 +123,13 @@
           @endforeach
         </tbody>
       </table>
+      <br>
+        <!-- Render pagination links -->
+{{ $submenus->links() }}
+<br>
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
 </div>
 @endsection

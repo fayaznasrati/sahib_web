@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use DB;
+use Illuminate\Support\Str;
 class SubmenuController extends Controller
 {
         /**
@@ -16,7 +17,7 @@ class SubmenuController extends Controller
     public function index()
     {
         $menus = Menu::get()->all();   
-        $submenus = SubMenu::get()->all();   
+        $submenus = SubMenu::paginate(20);   
         return view('content.menus.sub-menu',compact('menus','submenus'));
        
     }
@@ -39,13 +40,15 @@ class SubmenuController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+      $validatedData =  $request->validate([
             'name' => 'required',
             
         ]);
+        $slug = Str::slug($validatedData['name']);
+
         $menu = new SubMenu();
         $menu->name = $request->name;
-        $menu->slug = $request->slug;
+        $menu->slug = $slug.'-'.time();
         $menu->url = $request->url;
         $menu->menu_id = $request->menu_id;
         $menu->save(); 
@@ -75,7 +78,7 @@ class SubmenuController extends Controller
         $menu = Menu::find($id);
         $menus = Menu::get()->all(); 
         $submenu = SubMenu::find($id); 
-        $submenus = SubMenu::get()->all(); 
+        $submenus = SubMenu::paginate(20); 
         // dd($submenu);
         return view('content.menus.sub-menu',compact('menu','menus','submenu','submenus'));
     }
@@ -91,12 +94,14 @@ class SubmenuController extends Controller
     {
        
         // dd($request->all());
-        $request->validate([
+       $validatedData = $request->validate([
             'name' => 'required',
         ]);
+        $slug = Str::slug($validatedData['name']);
+
         $subMenu = SubMenu::find($id);
         $subMenu->name = $request->name;
-        $subMenu->slug = $request->slug;
+        $subMenu->slug = $slug.'-'.time();
         $subMenu->url = $request->url;
         $subMenu->menu_id = $request->menu_id;
         $subMenu->update();

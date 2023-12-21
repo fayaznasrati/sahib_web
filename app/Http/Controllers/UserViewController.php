@@ -74,12 +74,13 @@ class UserViewController extends Controller
     }
 
 
-    public function showAllSubCategoryPosts($slug){
+    public function showAllSubCategoryPosts($menu, $slug){
+        // dd($slug);
         
-        $subMenu = SubMenu::where('slug', $slug)->get();
-        dd($subMenu);
+        $subMenu = SubMenu::where('slug', $slug)->firstOrFail();
+        // dd($subMenu->id);
 
-        $posts = Posts::where('sub_menu_id', $id)->where('status',1)->get();
+        $posts = Posts::where('sub_menu_id', $subMenu->id)->where('status',1)->get();
         return view('category-list', compact('posts'));
         // dd($posts);
     }
@@ -274,7 +275,7 @@ class UserViewController extends Controller
     {
         $brand = SellerBrand::where('slug', $slug)->first();
         $posts = Posts::get();
-        dd($posts);
+        // dd($posts);
 
         return view('seller-brand-info', compact('brand','posts'));
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('role')->default(0);   // 0 user, 1 admin 2 sub admin
             $table->string('name');
+            $table->int('status')->default(1);   // 0 in-active, 1 active
             $table->string('dp_image')->nullable();;
             $table->string('mobile')->nullable();
             $table->string('whatsapp')->nullable();

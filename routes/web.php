@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CRUDController;
+use App\Http\Controllers\TopMenuController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\UserViewController;
@@ -91,6 +92,7 @@ Auth::routes();
 // ===============================this is the admin panle routes==========================================================================
 Route::prefix('admin')->group(function () {
 
+Route::resource('topMenus', TopMenuController::class);
 Route::resource('menus', MenuController::class);
 Route::resource('submenus', SubmenuController::class);
 Route::resource('tearms', TearmAndCondationController::class);

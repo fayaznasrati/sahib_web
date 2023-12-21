@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\TopMenu;
 use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -18,7 +19,8 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::get()->all();   
-        return view('content.menus.menu',compact('menus'));
+        $topMenus = TopMenu::get()->all();   
+        return view('content.menus.menu',compact('menus','topMenus'));
        
     }
 
@@ -73,6 +75,7 @@ class MenuController extends Controller
             "name" => $request->name,
             "slug" => $slug.'-'.time(),
             "url" => $request->url,
+            "top_menu_id" => $request->top_menu_id,
             "icon"=>$icon
         ]);
         // dd($menu);
@@ -103,7 +106,8 @@ class MenuController extends Controller
     {
         $menu = Menu::find($id);
         $menus = Menu::get()->all(); 
-        return view('content.menus.menu',compact('menu','menus'));
+        $topMenus = TopMenu::get()->all(); 
+        return view('content.menus.menu',compact('menu','menus','topMenus'));
     }
 
     /**
@@ -126,13 +130,15 @@ class MenuController extends Controller
             $request['icon']=$menu->icon;
    
         }
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
         ]);
+        $slug = Str::slug($validatedData['name']);
         $menu->update([
             "name" => $request->name,
-            "slug" => $request->slug,
+            "slug" => $slug.'-'.time(),
             "url" => $request->url,
+            "top_menu_id" => $request->top_menu_id,
             "icon"=>$menu->icon
         ]);
       

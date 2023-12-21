@@ -4,10 +4,11 @@
 @section("content")
 
 @include('layouts.inc.hero2-slider')
+{{-- @include('layouts.inc.hero-slider') --}}
 
 
 {{-- </div> --}}
-{{-- <div class="section">
+<div class="section onlyOnMobileShow">
     <div class="container">
         <h4 id="popular-categories-title">Popular Categories</h4>
         <div class="row parent-popular-category">
@@ -20,9 +21,9 @@
                      <div class="categroy-name-list">
                    @foreach ($menu->submenu as $submenu)
                     <li>
-                      <a href="{{ route('show-all-subcategory-posts', ['id' => $submenu->id]) }}" target="_blank" rel="Category Name">{{$submenu->name}}</a></li>
+                      <a  href="/show-all-subcategory-posts/{{$menu->name}}/{{$submenu->slug}}" rel="Category Name">{{$submenu->name}}</a></li>
                     @endforeach                    
-                    <li><a href="{{$menu->url}}" target="_blank" rel="Category Name">See All
+                    <li><a href="{{$menu->url}}"  rel="Category Name">See All
                     <i class="fa fa-arrow-right" id="arrow-right" aria-hidden="true"></i>
                     </a></li>
                     </div>
@@ -31,7 +32,7 @@
             @endforeach
         </div>
     </div>
-</div> --}}
+</div>
 
       <!-- residentForRent Start -->
      @if (count($residentForRent)>=1)

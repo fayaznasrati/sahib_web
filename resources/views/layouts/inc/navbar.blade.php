@@ -62,7 +62,24 @@
                     <div class="col-xl-8 d-none d-xl-block">
                         <div class="main-menu position-relative" style="margin-top: -20px; hight:100px">
                             <ul>
-                                <li class="has-children">
+                                {{-- @foreach ($topMenus as $topMenu )
+                                    
+                                <li>
+                                    {{$topMenu->name}}  
+                                    <ul>                                         
+                                        @foreach ( $topMenu->menu as $menu)
+                                            <b style="color: red">{{$menu->name}}</b>
+
+                                            @foreach ($menu->submenu as $submenu)
+
+                                            <b style="color: green">{{$submenu->name}}</b>
+                                                
+                                            @endforeach
+                                        @endforeach
+                                    </ul>
+                                </li> --}}
+                               
+                                {{-- <li class="has-children">
                                     <a href="#"><span>Home</span> <i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu" style="margin-top: -20px;">
                                         <li><a href="/index">Home </a></li>
@@ -70,14 +87,22 @@
                                         <li><a href="/index">Home </a></li>
                                         <li><a href="/index">Home </a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
+                                @foreach ($topMenus as $topMenu )
+
                                
-                                <li class="has-children position-static" >
-                                    <a href="#"><span>Products A</span> <i class="fa fa-angle-down"></i></a>
+                                @if ($topMenu->menu)
+                                {{-- {{count($topMenu->menu) >0 ? "has" : "not"}} --}}
+                                @if (count($topMenu->menu) >0)
+                                     <li class="has-children position-static" > <a href="#"><span>{{$topMenu->name}}</span> <i class="fa fa-angle-down"></i></a>
+                                @else
+                                    <li><a href="{{$topMenu->url}}"><span>{{$topMenu->name}}</span></a>
+                                @endif
+                               
                                    
                                     
                                     <ul class="mega-menu row-cols-4" style="margin-top: -20px">
-                                        @foreach ($menus1_4 as $menu )
+                                        @foreach ( $topMenu->menu as $menu)
                                         <li class="col">
                                             <h4 class="mega-menu-title">{{$menu->name}} </h4>
                                             <ul class="mb-n2">
@@ -91,7 +116,8 @@
                                     </ul>
                                    
                                 </li>
-                                <li class="has-children position-static" >
+                                @endif
+                                {{-- <li class="has-children position-static" >
                                     <a href="#"><span>Products B</span> <i class="fa fa-angle-down"></i></a>
                                    
                                     
@@ -109,28 +135,11 @@
                                         
                                     </ul>
                                    
-                                </li>
+                                </li> --}}
                                
    
-                                <li><a href="contact.html"><span>Contact</span></a></li>
-                                {{-- @foreach ($menus as $menu )
-                                <div class="col-md-3 popular-category">
-                                    <ul><small class="categroy-name">
-                                           <img src="../../../menu-icon/{{$menu->icon}}" alt="menu icon" style="height: auto; width:20px">
-                                         </small>
-                                        <a href="{{$menu->url}}"> <b class="cat-title">{{$menu->name}}</b></a>
-                                         <div class="categroy-name-list">
-                                       @foreach ($menu->submenu as $submenu)
-                                        <li>
-                                          <a href="{{ route('show-all-subcategory-posts', ['id' => $submenu->id]) }}" target="_blank" rel="Category Name">{{$submenu->name}}</a></li>
-                                        @endforeach                    
-                                        <li><a href="{{$menu->url}}" target="_blank" rel="Category Name">See All
-                                        <i class="fa fa-arrow-right" id="arrow-right" aria-hidden="true"></i>
-                                        </a></li>
-                                        </div>
-                                    </ul>
-                                </div>
-                                @endforeach --}}
+                                {{-- <li><a href="contact.html"><span>Contact</span></a></li> --}}
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -139,20 +148,27 @@
                     <!-- Header Action Start -->
                     <div class="col-xl-2 col-6">
                         <div class="header-actions" style="margin-top: -20px">
-
+                            
                             <!-- User Account Header Action Button Start -->
-                            <a href="/my-profile" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                            @if(Auth::check())
+                            @if (Auth::user()->role == 1)
+                            <a href="/admin/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                            @elseif (Auth::user()->role == 2)
+                            <a href="/user/seller/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                            @else
+                            <a href="/user/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                            @endif
+                            @endif
                             <!-- User Account Header Action Button End -->
                             <!-- Shopping Cart Header Action Button Start -->
                             <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-cart ">
                                 <i class="pe-7s-like"></i>
-                                @php
-                                $wishlists = App\Models\Wishlist::where('user_id',Auth::id())->get();
-                                @endphp
-                                @if (count($wishlists)>=1)
+                            @if (Auth::check())
+                              @if (count($wishlists)>=1)
                                 <span class="header-action-num">{{count($wishlists)}}</span>
-                                    
-                                @endif
+                            @endif
+                            @endif
+                               
                             </a>
                             <!-- Shopping Cart Header Action Button End -->
 
@@ -344,7 +360,7 @@
                 <h2 class="offcanvas-cart-title mb-10">Liked Items</h2>
                 <!-- Offcanvas Cart Title End -->
               {{-- {{$wishlists}} --}}
-         @if (count($wishlists)>=1)
+         @if (Auth::check() && $wishlists!=null)
             @foreach ($wishlists as $wish)         
                 <!-- Cart Product/Price Start -->
                 <div class="cart-product-wrapper mb-6">

@@ -14,6 +14,7 @@ class Menu extends Model
         'name',
         'slug',
         'url',
+        'top_menu_id',
     ];
 
     public function submenu()
@@ -24,5 +25,15 @@ class Menu extends Model
     public function posts()
     {
         return $this->hasMany(Posts::class);
+    }
+
+    /**
+     * Get the  that owns the Menu
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function topMenu()
+    {
+        return $this->belongsTo(topMenu::class);
     }
 }

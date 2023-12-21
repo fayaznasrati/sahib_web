@@ -36,6 +36,17 @@
         <div class="form-floating">
             <div class="row">
               <div class="col-md-2">
+                <select id="largeSelect"  name="top_menu_id" class="form-select form-select-lg">
+                  <option>Select Top Menu</option>
+                  @foreach ($topMenus as $topmenu )
+                  <option
+                   @if (isset($menu)){{$menu->top_menu_id == $topmenu->id ? 'selected': ''}} @endif
+                   value="{{$topmenu->id}}">{{$topmenu->name}}</option>
+                  @endforeach
+                </select>
+                <div id="floatingInputHelp" class="form-text">Selec the parent Top Menu</div>
+              </div>
+              <div class="col-md-2">
                 <div class="form-floating">
                 <input type="file" name="icon" value="{{ old('icon', $menu->icon ?? '') }}" class="form-control" id="floatingInput" placeholder="eg: Home" aria-describedby="floatingInputHelp" />
                 <label for="floatingInput">Icon</label>
@@ -53,14 +64,7 @@
                   <div id="floatingInputHelp" class="form-text"> @if (isset($menu)) Update @else Write @endif the name of menu here</div>
               </div>
              </div>
-                <div class="col-md-3">
-                    <div class="form-floating">
-
-                    <input type="text"  name="slug" value="{{ old('slug', $menu->slug ?? '') }}" class="form-control" id="floatingInput" placeholder="eg: home-slug" aria-describedby="floatingInputHelp" />
-                    <label for="floatingInput">Slug</label>
-                    <div id="floatingInputHelp" class="form-text">@if (isset($menu)) Update @else Write @endif  the Slug of menu here</div>
-            </div>
-            </div>
+               
                 <div class="col-md-3">
                     <div class="form-floating">
 
@@ -91,7 +95,8 @@
           <tr>
             <th>#No</th>
             <th>Icon</th>
-            <th>Title</th>
+            <th>Name</th>
+            <th>Top Menu</th>
             <th>Slug</th>
             <th>Url</th>
             <th>Actions</th>
@@ -105,6 +110,7 @@
             <td>{{$i++}}</td>
             <td><img src="../../../menu-icon/{{$menu->icon}}" alt="menu icon" style="height: auto; width:20px"></td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$menu->name}}</strong></td>
+            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$menu->topMenu->name}}</strong></td>
             <td>{{$menu->slug}}</td>
             <td><a href="{{$menu->url}}" target="_blank" rel="noopener noreferrer">{{$menu->url}}</a></td>
             <td>

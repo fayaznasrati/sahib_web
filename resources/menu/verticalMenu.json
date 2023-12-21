@@ -12,6 +12,12 @@
       "slug": "meuns",
       "submenu": [
         {
+          "url": "/admin/topMenus",
+          "name": "TopMenu",
+          "slug": "top-menus"
+          
+        },
+        {
           "url": "/admin/menus",
           "name": "Menu",
           "slug": "menus"
@@ -22,6 +28,7 @@
           "slug": "menus"
           
         }
+        
       ]
     },{
       "name": "Mange Posts",

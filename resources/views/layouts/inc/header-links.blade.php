@@ -19,3 +19,4 @@
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+    {{-- <link rel="stylesheet" href="{{asset('assets/css/style.scss')}}" /> --}}
