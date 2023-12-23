@@ -19,13 +19,9 @@ class Submenu extends Model
     {
         return $this->belongsTo(Menu::class);
     }
-        /*
-         * Get all of the comments for the Posts
-         *
-         * @return \Illuminate\Database\Eloquent\Relations\HasMany
-         */
-        public function posts(): HasMany
+
+        public function posts()
         {
-            return $this->hasMany(Posts::class, 'sub_menu_id', 'id');
+            return $this->hasMany(Posts::class,'sub_menu_id', 'id');
         }
 }

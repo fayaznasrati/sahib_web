@@ -78,16 +78,7 @@
                                         @endforeach
                                     </ul>
                                 </li> --}}
-                               
-                                {{-- <li class="has-children">
-                                    <a href="#"><span>Home</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu" style="margin-top: -20px;">
-                                        <li><a href="/index">Home </a></li>
-                                        <li><a href="/index">Home </a></li>
-                                        <li><a href="/index">Home </a></li>
-                                        <li><a href="/index">Home </a></li>
-                                    </ul>
-                                </li> --}}
+
                                 @foreach ($topMenus as $topMenu )
 
                                
