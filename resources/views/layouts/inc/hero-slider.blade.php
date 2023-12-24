@@ -1,9 +1,11 @@
+
 <div class="section">
+    
     <div class="hero-slider">
         <div class="swiper-container my-swiper-container  swiper-container-fade swiper-container-initialized swiper-container-horizontal">
             <div class="swiper-wrapper" id="swiper-wrapper-105a3492323db0381" aria-live="polite"
                 style="transition: all 0ms ease 0s;">
-   
+
                 @foreach ($slider as $slid )
                   
                 <!-- Single Hero Slider Item Start -->

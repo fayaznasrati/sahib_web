@@ -11,7 +11,7 @@
     {{ $message }}
   </div>
   @enderror  
-{{-- {{$user->afgcity}} --}}
+
     <div class="container">
 
         <div class="row">

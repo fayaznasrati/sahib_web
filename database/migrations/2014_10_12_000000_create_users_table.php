@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('address')->nullable();
+            $table->boolean('is_activated')->default(0); 
             $table->unsignedBigInteger('city_id')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('business')->nullable();

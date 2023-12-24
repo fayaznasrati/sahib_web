@@ -34,6 +34,7 @@ class UserViewController extends Controller
     {
         $data = null;
         $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
+        // dd($slider);
         $menus = Menu::orderBy('id', 'desc')->get();
         $mobileMenus = Menu::orderBy('id', 'desc')->take(9)->get();
         $submenus = SubMenu::All();
@@ -185,56 +186,6 @@ class UserViewController extends Controller
         return view('auth.seller-register', compact('tearms'));
     }
 
-    protected function registerSeller(Request $request)
-    {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('get-register-seller')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        $sellerRole = 2;
-        $user = User::create([
-            'name' => $request->input('name'),
-            'role' => $sellerRole, 
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-        ]);
-
-        // dd($user);
-
-        // Login the user after registration
-        auth()->login($user);
-        return redirect('/user/seller/dashboard')->with('success', 'Registration successful!'); // Replace '/dashboard' with the actual URL
-
-        // return redirect('/dashboard'); // Redirect to dashboard after successful registration
-    }
-         
-    // public function registerSeller(Request $request)
-    // {
-
-    // //    dd($request->all());
-    //     $validatedData = $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email|unique:users',
-    //         'password' => 'required|min:8',
-    //     ]);
-
-    //     $user = User::create([
-    //         'name' => $validatedData['name'],
-    //         'email' => $validatedData['email'],
-    //         'password' => Hash::make($validatedData['password']),
-    //     ]);
-
-    //     // Optionally, redirect to another page after successful registration
-    //     return redirect('/user/seller/dashboard')->with('success', 'Registration successful!'); // Replace '/dashboard' with the actual URL
-    // }
 
     public function categoryList()
     {
@@ -246,33 +197,7 @@ class UserViewController extends Controller
         return view('single-product');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
 
     public function sellerBrandInfo($slug)
     {
@@ -283,28 +208,7 @@ class UserViewController extends Controller
         return view('seller-brand-info', compact('brand','posts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     
     public function updateMyProfile(Request $request,$id)
@@ -336,16 +240,6 @@ class UserViewController extends Controller
         ]);
         return view('user-module.user-dashboard',compact('user','afg_cities'))->with("success","Profile Updated Successfully");
 
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function deleteMyAccount(request $request, $id)

@@ -6,6 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use Log;
+use App\Mail\WelcomeBackMail;
+
+use App\Models\User;
+
+
 class LoginController extends Controller
 {
     /*
@@ -27,9 +36,15 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
+    public function welcomeBackMail(){
+        $user = User::where('id',Auth::user()->id)->first();
+        Mail::to($user->email)->send(new WelcomeBackMail($user->name));
+        return $this;
+
+     }
     protected function redirectTo()
     {
-
+        $this->welcomeBackMail();
         if (Auth::check() && Auth::user()->role === '1') {
             return RouteServiceProvider::ADMIN_HOME;
         } elseif (Auth::check() && Auth::user()->role === '2') {
@@ -49,4 +64,6 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
 }

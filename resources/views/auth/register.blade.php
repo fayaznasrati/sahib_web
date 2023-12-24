@@ -10,7 +10,7 @@
                     <h1 class="title"> Register As Buyer</h1>
                     <ul>
                         <li>
-                            <a href="index.html">Home </a>
+                            <a href="/">Home </a>
                         </li>
                         <li class="active"> Register</li>
                     </ul>
@@ -90,7 +90,7 @@
                                 @enderror
                             </div>
                             <!-- Input First Name End -->
-
+                            <input type="hidden" name="role" value="0">
                             <!-- Input Email Or Username Start -->
                             <div class="single-input-item mb-3">
                                 {{-- <input type="email" placeholder="Your Email"> --}}

@@ -13,6 +13,7 @@ use App\Http\Controllers\TearmAndCondationController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SellerBrandController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes 
@@ -28,6 +29,12 @@ use App\Http\Controllers\SellerBrandController;
 //         return "admin test";
 //     });
 // });
+// Route::get('/home', [App\Http\Controllers\UserViewController::class, 'index'])->name('home')->middleware('2fa');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/verify-account', [App\Http\Controllers\HomeController::class, 'verifyaccount'])->name('verifyAccount');
+Route::post('/verifyotp', [App\Http\Controllers\HomeController::class, 'useractivation'])->name('verifyotp');
+Route::get('/resend', [App\Http\Controllers\HomeController::class, 'resend'])->name('resend');
+  
 
 Route::prefix('user')->middleware('auth')->group(function () {
  

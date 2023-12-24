@@ -72,7 +72,7 @@
                         <!-- Login Title & Content End -->
 
                         <!-- Form Action Start -->
-                        <form method="POST" action="{{ route('register-seller') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
 
 
@@ -90,7 +90,7 @@
                                 @enderror
                             </div>
                             <!-- Input First Name End -->
-
+                          
                             <!-- Input Email Or Username Start -->
                             <div class="single-input-item mb-3">
                                 {{-- <input type="email" placeholder="Your Email"> --}}
