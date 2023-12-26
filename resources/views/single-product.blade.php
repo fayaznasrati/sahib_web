@@ -12,7 +12,7 @@
                     <h1 class="title">Single Product</h1>
                     <ul>
                         <li>
-                            <a href="/index">Home </a>
+                            <a href="/">Home </a>
                         </li>
                         <li class="active"> Single Product</li>
                         <li class="active"> {{$post->name}}</li>
@@ -236,6 +236,7 @@
         </div>
     </div>
 {{-- {{count($posts)}} --}}
+
     @if (count($posts)>=1)
     <div class="container">
         <h2>You may also like!</h2>
@@ -254,20 +255,32 @@
     
                                         <!-- Single Brand Logo Start -->
                                         @foreach ($posts as $post )
-                                        <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="polaroid">
-                                    <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
-                                            <img src="../../cover/{{$post->cover}}" alt="Norway" style="width:100%">
-                                            <div class="container ">
-                                            <span id="price"> <img src="{{asset('assets/images/logo/m-afg.png')}}" alt="AFG" >{{$post->new_price}}
-                                            </span>
-                                            </span><br>
-                                            <span class="desc">{{$post->name}}</span><br>
-                                            <small class="address"> {!! Str::limit($post->description,30)!!} </small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                        </div>
+                                        <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
+                                            <div class="polaroid"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                              <img src="../../cover/{{$post->cover}}" alt="{{$post->cover}}" style="width:100%">
+                                              <div class="container ">
+                                                <span id="price"> <img src="../../assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
+                                                 </span>
+                                                 </span><br>
+                                                  <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" style="color: green">
+                                                  {{$post->name}}</a></span><br>
+                                                 {{-- <span class="desc">{{$post->name}}</span><br> --}}
+                                               <p>{!! Str::limit($post->note, 50) !!} </p>
+                                               {{-- {{ Str::limit($string, 100) }} --}}
+  
+                                               <br>
+                                               <center>
+                                               <div class="shop-list-btn mb-5">
+                                                 <button class="btn btn-sm btn-outline-dark btn-hover-primary" title="Add To Cart">Add To Cart</button>
+                                                </div>
+                                               </center>
+                                              </div>
+                                            </div></a>
+                                            
+                                        
+  
+                                          </div>
+                                          <!-- Single Brand Logo End -->
                                         @endforeach
                                         <!-- Single Brand Logo End -->
                                         

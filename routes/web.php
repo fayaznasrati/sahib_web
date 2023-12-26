@@ -24,6 +24,12 @@ use App\Http\Controllers\HomeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
+Route::post('/wishlist/remove', [App\Http\Controllers\UserViewController::class,'removeFromWishlist'])->name('wishlist.remove');
+Route::get('/my-wishlist', [App\Http\Controllers\UserViewController::class,'myWishlist'])->name('my-wishlist');
+Route::get('/my-shopping-cart', [App\Http\Controllers\UserViewController::class,'myShoppingCart'])->name('my-shopping-cart');
+
 // Route::prefix('admin')->group(function () {
 //     Route::get('/test', function () {
 //         return "admin test";
@@ -36,33 +42,30 @@ Route::post('/verifyotp', [App\Http\Controllers\HomeController::class, 'useracti
 Route::get('/resend', [App\Http\Controllers\HomeController::class, 'resend'])->name('resend');
   
 
-Route::prefix('user')->middleware('auth')->group(function () {
+Route::prefix('user')->middleware('auth_activated_and_seller')->group(function () {
  
 
-    Route::resource('crud', CRUDController::class);
+    // Route::resource('crud', CRUDController::class);
     Route::resource('post', PostsController::class);
-    route::get('/dashboard', function(){
-    dd('djad');
-    });
+    // route::get('/dashboard', function(){
+    // dd('djad');
+    // });
 
     Route::get('/seller/brand/product/{id}/edit', [App\Http\Controllers\PostsController::class, 'edit'])->name('edit-products');
     Route::get('/seller/brand/product/{id}', [App\Http\Controllers\PostsController::class, 'show'])->name('show-products');
     Route::delete('/seller/brand/product/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('destroy-products');
     Route::get('/seller/brand/products', [App\Http\Controllers\PostsController::class, 'index'])->name('seller-products');
     Route::get('/seller/create/brand/products', [App\Http\Controllers\PostsController::class, 'create'])->name('seller-create-products');
-    Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
-    Route::post('/wishlist/remove', [App\Http\Controllers\UserViewController::class,'removeFromWishlist'])->name('wishlist.remove');
-    Route::get('/my-wishlist', [App\Http\Controllers\UserViewController::class,'myWishlist'])->name('my-wishlist');
-    Route::get('/my-shopping-cart', [App\Http\Controllers\UserViewController::class,'myShoppingCart'])->name('my-shopping-cart');
-    Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
-    Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
-    Route::get('/all', 'App\Http\Controllers\CRUDController@all');
-    Route::post('/create', 'App\Http\Controllers\CRUDController@submit')->name('crud.submit');
+  Route::get('/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
+    Route::post('/seller/create-brand', [App\Http\Controllers\SellerBrandController::class, 'createBrand'])->name('create-brand');
+    Route::put('/seller/update-brand-profile/{id}', [App\Http\Controllers\SellerBrandController::class, 'updateBrand'])->name('update-brand');
+
+    // Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
+    // Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
+    // Route::get('/all', 'App\Http\Controllers\CRUDController@all');
+    // Route::post('/create', 'App\Http\Controllers\CRUDController@submit')->name('crud.submit');
 });
 
-Route::get('/user/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
-Route::post('/user/seller/create-brand', [App\Http\Controllers\SellerBrandController::class, 'createBrand'])->name('create-brand');
-Route::put('/user/seller/update-brand-profile/{id}', [App\Http\Controllers\SellerBrandController::class, 'updateBrand'])->name('update-brand');
 
 
 // ==========================Public Routes=================================
@@ -72,7 +75,7 @@ Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class,
 Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
 Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
 Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getTegisterSeller'])->name('get-register-seller');
-Route::post('/register/seller', [App\Http\Controllers\UserViewController::class, 'registerSeller'])->name('register-seller');
+// Route::post('/register/seller', [App\Http\Controllers\UserViewController::class, 'registerSeller'])->name('register-seller');
 Route::get('/ask-to-register', [App\Http\Controllers\UserViewController::class, 'askToRagisterPage'])->name('ask-to-register');
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::get('/user/seller/dashboard', [App\Http\Controllers\UserViewController::class, 'sellerDashboard'])->name('seller-dashboard');
@@ -87,7 +90,6 @@ Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack']
 Route::post('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
 Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
 Route::get('seller/comapany-info/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
-Route::get('/admin/dashboard', [App\Http\Controllers\UserViewController::class, 'adminDashboard'])->name('admin.dashboard');
 
 
 // Route::fallback(function () {
@@ -96,8 +98,9 @@ Route::get('/admin/dashboard', [App\Http\Controllers\UserViewController::class, 
 
 Auth::routes();
 
+
 // ===============================this is the admin panle routes==========================================================================
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('is_admin')->group(function () {
 
 Route::resource('topMenus', TopMenuController::class);
 Route::resource('menus', MenuController::class);
@@ -106,6 +109,7 @@ Route::resource('tearms', TearmAndCondationController::class);
 Route::resource('subscribers', SubscribersController::class);
 Route::resource('slider', SliderController::class);
 Route::POST('/admin-slid-status', [App\Http\Controllers\SliderController::class, 'adminSlidStatus'])->name('admin-slid-status');
+Route::get('/dashboard', [App\Http\Controllers\UserViewController::class, 'adminDashboard'])->name('admin.dashboard');
 
 Route::get('/get-subMenu', [App\Http\Controllers\MenuController::class,'getSubMenu'])->name('get-subMenu');;
 Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');

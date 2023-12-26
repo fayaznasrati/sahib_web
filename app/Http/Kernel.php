@@ -40,6 +40,23 @@ class Kernel extends HttpKernel
       \App\Http\Middleware\LocaleMiddleware::class,
     ],
 
+    'auth_and_activated'=>[
+      \App\Http\Middleware\Authenticate::class,
+      \App\Http\Middleware\IsActivatedUserMiddleware::class,
+    ],
+
+    'auth_activated_and_seller'=>[
+      \App\Http\Middleware\Authenticate::class,
+      \App\Http\Middleware\IsActivatedUserMiddleware::class,
+      \App\Http\Middleware\IsUserSellerMiddleware::class,
+    ],
+
+    'is_admin'=>[
+      \App\Http\Middleware\Authenticate::class,
+      \App\Http\Middleware\IsActivatedUserMiddleware::class,
+      \App\Http\Middleware\IsAdminMiddleware::class,
+    ],
+
     'api' => [
       // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
       'throttle:api',
@@ -67,6 +84,8 @@ class Kernel extends HttpKernel
     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     '2fa' => \App\Http\Middleware\Check2FA::class,
+    // 'is_admin' => \App\Http\Middleware\IsAdminMiddleware::class,
+    'is_activated_user' => \App\Http\Middleware\IsActivatedUserMiddleware::class,
     
   ];
 }

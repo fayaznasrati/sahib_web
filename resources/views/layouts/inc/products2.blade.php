@@ -27,10 +27,11 @@
                                         <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
                                         {{$post->name}}</a></span><br>
                                        {{-- <span class="desc">{{$post->name}}</span><br> --}}
-                                     <p>{!! Str::limit($post->note, 50) !!} </p>
+                                     <p>{!! Str::limit($post->note, 30) !!} </p>
                                      {{-- {{ Str::limit($string, 100) }} --}}
                                     </div>
-                                  </div></a>
+                                  </div>
+                                       </a>
                                 </div>
                                 <!-- Single Brand Logo End -->
                                 @endforeach
@@ -117,13 +118,23 @@
                                               <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
                                                </span>
                                                </span><br>
-                                                <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
+                                                <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" style="color: green">
                                                 {{$post->name}}</a></span><br>
                                                {{-- <span class="desc">{{$post->name}}</span><br> --}}
                                              <p>{!! Str::limit($post->note, 50) !!} </p>
                                              {{-- {{ Str::limit($string, 100) }} --}}
+
+                                             <br>
+                                             <center>
+                                             <div class="shop-list-btn mb-5">
+                                               <button class="btn btn-sm btn-outline-dark btn-hover-primary" title="Add To Cart">Add To Cart</button>
+                                              </div>
+                                             </center>
                                             </div>
                                           </div></a>
+                                          
+                                      
+
                                         </div>
                                         <!-- Single Brand Logo End -->
                                         @endforeach

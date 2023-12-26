@@ -9,6 +9,9 @@
           <div class="card">
             <h5 class="card-header">Product List</h5>
             <div class="card-body">
+              @if (count($posts)>=1)
+                
+              
             <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead>
@@ -96,6 +99,9 @@
                 {{ $posts->links() }} 
               </div>
             </div>
+            @else
+            <center><b style="color: red">No Product Created Yet.</b></center>
+            @endif
             </div>
           </div>
     </div>

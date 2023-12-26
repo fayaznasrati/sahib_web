@@ -1,83 +1,139 @@
 <div class="header section">
+ 
+        <span  class="overlay-logo">
+            <img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" />
+        </span>
+       
+  <!-- Header Top Start -->
+  <div class="header-top bg-light">
+    <div class="container">
+        <div class="row row-cols-xl-2 align-items-center">
 
-    <!-- Header Top Start -->
-    <div class="header-top bg-light">
-        <div class="container">
-            <div class="row row-cols-xl-2 align-items-center">
-
-                <!-- Header Top Language, Currency & Link Start -->
-                <div class="col d-none d-lg-block">
-                    <div class="header-top-lan-curr-link">
-                        <div class="header-top-lan dropdown">
-                            <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
-                                <li><a class="dropdown-item" href="#">English</a></li>
-                                <li><a class="dropdown-item" href="#">فارسی</a></li>
-                                <li><a class="dropdown-item" href="#">پشتو</a></li>
-                            </ul>
-                        </div>
-                        <div class="header-top-links">
-                            <span>Call Us</span><a href="#"> +93 01234567</a>
-                        </div>
+            <!-- Header Top Language, Currency & Link Start -->
+            <div class="col d-none d-lg-block">
+                <div class="header-top-lan-curr-link">
+                    <div class="header-top-lan dropdown">
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">فارسی</a></li>
+                            <li><a class="dropdown-item" href="#">پشتو</a></li>
+                        </ul>
+                    </div>
+                    <div class="header-top-links">
+                        <span>Call Us</span><a href="#"> +93 01234567</a>
                     </div>
                 </div>
-                <!-- Header Top Language, Currency & Link End -->
-
-                <!-- Header Top Message Start -->
-                <div class="col">
-                    
-                    <p class="header-top-message">Create ads for free. 
-                        <a href="/user/post/create"><span class="ad-Button">Create Ads</span></a>
-                        @guest
-                        <a href="/login">login</a>
-                        <a href="/ask-to-register">Register</a></p>
-                        @else
-                        Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
-                        @endguest
-                </div>
-                <!-- Header Top Message End -->
-
             </div>
+            <!-- Header Top Language, Currency & Link End -->
+
+            <!-- Header Top Message Start -->
+            <div class="col">
+                
+                <p class="header-top-message">
+                  
+                    @if (Auth::check() && Auth::user()->role === '2')
+                    Seller <a href="/user/seller/create/brand/products"><span class="ad-Button">Create Products</span></a>
+                    @elseif(Auth::check() && Auth::user()->role === '1')
+                    Adminstrator
+                    @else
+                    <a href="/register/seller"><span class="ad-Button">Become a seller</span></a>
+                    @endif
+                    @guest
+                    <a href="/login">login</a>
+                    <a href="/ask-to-register">Register</a></p>
+                    @else
+                    Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
+                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
+                    @endguest
+            </div>
+            <!-- Header Top Message End -->
+
         </div>
     </div>
-    <!-- Header Top End -->
+</div>
+<!-- Header Top End -->
+
+
+        <!-- Header Top Start -->
+        <div class="container-fluid mt-2 ">
+            <div class="row">
+                <div class="container col-md-2"></div>
+                     <div class="container col-md-7">
+                        <form action="/search" method="post" >@csrf
+                          <span class="all-search-box" style="margin-right: 40px">
+                              <input  type="search" name="query" id="autocomplete" placeholder="search anything here..." class="input-with-icon">
+                              <button type="submit" class="search-button">Search</button>
+                              <span id="search-results"></span>
+                          </span>
+                        </form>
+                         </div>
+                         <div class="col-md-2" >
+                              <!-- Header Action Start -->
+
+                            <div class="header-actions ">
+
+   
+                                @if(Auth::check())
+                                @if (Auth::user()->role === '1')
+                                <a href="/admin/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                                @elseif (Auth::user()->role === '2')
+                                <a href="/user/seller/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                                @else
+                                <a href="/user/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                                @endif
+                                @endif
+                                <!-- User Account Header Action Button End -->
+                                <!-- Shopping Cart Header Action Button Start -->
+                                <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-wishlist">
+                                    
+                                    <i class="pe-7s-like"></i>
+                                @if (Auth::check())
+                                  @if (count($wishlists)>=1)
+                                    <span class="header-action-num">{{count($wishlists)}}</span>
+                                @endif
+                                 {{-- <!-- Shopping Cart Header Action Button Start -->
+                                 <a href="javascript:void(0)" class="header-action-btn header-action-btn-cart">
+                                    <i class="pe-7s-shopbag"></i>
+                                    @if (count($wishlists)>=1)
+                                    <span class="header-action-num">{{count($wishlists)}}</span>
+                                    @endif
+                                </a>
+                                <!-- Shopping Cart Header Action Button End --> --}}
+                                @endif
+                                   
+                                </a>
+                            </div>
+
+                        <!-- Header Action End -->
+                             </div>
+                             <div class="container col-md-1"></div>
+              
+            </div>
+        </div>
+        <!-- Header Top End -->
+        <hr>
 
     <!-- Header Bottom Start -->
     <div class="header-bottom" >
-        <div class="header-sticky" >
-            <div class="container">
-                <div class="row align-items-center" >
+        <div class="header-sticky">
+            <div class="container-fluid">
+                <div class="row align-items-center">
 
                     <!-- Header Logo Start -->
-                    <div class="col-xl-2 col-6">
-                        <div class="header-logo" >
+                    <div class="col-xl-1 col-6">
+                        <div class="header-logo">
                             <a href="/"  ><img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" /></a>
                         </div>
                     </div>
                     <!-- Header Logo End -->
 
-                    <!-- Header Menu Start -->
-                    <div class="col-xl-8 d-none d-xl-block">
-                        <div class="main-menu position-relative" style="margin-top: -20px; hight:100px">
+                      <!-- Header Menu Start -->
+                      <div class=" col-md-10 col-xl-10 d-none d-xl-block">
+                        <div class="main-menu position-relative container" >
                             <ul>
-                                {{-- @foreach ($topMenus as $topMenu )
-                                    
-                                <li>
-                                    {{$topMenu->name}}  
-                                    <ul>                                         
-                                        @foreach ( $topMenu->menu as $menu)
-                                            <b style="color: red">{{$menu->name}}</b>
-
-                                            @foreach ($menu->submenu as $submenu)
-
-                                            <b style="color: green">{{$submenu->name}}</b>
-                                                
-                                            @endforeach
-                                        @endforeach
-                                    </ul>
-                                </li> --}}
+                                
 
                                 @foreach ($topMenus as $topMenu )
 
@@ -85,25 +141,42 @@
                                 @if ($topMenu->menu)
                                 {{-- {{count($topMenu->menu) >0 ? "has" : "not"}} --}}
                                 @if (count($topMenu->menu) >0)
-                                     <li class="has-children position-static" > <a href="#"><span>{{$topMenu->name}}</span> <i class="fa fa-angle-down"></i></a>
+                                     <li class="has-children position-static"  > <a href="#"><span>{{$topMenu->name}}</span> <i class="fa fa-angle-down"></i></a>
                                 @else
-                                    <li><a href="{{$topMenu->url}}"><span>{{$topMenu->name}}</span></a>
+                                    <li ><a href="{{$topMenu->url}}"><span>{{$topMenu->name}}</span></a>
                                 @endif
                                
                                    
                                     
-                                    <ul class="mega-menu row-cols-4" style="margin-top: -20px">
-                                        @foreach ( $topMenu->menu as $menu)
-                                        <li class="col">
-                                            <h4 class="mega-menu-title">{{$menu->name}} </h4>
-                                            <ul class="mb-n2">
-                                                @foreach ($menu->submenu as $submenu)
-                                                <li> <a href="/show-all-subcategory-posts/{{$menu->name}}/{{$submenu->slug}}"  rel="Category Name">{{$submenu->name}}</a></li>
+                                    <ul class="mega-menu row"  >
+                                        <div class="col-md-8" >
+                                            <div class="row" >
+                                                @foreach ( $topMenu->menu as $menu)
+                                                <li class="col-md-4"  >
+                                                    <h4 class="mega-menu-title">{{$menu->name}} </h4>
+                                                    <ul class="submenus">
+                                                        @foreach ($menu->submenu as $submenu)
+                                                        <li> <a href="/show-all-subcategory-posts/{{$menu->name}}/{{$submenu->slug}}"  rel="Category Name">{{$submenu->name}}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
                                                 @endforeach
-                                            </ul>
-                                        </li>
-                                        @endforeach
-                                        
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <a href="/"  ><img src="{{asset('assets/images/logo/logo_2.png')}}" style="height: 100px;width:200px " alt="Sahib.af Logo" /></a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <a href="/"  ><img src="{{asset('assets/images/logo/logo_2.png')}}" style="height: 100px;width:200px " alt="Sahib.af Logo" /></a>
+                                                </div>
+                                            </div>
+                                      
+                                           
+                                        </div>
+                                      
                                     </ul>
                                    
                                 </li>
@@ -135,33 +208,10 @@
                         </div>
                     </div>
                     <!-- Header Menu End -->
-
                     <!-- Header Action Start -->
-                    <div class="col-xl-2 col-6">
+                    <div class="col-xl-1 col-6">
                         <div class="header-actions" style="margin-top: -20px">
-                            
-                            <!-- User Account Header Action Button Start -->
-                            @if(Auth::check())
-                            @if (Auth::user()->role == 1)
-                            <a href="/admin/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
-                            @elseif (Auth::user()->role == 2)
-                            <a href="/user/seller/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
-                            @else
-                            <a href="/user/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
-                            @endif
-                            @endif
-                            <!-- User Account Header Action Button End -->
-                            <!-- Shopping Cart Header Action Button Start -->
-                            <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-cart ">
-                                <i class="pe-7s-like"></i>
-                            @if (Auth::check())
-                              @if (count($wishlists)>=1)
-                                <span class="header-action-num">{{count($wishlists)}}</span>
-                            @endif
-                            @endif
-                               
-                            </a>
-                            <!-- Shopping Cart Header Action Button End -->
+
 
                             <!-- Mobile Menu Hambarger Action Button Start -->
                             <a href="javascript:void(0)" class="header-action-btn header-action-btn-menu d-xl-none d-lg-block">
@@ -172,13 +222,14 @@
                         </div>
                     </div>
                     <!-- Header Action End -->
+               
 
                 </div>
             </div>
         </div>
     </div>
     <!-- Header Bottom End -->
- 
+
     <!-- Mobile Menu Start -->
     <div class="mobile-menu-wrapper">
         <div class="offcanvas-overlay"></div>
@@ -212,7 +263,7 @@
                                 <li><a href="shop-list-fullwidth.html">Shop List Fullwidth</a></li>
                                 <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
                                 <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="/my-wishlist">Wishlist</a></li>
                                 <li><a href="cart.html">Shopping Cart</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
                                 <li><a href="compare.html">Compare</a></li>
@@ -271,17 +322,18 @@
                         <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
                             <li><a class="dropdown-item" href="#">English</a></li>
-                            <li><a class="dropdown-item" href="#">فارسی</a></li>
-                            <li><a class="dropdown-item" href="#">پشتو</a></li>
+                            <li><a class="dropdown-item" href="#">Japanese</a></li>
+                            <li><a class="dropdown-item" href="#">Arabic</a></li>
+                            <li><a class="dropdown-item" href="#">Romanian</a></li>
                         </ul>
                     </div>
-                    {{-- <div class="header-top-curr dropdown">
+                    <div class="header-top-curr dropdown">
                         <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
                             <li><a class="dropdown-item" href="#">USD</a></li>
                             <li><a class="dropdown-item" href="#">Pound</a></li>
                         </ul>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
             <!-- Language, Currency & Link End -->
@@ -291,17 +343,19 @@
 
                 <!-- Contact Links Start -->
                 <ul class="contact-links">
-                    <li><i class="fa fa-phone"></i><a href="#"> +93 987654321</a></li>
-                    <li><i class="fa fa-envelope-o"></i><a href="#"> info@sahib.af</a></li>
-                    <li><i class="fa fa-clock-o"></i> <span>24/7</span> </li>
+                    <li><i class="fa fa-phone"></i><a href="#"> +012 3456 789 123</a></li>
+                    <li><i class="fa fa-envelope-o"></i><a href="#"> info@example.com</a></li>
+                    <li><i class="fa fa-clock-o"></i> <span>Monday - Sunday 9.00 - 18.00</span> </li>
                 </ul>
                 <!-- Contact Links End -->
 
                 <!-- Social Widget Start -->
                 <div class="widget-social">
                     <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
-                    <a title="Twitter" href="#"><i class="fa fa-instagram"></i></a>
+                    <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
+                    <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
                     <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
+                    <a title="Vimeo" href="#"><i class="fa fa-vimeo"></i></a>
                 </div>
                 <!-- Social Widget Ende -->
             </div>
@@ -346,27 +400,23 @@
 
             <!-- Offcanvas Cart Content Start -->
             <div class="offcanvas-cart-content">
-                <div id="toBeReloadSection"  >
                 <!-- Offcanvas Cart Title Start -->
-                <h2 class="offcanvas-cart-title mb-10">Liked Items</h2>
+                <h2 class="offcanvas-cart-title mb-10">Shopping Cart</h2>
                 <!-- Offcanvas Cart Title End -->
-              {{-- {{$wishlists}} --}}
-         @if (Auth::check() && $wishlists!=null)
-            @foreach ($wishlists as $wish)         
+
                 <!-- Cart Product/Price Start -->
                 <div class="cart-product-wrapper mb-6">
 
                     <!-- Single Cart Product Start -->
                     <div class="single-cart-product">
                         <div class="cart-product-thumb">
-                             <a href="/show-single-post/{{$wish->user->name}}/{{$wish->posts->slug}}"><img src="../../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
+                            <a href="single-product.html"><img src="assets/images/products/small-product/1.jpg" alt="Cart Product"></a>
                         </div>
                         <div class="cart-product-content">
-                            
-                            <h3 class="title"><a href="/show-single-post/{{$wish->user->name}}/{{$wish->posts->slug}}">{{$wish->posts->name}}</a></h3>
+                            <h3 class="title"><a href="single-product.html">Brother Hoddies in Grey</a></h3>
                             <span class="price">
-                                <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->new_price}} </span>
-                            <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->old_price}}</span>
+                            <span class="new">$38.50</span>
+                            <span class="old">$40.00</span>
                             </span>
                         </div>
                     </div>
@@ -374,18 +424,80 @@
 
                     <!-- Product Remove Start -->
                     <div class="cart-product-remove">
-                        <a class="remove-from-wishlist" data-post-id="{{$wish->posts->id}}"><i class="fa fa-trash"></i></a>
-                   {{-- <button class="remove-from-wishlist"><i class="fa fa-trash"></i></button> --}}
+                        <a href="#"><i class="fa fa-trash"></i></a>
                     </div>
                     <!-- Product Remove End -->
 
                 </div>
-            @endforeach
-            @else
-            <b>No Thing On Wishlist Yet!</b>
-        @endif
-        
                 <!-- Cart Product/Price End -->
+
+                <!-- Cart Product/Price Start -->
+                <div class="cart-product-wrapper mb-6">
+
+                    <!-- Single Cart Product Start -->
+                    <div class="single-cart-product">
+                        <div class="cart-product-thumb">
+                            <a href="single-product.html"><img src="assets/images/products/small-product/2.jpg" alt="Cart Product"></a>
+                        </div>
+                        <div class="cart-product-content">
+                            <h3 class="title"><a href="single-product.html">Basic Jogging Shorts</a></h3>
+                            <span class="price">
+                            <span class="new">$14.50</span>
+                            <span class="old">$18.00</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Single Cart Product End -->
+
+                    <!-- Product Remove Start -->
+                    <div class="cart-product-remove">
+                        <a href="#"><i class="fa fa-trash"></i></a>
+                    </div>
+                    <!-- Product Remove End -->
+
+                </div>
+                <!-- Cart Product/Price End -->
+
+                <!-- Cart Product/Price Start -->
+                <div class="cart-product-wrapper mb-6">
+
+                    <!-- Single Cart Product Start -->
+                    <div class="single-cart-product">
+                        <div class="cart-product-thumb">
+                            <a href="single-product.html"><img src="assets/images/products/small-product/3.jpg" alt="Cart Product"></a>
+                        </div>
+                        <div class="cart-product-content">
+                            <h3 class="title"><a href="single-product.html">Enjoy The Rest T-Shirt</a></h3>
+                            <span class="price">
+                            <span class="new">$20.00</span>
+                            <span class="old">$21.00</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Single Cart Product End -->
+
+                    <!-- Product Remove Start -->
+                    <div class="cart-product-remove">
+                        <a href="#"><i class="fa fa-trash"></i></a>
+                    </div>
+                    <!-- Product Remove End -->
+
+                </div>
+                <!-- Cart Product/Price End -->
+
+                <!-- Cart Product Total Start -->
+                <div class="cart-product-total">
+                    <span class="value">Subtotal</span>
+                    <span class="price">220$</span>
+                </div>
+                <!-- Cart Product Total End -->
+
+                <!-- Cart Product Button Start -->
+                <div class="cart-product-btn mt-4">
+                    <a href="cart.html" class="btn btn-dark btn-hover-primary rounded-0 w-100">View cart</a>
+                    <a href="checkout.html" class="btn btn-dark btn-hover-primary rounded-0 w-100 mt-4">Checkout</a>
+                </div>
+                <!-- Cart Product Button End -->
 
             </div>
             <!-- Offcanvas Cart Content End -->
@@ -394,6 +506,70 @@
         <!-- Cart Offcanvas Inner End -->
     </div>
     <!-- Cart Offcanvas End -->
+
+
+   <!-- Wishlist Start -->
+   <div class="wishlist-offcanvas-wrapper">
+    <div class="offcanvas-overlay"></div>
+
+    <!-- Wishlist Inner Start -->
+    <div class="cart-offcanvas-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="pe-7s-close"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Offcanvas Cart Content Start -->
+        <div class="offcanvas-cart-content">
+            <div id="toBeReloadSection"  >
+            <!-- Offcanvas Cart Title Start -->
+            <h2 class="offcanvas-cart-title mb-10">Liked Items</h2>
+            <!-- Offcanvas Cart Title End -->
+          {{-- {{$wishlists}} --}}
+          @if (Auth::check() && $wishlists!=null)
+           @foreach ($wishlists as $wish)         
+            <!-- Cart Product/Price Start -->
+            <div class="cart-product-wrapper mb-6">
+
+                <!-- Single Cart Product Start -->
+                <div class="single-cart-product">
+                    <div class="cart-product-thumb">
+                         <a href="/show-single-post/{{$wish->user->name}}/{{$wish->posts->slug}}"><img src="../../cover/{{$wish->posts->cover}}" alt="Cart Product"></a>
+                    </div>
+                    <div class="cart-product-content">
+                        
+                        <h3 class="title"><a href="/show-single-post/{{$wish->user->name}}/{{$wish->posts->slug}}">{{$wish->posts->name}}</a></h3>
+                        <span class="price">
+                            <span id="regular-price"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->new_price}} </span>
+                        <span class="old"><img src="{{asset('assets/images/logo/m-afg.png')}}" alt="Afg">{{$wish->posts->old_price}}</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- Single Cart Product End -->
+
+                <!-- Product Remove Start -->
+                <div class="cart-product-remove">
+                    <a class="remove-from-wishlist" data-post-id="{{$wish->posts->id}}"><i class="fa fa-trash"></i></a>
+               {{-- <button class="remove-from-wishlist"><i class="fa fa-trash"></i></button> --}}
+                </div>
+                <!-- Product Remove End -->
+
+            </div>
+        @endforeach
+        @else
+        <b>No Thing On Wishlist Yet!</b>
+    @endif
+    
+            <!-- Cart Product/Price End -->
+
+        </div>
+        <!-- Offcanvas Cart Content End -->
+
+    </div>
+    <!-- Cart Offcanvas Inner End -->
 </div>
+<!-- Cart Offcanvas End -->
 </div>
-@include('layouts.inc.search-box')
+

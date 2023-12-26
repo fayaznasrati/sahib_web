@@ -83,6 +83,30 @@ class User extends Authenticatable
     //         info("Error: ". $e->getMessage());
     //     }
     // }
+    public function isAdmin()
+    {
+        return $this->role === '1';
+    }
+
+    public function isActivated()
+    {
+        return $this->is_activated === 1;
+    }
+
+    public function isActiveStatus()
+    {
+        return $this->status === 1;
+    }
+
+    public function isSeller()
+    {
+        return $this->role === '2';
+    }
+
+    public function isBuyer()
+    {
+        return $this->role === '0';
+    }
 
     /**
      * Get all of the posts for the User

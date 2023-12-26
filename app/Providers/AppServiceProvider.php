@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
     View::share('wishlists', $wishlists );
     // View::share('cart', $cart );
     }
-    $topMenus = TopMenu::orderBy('id', 'desc')->limit(5)->get();
+    $topMenus = TopMenu::orderBy('id', 'desc')->limit(10)->get();
     // $menus1_4 = Menu::orderBy('id', 'desc')->limit(4)->get();
     $menus1_4 = Menu::with('submenu')->get();
     $menus4_8 = Menu::orderBy('id', 'desc')->offset(4)->limit(4)->get();
