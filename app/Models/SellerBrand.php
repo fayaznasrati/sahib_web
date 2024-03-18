@@ -21,12 +21,15 @@ class SellerBrand extends Model
         'brand_certificate_img',
         'brand_certificate_no',
         'brand_found_date',
-        'brand_polices',
+        'brand_policy',
         'status',
         'branduuid',
         'slug',
         'about',
         'brand_logo',
+        'delivery_policy',
+'return_policy',
+'security_policy',
     ];
 
     public function user()

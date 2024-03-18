@@ -19,17 +19,14 @@ class TopMenuController extends Controller
     {
         $topMenus = TopMenu::get()->all();   
         return view('content.menus.top-menu',compact('topMenus'));
-       
     }
 
     public function getSubtopMenu(Request $request)
     {
         
         $selectedValue = $request->input('selectedValue');
-
         // Fetch data for the second dropdown based on the selected value
         $data = SubMenu::where('topMenu_id', $selectedValue)->get();
-
         return response()->json(['success' => true, 'data' => $data]);
     }
     /**

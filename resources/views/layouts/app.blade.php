@@ -77,6 +77,7 @@
         @yield('content')
     </main>
     @include("layouts.inc.bottom-navbar")
+    
     @include("layouts.inc.footer")
 </body>
 @include("layouts.inc.footer-links")

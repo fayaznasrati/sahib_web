@@ -82,6 +82,7 @@
                       </div>
 
                       <!-- Description Start -->
+                      <p class="desc-content mb-5"><b>short Description: </b> {!! $posts->short_description!!}</p>
                       <p class="desc-content mb-5"><b>Description: </b> {!! $posts->description!!}</p>
                       <!-- Description End -->
                       <!-- Product Color Variation Start -->

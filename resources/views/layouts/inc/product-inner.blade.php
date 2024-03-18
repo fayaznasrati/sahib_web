@@ -1,7 +1,9 @@
+<div class="row category_item ">
+    @include('alert') 
 
-    
+    @foreach ($posts as $post)
 
-    <div class="col-md-4 mb-8 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+    <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-8 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
         <!-- Single Blog Start -->
         <div class="blog-single-post-wrapper">
             <div class="blog-thumb">
@@ -30,3 +32,5 @@
         </div>
         <!-- Single Blog End -->
     </div>
+    @endforeach
+</div>

@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/nice-select.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/plugins/jquery-ui.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightgallery.min.css')}}" />
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
+  <!-- Link Swiper's CSS -->
+  {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> --}}
+
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />

@@ -57,7 +57,7 @@
     <div class="header-bottom" >
         <div class="header-sticky">
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row align-items-center" style="padding: 15px">
 
                     <!-- Header Logo Start -->
                     <div class="col-xl-2 col-6">

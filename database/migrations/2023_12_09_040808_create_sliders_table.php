@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('note');
             $table->unsignedBigInteger('status')->default(0);
             $table->text('cover');
+            $table->text('mobileCover');
             $table->string('old_price')->nullable();
             $table->string('new_price');
             $table->string('offer');

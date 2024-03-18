@@ -23,6 +23,7 @@ class Slider extends Model
         'description',
         'note',
         'cover',
+        'mobileCover',
         'company',
         'offer',
         'old_price',
@@ -51,6 +52,7 @@ class Slider extends Model
             'name' => 'required|max:255',
             'description' => 'required',
             'cover' => 'required',
+            'mobileCover' => 'required',
         ]);
 
         $note = Str::limit(strip_tags($validatedData['description']),50);
@@ -62,10 +64,13 @@ class Slider extends Model
             $slug = $originalSlug . '-' . $count;
             $count++;
         }
-            if($request->hasFile("cover")){
+            if($request->hasFile("cover") && $request->hasFile("mobileCover")){
                 $file=$request->file("cover");
+                $mobileFile=$request->file("mobileCover");
+                $mobileCover=time().'_'.$mobileFile->getClientOriginalName();
                 $cover=time().'_'.$file->getClientOriginalName();
                 $file->move(\public_path("cover/slider/"),$cover);
+                $mobileFile->move(\public_path("mobileCover/slider/"),$mobileCover);
                 $expiration_date = Carbon::now()->addDays(30);
                 $slid =new Slider([
                    "name" => $request->name,
@@ -74,6 +79,7 @@ class Slider extends Model
                    "description" =>$request->description,
                    "note" =>$note,
                    "cover" =>$cover,
+                   "mobileCover" =>$mobileCover,
                    "slideruuid" => "slid-".time(),
                    "old_price" =>$request->old_price,
                    "new_price" =>$request->new_price,
@@ -83,6 +89,8 @@ class Slider extends Model
                 // dd($slid);
                $slid->user_id = Auth::id();
                $slid->save();
+                // dd($slid);
+
             }
            return back();
 
@@ -107,15 +115,23 @@ class Slider extends Model
             }
          $slid = Slider::findOrFail($id);
          if($request->hasFile("cover")){
-             if (File::exists("cover/slider/".$slid->cover)) {
-                 File::delete("cover/slider/".$slid->cover);
-             }
-             $file=$request->file("cover");
-             $slid->cover=time()."_".$file->getClientOriginalName();
-             $file->move(\public_path("/cover/slider/"),$slid->cover);
-             $request['cover']=$slid->cover;
-    
-         }
+            if (File::exists("cover/slider/".$slid->cover)) {
+                File::delete("cover/slider/".$slid->cover);
+            }
+            $file=$request->file("cover");
+            $slid->cover=time()."_".$file->getClientOriginalName();
+            $file->move(\public_path("/cover/slider/"),$slid->cover);
+            $request['cover']=$slid->cover;
+        }
+        if($request->hasFile("mobileCover")){
+            if (File::exists("mobileCover/slider/".$slid->mobileCover)) {
+                File::delete("mobileCover/slider/".$slid->mobileCover);
+            }
+            $file=$request->file("mobileCover");
+            $slid->mobileCover=time()."_".$file->getClientOriginalName();
+            $file->move(\public_path("/mobileCover/slider/"),$slid->mobileCover);
+            $request['mobileCover']=$slid->mobileCover;
+        }
     
             $slid->update([
                 "name" => $request->name,
@@ -124,6 +140,7 @@ class Slider extends Model
                 "description" =>$request->description,
                 "note" =>$note,
                 "cover"=>$slid->cover,
+                "mobileCover"=>$slid->mobileCover,
                 "old_price" =>$request->old_price,
                 "new_price" =>$request->new_price,
                 "offer" =>$request->offer,             

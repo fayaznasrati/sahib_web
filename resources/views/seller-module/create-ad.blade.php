@@ -163,16 +163,29 @@
                             </div>
                         </div> <br>
 
-                            <div class=" card contact-form-wrapper contact-form">
-                                <h5 class="card-header">Write Description</h5>
-                                <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-                                    <div class="input-item mb-8">
-                                        {{-- <label for="name"><b>More informations:</b></label> --}}
-                                        <textarea class="textarea-item" name="description"  placeholder="Message" style="height: 200px;"></textarea>
-                                    </div>
+                        <div class=" card contact-form-wrapper contact-form">
+                            <h5 class="card-header">Write short Description</h5>
+                            <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                                <div class="input-item mb-8">
+                                    <input type="text" name="short_description">
+                                    {{-- <label for="name"><b>More informations:</b></label> --}}
+                                    {{-- <textarea  name="description"  placeholder="Message" style="height: 200px;"></textarea> --}}
                                 </div>
-                                
-                            </div><br>
+                            </div>
+                            
+                        </div><br>
+
+                        <div class=" card contact-form-wrapper contact-form">
+                            <h5 class="card-header">Write Description</h5>
+                            <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                                <div class="input-item mb-8">
+                                    <input type="text" name="description">
+                                    {{-- <label for="name"><b>More informations:</b></label> --}}
+                                    {{-- <textarea  name="description"  placeholder="Message" style="height: 200px;"></textarea> --}}
+                                </div>
+                            </div>
+                            
+                        </div><br>
                             <center>
                                 <div class="col-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                                     <button type="submit" id="submit" name="submit" class="btn btn-dark btn-hover-primary rounded-0">Create</button>

@@ -7,6 +7,8 @@ use App\Models\Menu;
 use App\Models\SubMenu;
 use DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+
 class SubmenuController extends Controller
 {
         /**
@@ -42,12 +44,23 @@ class SubmenuController extends Controller
     {
       $validatedData =  $request->validate([
             'name' => 'required',
+            'icon' => 'required',
+
             
         ]);
-        $slug = Str::slug($validatedData['name']);
+        if($request->hasFile("icon")){
+            $file=$request->file("icon");
+            $icon=time().'_'.$file->getClientOriginalName();
+            $file->move(\public_path("submenu-icon/"),$icon);
+            $thePuuid = "icon-".time();
+        }else{
+            $icon = 'noimage.png';
+        }
 
+        $slug = Str::slug($validatedData['name']);
         $menu = new SubMenu();
         $menu->name = $request->name;
+        $menu->cover = $icon;
         $menu->slug = $slug.'-'.time();
         $menu->url = $request->url;
         $menu->menu_id = $request->menu_id;
@@ -93,18 +106,30 @@ class SubmenuController extends Controller
     public function update(Request $request, $id)
     {
        
-        // dd($request->all());
-       $validatedData = $request->validate([
+        $submenu = SubMenu::find($id);
+  
+        if($request->hasFile("icon")){
+            if (File::exists("submenu-icon/".$submenu->cover)) {
+                File::delete("submenu-icon/".$submenu->cover);
+            }
+            $file=$request->file("icon");
+            $submenu->cover=time()."_".$file->getClientOriginalName();
+            $file->move(\public_path("/submenu-icon"),$submenu->cover);
+            $request['icon']=$submenu->cover;
+   
+        }
+        $validatedData = $request->validate([
             'name' => 'required',
         ]);
+        
         $slug = Str::slug($validatedData['name']);
-
-        $subMenu = SubMenu::find($id);
-        $subMenu->name = $request->name;
-        $subMenu->slug = $slug.'-'.time();
-        $subMenu->url = $request->url;
-        $subMenu->menu_id = $request->menu_id;
-        $subMenu->update();
+        $submenu->update([
+            "name" => $request->name,
+            "cover"=>$submenu->cover,
+            "slug" => $slug.'-'.time(),
+            "url" => $request->url,
+            "menu_id" => $request->menu_id,
+        ]);
      
         return redirect()->route('submenus.index')
                         ->with('success','SubMenu updated successfully');
@@ -120,6 +145,7 @@ class SubmenuController extends Controller
     {
         // dd($id);
         $submenu = SubMenu::findOrFail($id);
+        File::delete("submenu-icon/".$submenu->cover);
         $submenu->delete();
         return redirect()->route('submenus.index')
           ->with('success', 'Post deleted successfully');

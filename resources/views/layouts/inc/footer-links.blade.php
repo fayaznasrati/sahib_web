@@ -26,6 +26,13 @@
 
     <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
 
+  <!-- Swiper JS -->
+  <script src="{{asset('assets/js/plugins/wiper-element-bundle.min.js')}}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
     <!--Main JS-->
+
     <script src="{{asset('assets/js/user_main.js')}}"></script>
+    <script src="{{asset('assets/js/my_js_code.js')}}"></script>
+   
+

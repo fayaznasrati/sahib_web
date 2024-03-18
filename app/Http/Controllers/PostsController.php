@@ -37,11 +37,25 @@ class PostsController extends Controller
 
     }
 
-    public function posts_manager(){
-        $posts=Posts::latest()->paginate(5);
+    // public function posts_manager(){
+    //     $posts=Posts::latest()->paginate(5);
+    //     $menus = Menu::all();
+    //     // dd($posts);
+    //     return view('content.posts-manager.posts-index',compact('posts','menus'));  
+    // }
+
+    public function seller_posts_manager(){
+        $name = 'seller';
+        $posts=Posts::latest()->where('category_type',2)->paginate(5);
         $menus = Menu::all();
-        // dd($posts);
-        return view('content.posts-manager.posts-index',compact('posts','menus'));  
+        return view('content.posts-manager.posts-index',compact('posts','menus','name'));  
+    }
+
+    public function factories_posts_manager(){
+        $name = 'Factories';
+        $posts=Posts::latest()->where('category_type',1)->paginate(5);
+        $menus = Menu::all();
+        return view('content.posts-manager.posts-index',compact('posts','menus','name')); 
     }
 
     public function adminPostStatus(Request $request)

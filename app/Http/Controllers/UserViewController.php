@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\Menu;
 use App\Models\Slider;
 use App\Models\User;
@@ -17,8 +18,23 @@ use App\Models\TearmAndCondation;
 use App\Models\SubMenu;
 use App\Models\SellerBrand;
 use App\Models\Wishlist;
+use GuzzleHttp\Client;
+use App\Models\Banner;
 class UserViewController extends Controller
 {
+
+     /**
+     * Redirect to the previous page.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function redirectToPreviousPage()
+    {
+        // Redirect back to the previous page
+        // dd('hi');
+        return redirect()->back();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,10 +45,34 @@ class UserViewController extends Controller
         return view('content.dashboard.dashboards-analytics');
     }
 
-
-    public function index()
+    public function fetchDataByCategory($category)
     {
+        if($category == '0'){
+            $data = Posts::get()->all(); 
+        }else{
+        // Fetch data based on the category
+        $data = Posts::where('category_type', $category)->get();
+        }
+        return response()->json($data);
+    }
+    // to detect user location
+    public function index(Request $request)
+    {
+        // $client = new Client();
+        // $response = $client->get('http://ip-api.com/json/' . $request->ip());
+    
+        // $location = json_decode($response->getBody());
+    
+        // $countryName = $location->country;
+        // // $cityName = $location->city;
+    
+        // // Do something with the location data
+        // dd($countryName);
+
         $data = null;
+        $sellerBrand = SellerBrand::orderBy('id', 'desc')->where('status',1)->get();
+        $banners = Banner::orderBy('id', 'desc')->where('status',1)->get();
+        $pc_banners = Banner::orderBy('id', 'desc')->where('status',1)->take(4)->get();;
         $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
         // dd($slider);
         $menus = Menu::orderBy('id', 'desc')->get();
@@ -47,13 +87,117 @@ class UserViewController extends Controller
             'mobileMenus',
             'menus',
             'slider',
+            'sellerBrand',
+            'submenus',
+            'residentForRent',
+            'residentForSell',
+            'motors',
+            'banners',
+            'pc_banners',
+            
+        ));
+      
+    
+    }
+
+    public function test(Request $request)
+    {
+        // $client = new Client();
+        // $response = $client->get('http://ip-api.com/json/' . $request->ip());
+    
+        // $location = json_decode($response->getBody());
+    
+        // $countryName = $location->country;
+        // // $cityName = $location->city;
+    
+        // // Do something with the location data
+        // dd($countryName);
+
+        $data = null;
+        $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
+        // dd($slider);
+        $menus = Menu::orderBy('id', 'desc')->get();
+        $mobileMenus = Menu::orderBy('id', 'desc')->take(9)->get();
+        $submenus = SubMenu::All();
+        $residentForRent = Posts::get()->where('menu_id',3)->where('status',1)->all();
+        $residentForSell = Posts::get()->where('menu_id',4)->where('status',1)->all();
+        $motors = Posts::get()->where('menu_id',5)->where('status',1)->all();
+        return view('test', 
+        compact(
+            'data',
+            'mobileMenus',
+            'menus',
+            'slider',
             'submenus',
             'residentForRent',
             'residentForSell',
             'motors',
             
         ));
+      
+    
     }
+    public function allCategories(Request $request)
+    {
+        // $client = new Client();
+        // $response = $client->get('http://ip-api.com/json/' . $request->ip());
+    
+        // $location = json_decode($response->getBody());
+    
+        // $countryName = $location->country;
+        // // $cityName = $location->city;
+    
+        // // Do something with the location data
+        // dd($countryName);
+
+        $data = null;
+        $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
+        // dd($slider);
+        $menus = Menu::orderBy('id', 'desc')->get();
+        $mobileMenus = Menu::orderBy('id', 'desc')->take(9)->get();
+        $submenus = SubMenu::All();
+        $residentForRent = Posts::get()->where('menu_id',3)->where('status',1)->all();
+        $residentForSell = Posts::get()->where('menu_id',4)->where('status',1)->all();
+        $motors = Posts::get()->where('menu_id',5)->where('status',1)->all();
+        return view('all-categories', 
+        compact(
+            'data',
+            'mobileMenus',
+            'menus',
+            'slider',
+            'submenus',
+            'residentForRent',
+            'residentForSell',
+            'motors',
+            
+        ));
+      
+    
+    }
+    // public function index()
+    // {
+    //     $data = null;
+    //     $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
+    //     // dd($slider);
+    //     $menus = Menu::orderBy('id', 'desc')->get();
+    //     $mobileMenus = Menu::orderBy('id', 'desc')->take(9)->get();
+    //     $submenus = SubMenu::All();
+    //     $residentForRent = Posts::get()->where('menu_id',3)->where('status',1)->all();
+    //     $residentForSell = Posts::get()->where('menu_id',4)->where('status',1)->all();
+    //     $motors = Posts::get()->where('menu_id',5)->where('status',1)->all();
+    //     return view('index', 
+    //     compact(
+    //         'data',
+    //         'mobileMenus',
+    //         'menus',
+    //         'slider',
+    //         'submenus',
+    //         'residentForRent',
+    //         'residentForSell',
+    //         'motors',
+            
+    //     ));
+    // }
 
     
 // ============Search post ===============
@@ -71,7 +215,7 @@ class UserViewController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $posts = Posts::where('name', 'LIKE', "%$query%")->get();
+        $posts = Posts::where('name', 'LIKE', "%$query%")->paginate(100);
         // dd($data);
         return view('category-list', compact('posts'));
 
@@ -84,9 +228,21 @@ class UserViewController extends Controller
         $subMenu = SubMenu::where('slug', $slug)->firstOrFail();
         // dd($subMenu->id);
 
-        $posts = Posts::where('sub_menu_id', $subMenu->id)->where('status',1)->get();
+        $posts = Posts::where('sub_menu_id', $subMenu->id)->where('status',1)->paginate(100);
         return view('category-list', compact('posts'));
         // dd($posts);
+    }
+
+    public function showAllCategoryPosts($menu, $slug){
+        // dd($menu);
+        
+        $menu = Menu::where('slug', $slug)->firstOrFail();
+        // dd($menu->id);
+
+        $posts = Posts::where('menu_id', $menu->id)->where('status',1)->paginate(100);
+        // dd($posts);
+
+        return view('category-list', compact('posts'));
     }
 
     public function showSinglePost($subMenu, $slug){
@@ -179,7 +335,7 @@ class UserViewController extends Controller
     {
         return view('auth.ask');
     }
-    public function getTegisterSeller()
+    public function getRegisterSeller()
     {
         $tearms = TearmAndCondation::where('tearm_on', 'register')->orderBy('updated_at', 'desc')->take(1)->get();
 

@@ -24,9 +24,21 @@ class UserManagerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function usersManager(){
-        $users = User::all();
+        $users = User::where('role', '1')->get();
         return view('content.users-manager.users-index',compact('users'));  
     }
+
+    public function usersManagerBuyer(){
+        $users = User::where('role', '0')->get();
+        return view('content.users-manager.buyer-index',compact('users'));  
+    }
+
+    public function usersManagerSellers(){
+        $users = User::where('role', '2')->get();
+        return view('content.users-manager.seller-index',compact('users'));  
+    }
+
+
     public function userBrandInfo($slug){
         $brand = SellerBrand::where('slug', $slug)->first();
         return view('content.users-manager.user-brand-info', compact('brand'));

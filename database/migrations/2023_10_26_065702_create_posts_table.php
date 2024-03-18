@@ -26,6 +26,7 @@ return new class extends Migration
             $table->longtext('title')->nullable();
             $table->longtext('title_desc')->nullable();
             $table->longtext('description')->nullable();
+            $table->text('short_description')->nullable();
             $table->timestamp('expired_at')->nullable();
             $table->timestamp('post_verified_at')->nullable();
             $table->timestamps();

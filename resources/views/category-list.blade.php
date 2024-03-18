@@ -10,15 +10,7 @@
                     <!-- Sidebar Widget Start -->
                     <aside class="sidebar_widget mt-10 mt-lg-0">
                         <div class="widget_inner" data-aos="fade-up" data-aos-delay="200">
-                            <div class="widget-list mb-10">
-                                {{-- <h3 class="widget-title mb-4">Search</h3> --}}
-                                <div class="search-box">
-                                    <input type="text" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">
-                                    <button class="btn btn-dark btn-hover-primary" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
+
                             {{-- <div class="widget-list mb-10">
                                 <h3 class="widget-title mb-4">Menu Categories</h3>
                                 <!-- Widget Menu Start -->
@@ -146,7 +138,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="widget-list">
+                            {{-- <div class="widget-list">
                                 <h3 class="widget-title mb-4">Recent Products</h3>
                                 <div class="sidebar-body product-list-wrapper mb-n6">
                                     <!-- Single Product List Start -->
@@ -221,7 +213,7 @@
                                     </div>
                                     <!-- Single Product List End -->
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </aside>
                     <!-- Sidebar Widget End -->
@@ -234,7 +226,7 @@
                         <!-- Shop Top Bar Left start -->
                         <div class="shop-top-bar-left mb-md-0 mb-2">
                             <div class="shop-top-show">
-                                <span>Showing 1–12 of 39 results</span>
+                                <span>Showing {{ $posts->firstItem() }}–{{ $posts->lastItem() }} of {{count($posts)}} results</span>
                             </div>
                         </div>
                         <!-- Shop Top Bar Left end -->
@@ -267,54 +259,9 @@
                     <!--shop toolbar end-->
 
                     <!-- Shop Wrapper Start -->
-                    {{-- <div class="row shop_wrapper grid_4">
-                        @include('alert')
-                        <div class="row">
-                        @foreach ($posts as $post)
-             
-                        @include("layouts.inc.product-inner")
-
-                        @endforeach
-
-                    </div>
-                     </div> --}}
-                     {{-- <div class="col-lg-8 col-12 order-1 order-lg-2"> --}}
-
-                        <div class="row mb-n8">
-                            @include('alert') 
-
-                            @foreach ($posts as $post)
-
-                            @include("layouts.inc.product-inner")
-
-                            @endforeach
-                        </div>
-    
-                        <div class="row mb-2 mb-lg-0">
-    
-                            <!-- Pagination Start -->
-                            <div class="col aos-init" data-aos="fade-up" data-aos-delay="300">
-                                <nav class="mt-8 pt-8 border-top d-flex justify-content-center">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">«</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">»</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Pagination End -->
-    
-                        </div>
+                   
+                    @include('layouts.inc.product-inner')
+                        
     
                     </div>
                     <!-- Shop Wrapper End -->
@@ -329,20 +276,24 @@
                         <!-- Shopt Top Bar Right Start -->
                         <div class="shop-top-bar-right">
                             <nav>
+                              
                                 <ul class="pagination">
-                                    <li class="page-item disabled">
+                                    {{-- {{ $posts->links() }} --}}
+                                    {{-- <li class="page-item disabled">
                                         <a class="page-link" href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
+
                                     <li class="page-item"><a class="page-link active" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
+
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </nav>
                         </div>

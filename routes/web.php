@@ -11,14 +11,18 @@ use App\Http\Controllers\UserViewController;
 use App\Http\Controllers\SubscribersController;
 use App\Http\Controllers\TearmAndCondationController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SellerBrandController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShortVideoController;
+use App\Http\Controllers\ServiceNameController;
+use App\Http\Controllers\ServiceBrandController;
 /*
 |--------------------------------------------------------------------------
-| Web Routes 
+| Web Routes  
 |--------------------------------------------------------------------------
-|
+|ShortVideoController
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
@@ -69,12 +73,18 @@ Route::prefix('user')->middleware('auth_activated_and_seller')->group(function (
 
 
 // ==========================Public Routes=================================
+Route::resource('/short', ShortVideoController::class );
+Route::post('/like', [App\Http\Controllers\ShortVideoController::class, 'likeVideoShort'])->name('like-video');
+Route::get('/short1',  [App\Http\Controllers\ShortVideoController::class, 'short'])->name('short');
+Route::get('/redirect-to-previous', [App\Http\Controllers\UserViewController::class, 'redirectToPreviousPage'])->name('redirect-to-previous');
+Route::get('/test', [App\Http\Controllers\UserViewController::class, 'test'])->name('test');
+Route::get('/all-categories', [App\Http\Controllers\UserViewController::class, 'allCategories'])->name('all-categories');
 Route::get('/', [App\Http\Controllers\UserViewController::class, 'index'])->name('index');
 Route::get('/get-sub-category', [App\Http\Controllers\CategoryController::class,'getSubCategory']);
 Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class, 'deletecover']);
 Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
 Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
-Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getTegisterSeller'])->name('get-register-seller');
+Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getRegisterSeller'])->name('get-register-seller');
 // Route::post('/register/seller', [App\Http\Controllers\UserViewController::class, 'registerSeller'])->name('register-seller');
 Route::get('/ask-to-register', [App\Http\Controllers\UserViewController::class, 'askToRagisterPage'])->name('ask-to-register');
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
@@ -84,55 +94,75 @@ Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewCont
 Route::get('/category-list', [App\Http\Controllers\UserViewController::class, 'categoryList'])->name('category-list');
 Route::get('/single-product', [App\Http\Controllers\UserViewController::class, 'singleProduct'])->name('single-product');
 Route::get('/show-all-subcategory-posts/{menu}/{slug}', [App\Http\Controllers\UserViewController::class, 'showAllSubCategoryPosts'])->name('show-all-subcategory-posts');
+Route::get('/show-all-category-posts/{menu}/{slug}', [App\Http\Controllers\UserViewController::class, 'showAllCategoryPosts'])->name('show-all-category-posts');
 // Route::get('/show-single-post/{id}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/show-single-post/{subMenu}/{slug}', [App\Http\Controllers\UserViewController::class, 'showSinglePost'])->name('show-single-post');
 Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack'])->name('goback');
-Route::post('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
+Route::get('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
 Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
 Route::get('seller/comapany-info/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
+// routes/web.php
+
+Route::get('/fetch-data/{category}',  [App\Http\Controllers\UserViewController::class, 'fetchDataByCategory'])->name('fetch-data');
 
 
-// Route::fallback(function () {
-//     return redirect('/');
-// });
+Route::get('/code', function () {
+    dd(Hash::make(1234567890));
+});
 
 Auth::routes();
 
 
 // ===============================this is the admin panle routes==========================================================================
 Route::prefix('admin')->middleware('is_admin')->group(function () {
+  Route::resource('services', ServiceNameController::class );
 
-Route::resource('topMenus', TopMenuController::class);
-Route::resource('menus', MenuController::class);
-Route::resource('submenus', SubmenuController::class);
-Route::resource('tearms', TearmAndCondationController::class);
-Route::resource('subscribers', SubscribersController::class);
-Route::resource('slider', SliderController::class);
-Route::POST('/admin-slid-status', [App\Http\Controllers\SliderController::class, 'adminSlidStatus'])->name('admin-slid-status');
-Route::get('/dashboard', [App\Http\Controllers\UserViewController::class, 'adminDashboard'])->name('admin.dashboard');
+  // Route::resource('services-brand', ServiceBrandController::class );
+  Route::get('/services-brand', [App\Http\Controllers\ServiceBrandController::class, 'services_manager'])->name('services-manger');
+  Route::get('/service-brand-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandShow'])->name('service-brand-show');
+  Route::post('/service-brand-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandStore'])->name('service-brand-store');
+  Route::get('/service-brand-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandEdit'])->name('service-brand-edit');
+  Route::put('/service-brand-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandUpdate'])->name('service-brand-update');
+  Route::delete('/service-brand-delete-image/{id}', [App\Http\Controllers\ServiceBrandController::class, 'servceBrandDeleteImage'])->name('service-brand-delete-image');
+  Route::delete('/service-brand-delete-logo/{id}', [App\Http\Controllers\ServiceBrandController::class, 'deleteBrandLogo'])->name('service-brand-delete-logo');
+  Route::delete('/service-brand-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'deleteBrand'])->name('service-brand-delete');
+  Route::resource('topMenus', TopMenuController::class);
+  Route::resource('menus', MenuController::class);
+  Route::resource('submenus', SubmenuController::class);
+  Route::resource('tearms', TearmAndCondationController::class);
+  Route::resource('subscribers', SubscribersController::class);
+  Route::resource('slider', SliderController::class);
+  Route::POST('/admin-slid-status', [App\Http\Controllers\SliderController::class, 'adminSlidStatus'])->name('admin-slid-status');
 
-Route::get('/get-subMenu', [App\Http\Controllers\MenuController::class,'getSubMenu'])->name('get-subMenu');;
-Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');
-Route::POST('/admin-post-status', [App\Http\Controllers\PostsController::class, 'adminPostStatus'])->name('admin-post-status');
-Route::Delete('/admin-post-delete/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('admin-post-delete');
-Route::get('/admin-post-create', [App\Http\Controllers\PostsController::class, 'adminPostCreate'])->name('admin-post-create');
-Route::post('/admin-post-store', [App\Http\Controllers\PostsController::class, 'adminPostStore'])->name('admin-post-store');
-Route::get('/admin-post-edit/{id}', [App\Http\Controllers\PostsController::class, 'adminPostEdit'])->name('admin-post-edit');
-Route::get('/admin-post-show/{id}', [App\Http\Controllers\PostsController::class, 'adminPostshow'])->name('admin-post-show');
-Route::Put('/admin-post-update/{id}', [App\Http\Controllers\PostsController::class, 'adminPostUpdate'])->name('admin-post-update');
-Route::get('/get-sub-menus', [App\Http\Controllers\PostsController::class, 'getSubMenus'])->name('get-sub-menus');
+  Route::resource('banner', BannerController::class);
+  Route::POST('/admin-banner-status', [App\Http\Controllers\BannerController::class, 'adminBannerStatus'])->name('admin-banner-status');
+  Route::get('/dashboard', [App\Http\Controllers\UserViewController::class, 'adminDashboard'])->name('admin.dashboard');
+  Route::get('/get-subMenu', [App\Http\Controllers\MenuController::class,'getSubMenu'])->name('get-subMenu');;
+  Route::get('/posts-manager', [App\Http\Controllers\PostsController::class, 'posts_manager'])->name('posts-manager');
+  Route::get('/seller-posts-manager', [App\Http\Controllers\PostsController::class, 'seller_posts_manager'])->name('seler-posts-manager');
+  Route::get('/factories-posts-manager', [App\Http\Controllers\PostsController::class, 'factories_posts_manager'])->name('factories-posts-manager');
+  Route::POST('/admin-post-status', [App\Http\Controllers\PostsController::class, 'adminPostStatus'])->name('admin-post-status');
+  Route::Delete('/admin-post-delete/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('admin-post-delete');
+  Route::get('/admin-post-create', [App\Http\Controllers\PostsController::class, 'adminPostCreate'])->name('admin-post-create');
+  Route::post('/admin-post-store', [App\Http\Controllers\PostsController::class, 'adminPostStore'])->name('admin-post-store');
+  Route::get('/admin-post-edit/{id}', [App\Http\Controllers\PostsController::class, 'adminPostEdit'])->name('admin-post-edit');
+  Route::get('/admin-post-show/{id}', [App\Http\Controllers\PostsController::class, 'adminPostshow'])->name('admin-post-show');
+  Route::Put('/admin-post-update/{id}', [App\Http\Controllers\PostsController::class, 'adminPostUpdate'])->name('admin-post-update');
+  Route::get('/get-sub-menus', [App\Http\Controllers\PostsController::class, 'getSubMenus'])->name('get-sub-menus');
 
-// =================================USER Manager=========================================
-Route::get('/users-manager', [App\Http\Controllers\UserManagerController::class, 'usersManager'])->name('users-manager');
-Route::get('/admin-user-show/{id}', [App\Http\Controllers\UserManagerController::class, 'userShow'])->name('admin-user-show');
-Route::delete('/admin-user-delete/{id}', [App\Http\Controllers\UserManagerController::class, 'destroy'])->name('admin-user-delete');
-Route::get('/admin-user-edit/{id}', [App\Http\Controllers\UserManagerController::class, 'userEdit'])->name('admin-user-edit');
-Route::put('/admin-update-user-profile/{id}', [App\Http\Controllers\UserManagerController::class, 'updateUserProfile'])->name('update-user-profile');
-Route::POST('/admin-user-status', [App\Http\Controllers\UserManagerController::class, 'adminUserStatus'])->name('admin-user-status');
-Route::POST('/admin-brand-status', [App\Http\Controllers\UserManagerController::class, 'adminBrandStatus'])->name('admin-brand-status');
-Route::delete('/admin-delete-user-account/{id}', [App\Http\Controllers\UserManagerController::class, 'deleteUserAccount'])->name('delete-user-account');
-Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::class, 'filterUsersManager'])->name('admin-user-filter');
-Route::get('admin/user-brand-info/{slug}', [App\Http\Controllers\UserManagerController::class, 'userBrandInfo'])->name('user-brand-info');
+  // =================================USER Manager=========================================
+  Route::get('/users-manager', [App\Http\Controllers\UserManagerController::class, 'usersManager'])->name('users-manager');
+  Route::get('/users-manager-sellers', [App\Http\Controllers\UserManagerController::class, 'usersManagerSellers'])->name('users-manager-sellers');
+  Route::get('/users-manager-buyer', [App\Http\Controllers\UserManagerController::class, 'usersManagerBuyer'])->name('users-manager-buyer');
+  Route::get('/admin-user-show/{id}', [App\Http\Controllers\UserManagerController::class, 'userShow'])->name('admin-user-show');
+  Route::delete('/admin-user-delete/{id}', [App\Http\Controllers\UserManagerController::class, 'destroy'])->name('admin-user-delete');
+  Route::get('/admin-user-edit/{id}', [App\Http\Controllers\UserManagerController::class, 'userEdit'])->name('admin-user-edit');
+  Route::put('/admin-update-user-profile/{id}', [App\Http\Controllers\UserManagerController::class, 'updateUserProfile'])->name('update-user-profile');
+  Route::POST('/admin-user-status', [App\Http\Controllers\UserManagerController::class, 'adminUserStatus'])->name('admin-user-status');
+  Route::POST('/admin-brand-status', [App\Http\Controllers\UserManagerController::class, 'adminBrandStatus'])->name('admin-brand-status');
+  Route::delete('/admin-delete-user-account/{id}', [App\Http\Controllers\UserManagerController::class, 'deleteUserAccount'])->name('delete-user-account');
+  Route::get('/admin-user-filter', [App\Http\Controllers\UserManagerController::class, 'filterUsersManager'])->name('admin-user-filter');
+  Route::get('admin/user-brand-info/{slug}', [App\Http\Controllers\UserManagerController::class, 'userBrandInfo'])->name('user-brand-info');
 
 
 

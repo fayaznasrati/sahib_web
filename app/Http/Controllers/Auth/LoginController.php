@@ -44,7 +44,7 @@ class LoginController extends Controller
      }
     protected function redirectTo()
     {
-        $this->welcomeBackMail();
+        // $this->welcomeBackMail();
         if (Auth::check() && Auth::user()->role === '1') {
             return RouteServiceProvider::ADMIN_HOME;
         } elseif (Auth::check() && Auth::user()->role === '2') {

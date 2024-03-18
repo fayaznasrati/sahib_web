@@ -208,6 +208,108 @@
 </div>
 <!-- Contact us Section End -->
 
+  <!-- Contact Us Section Start -->
+  <div class="section section-margin">
+    <div class="container">
+        <div class="row mb-n10">
+            <div class="col-12 col-lg-12 mb-10">
+                <!-- Section Title Start -->
+                <div class="section-title" data-aos="fade-up" data-aos-delay="300">
+                    <h2 class="title pb-3">Brand Policies</h2>
+                    <span></span>
+                    <div class="title-border-bottom"></div>
+                </div>
+                <!-- Section Title End -->
+                <!-- Contact Information Wrapper Start -->
+                <div class="row contact-info-wrapper mb-n6">
+
+                    <!-- Single Contact Information Start -->
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 single-contact-info mb-6" data-aos="fade-up" data-aos-delay="300">
+
+                        {{-- <!-- Single Contact Icon Start -->
+                        <div class="single-contact-icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <!-- Single Contact Icon End --> --}}
+
+                        <!-- Single Contact Title Content Start -->
+                        <div class="single-contact-title-content">
+                            <h4 class="title">Brand Policy</h4>
+                            <p class="desc-content">{!!$brand->brand_policy!!}</p>
+                        </div>
+                        <!-- Single Contact Title Content End -->
+
+                    </div>
+                    <!-- Single Contact Information End -->
+
+                    <!-- Single Contact Information Start -->
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 single-contact-info mb-6" data-aos="fade-up" data-aos-delay="400">
+
+                        {{-- <!-- Single Contact Icon Start -->
+                        <div class="single-contact-icon">
+                            <i class="fa fa-mobile"></i>
+                        </div>
+                        <!-- Single Contact Icon End --> --}}
+
+                        <!-- Single Contact Title Content Start -->
+                        <div class="single-contact-title-content">
+                            <h4 class="title"> Security Policy</h4>
+                            <p class="desc-content">Mobile: {!!$brand->security_policy!!}</p>
+                        </div>
+                        <!-- Single Contact Title Content End -->
+
+                    </div>
+                    
+                    <!-- Single Contact Information End -->
+
+                    <!-- Single Contact Information Start -->
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 single-contact-info mb-6" data-aos="fade-up" data-aos-delay="500">
+
+                        {{-- <!-- Single Contact Icon Start -->
+                        <div class="single-contact-icon">
+                            <i class="fa fa-envelope-o"></i>
+                        </div>
+                        <!-- Single Contact Icon End --> --}}
+
+                        <!-- Single Contact Title Content Start -->
+                        <div class="single-contact-title-content">
+                            <h4 class="title">Delaivary Policy</h4>
+                            <p class="desc-content">Mobile: {!!$brand->delivery_policy!!}</p>
+
+                        </div>
+                        <!-- Single Contact Title Content End -->
+
+                    </div>
+                    <!-- Single Contact Information End -->
+
+                     <!-- Single Contact Information Start -->
+                     <div class="col-lg-3 col-md-3 col-sm-12 col-12 single-contact-info mb-6" data-aos="fade-up" data-aos-delay="600">
+
+                        {{-- <!-- Single Contact Icon Start -->
+                        <div class="single-contact-icon">
+                            <i class="fa fa-envelope-o"></i>
+                        </div>
+                        <!-- Single Contact Icon End --> --}}
+
+                        <!-- Single Contact Title Content Start -->
+                        <div class="single-contact-title-content">
+                            <h4 class="title">Return Policy</h4>
+                            <p class="desc-content"> {!!$brand->return_policy!!}</p>
+
+                        </div>
+                        <!-- Single Contact Title Content End -->
+
+                    </div>
+                    <!-- Single Contact Information End -->
+
+                </div>
+                <!-- Contact Information Wrapper End -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact us Section End -->
+
     <!-- About Section End -->
 
   

@@ -2,7 +2,7 @@
 <div class="section">
     
     <div class="hero-slider">
-        <div class="swiper-container my-swiper-container  swiper-container-fade swiper-container-initialized swiper-container-horizontal">
+        <div style="height: 400px" class="swiper-container my-swiper-container  swiper-container-fade swiper-container-initialized swiper-container-horizontal">
             <div class="swiper-wrapper" id="swiper-wrapper-105a3492323db0381" aria-live="polite"
                 style="transition: all 0ms ease 0s;">
 
@@ -10,19 +10,19 @@
                   
                 <!-- Single Hero Slider Item Start -->
                 <div class="hero-slide-item-two swiper-slide swiper-slide-prev swiper-slide-duplicate-next"
-                    data-swiper-slide-index="3" role="group" 
-                    style="width: 1485px; transition: all 0ms ease 0s; opacity: 1; transform: translate3d(-2970px, 0px, 0px);">
+                    data-swiper-slide-index="3" role="group" >
+                    {{-- style=" transition: all 0ms ease 0s; opacity: 1; transform: translate3d(-2970px, 0px, 0px);"> --}}
   
                     <!-- Hero Slider Background Image Start -->
-                    <div class="hero-slide-bg">
-                        <img src="../../../cover/slider/{{$slid->cover}}" alt="">
+                    <div class="hero-slide-bg" style="object-fit: cover;width: 100%;">
+                        <img  src="../../../cover/slider/{{$slid->cover}}" alt="">
                     </div>
                     <!-- Hero Slider Background Image End -->
   
                     <!-- Hero Slider Container Start -->
                     <div class="container">
                         <div class="row">
-                            <div class="hero-slide-content col-lg-8 col-xl-6 col-12 text-lg-center text-left">
+                            {{-- <div class="hero-slide-content col-lg-8 col-xl-6 col-12 text-lg-center text-left">
                                 <h2 class="title">
                                     {{$slid->name}}
                                 </h2>
@@ -34,7 +34,7 @@
                                 
                                 <a href="{{$slid->url}}" class="btn btn-lg btn-primary btn-hover-dark"
                                     previewlistener="true">Shop Now</a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!-- Hero Slider Container End -->
@@ -44,15 +44,15 @@
                 @endforeach
   
             </div>
-  
-            <!-- Swiper Pagination Start -->
-            {{-- <div class="swiper-pagination d-md-none swiper-pagination-clickable swiper-pagination-bullets"><span
-                    class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
-                    aria-label="Go to slide 1"></span>
-                <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
-            </div> --}}
+           
+            <!-- Swiper Pagination Start d-md-none -->
+            <div class="swiper-pagination  swiper-pagination-clickable swiper-pagination-bullets">
+                {{-- <span  class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span> --}}
+                {{-- <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span> --}}
+                {{-- <img src="../../../cover/slider/{{$slid->cover}}" alt="" style="height: 10px; width:10px"> --}}
+            </div>
             <!-- Swiper Pagination End -->
-  
+          
             <!-- Swiper Navigation Start -->
             <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none" tabindex="0"
                 role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-105a3492323db0381"><i

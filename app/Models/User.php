@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'status',
         'role',
+        'seller_type',
         'email',
         'mobile',
         'whatsapp',
@@ -118,6 +119,11 @@ class User extends Authenticatable
         return $this->hasMany(Posts::class);
     }
 
+    public function servicesBrand(): HasOne
+    {
+        return $this->hasOne(ServicesBrand::class);
+    }
+
     public function seller_brand()
     {
         return $this->hasOne(SellerBrand::class);
@@ -143,6 +149,17 @@ class User extends Authenticatable
     public function wishlist()
     {
         return $this->belongsToMany(Posts::class, 'wishlists');
+    }
+
+    // User model
+    public function shortVideos()
+    {
+        return $this->hasMany(ShortVideo::class);
+    }
+    
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function toggleIsActive()

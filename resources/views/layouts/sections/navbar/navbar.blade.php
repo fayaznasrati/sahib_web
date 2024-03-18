@@ -65,7 +65,7 @@ $navbarDetached = ($navbarDetached ?? '');
                   
               </div>
               @if (Auth::user()->dp_image==null)
-              <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: auto; width:40px"/>
+              <img src="{{ asset('assets/images/icons/nav-user-icon-3.png') }}" alt="No-Image" style="height: auto; width:40px"/>
                 @else
                 <img src="../../../dp_images/{{ Auth::user()->dp_image }}" alt class="w-px-40 h-auto rounded-circle">
               @endif
@@ -78,7 +78,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <div class="flex-shrink-0 me-3">
                       <div class="avatar avatar-online">
                         @if (Auth::user()->dp_image==null)
-                        <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: auto; width:40px"/>
+                        <img src="{{ asset('assets/images/icons/nav-user-icon-3.png') }}" alt="No-Image" style="height: auto; width:40px"/>
                           @else
                         <img src="../../../dp_images/{{ Auth::user()->dp_image }}" alt class="w-px-40 h-auto rounded-circle">
                         @endif

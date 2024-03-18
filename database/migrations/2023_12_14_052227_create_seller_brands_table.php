@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('brand_certificate_img')->nullable();
             $table->string('brand_certificate_no')->nullable();
             $table->string('brand_found_date')->nullable();
-            $table->string('brand_polices')->nullable();
+            $table->text('brand_polices')->nullable();
             $table->string('email')->unique();
             $table->foreign('city_id')->references('id')->on('afg_cities')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

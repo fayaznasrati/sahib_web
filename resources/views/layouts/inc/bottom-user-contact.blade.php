@@ -1,9 +1,7 @@
 <nav class="navbar-bottom-contact-user">
-    <ul class="navbar-nav-bottom">
-        <div class="flex-container">
-            <a  href="https://api.whatsapp.com/send?phone=0093776259270" target="_blank"><button class="contact-btn whatsBtn"><i class="fa fa-whatsapp"></i></button></a>   
-            <a href="mailto:#"><button class="contact-btn mailBtn"><i class="pe-7s-mail"></i></button></a>   
-            <a href="#"><button class="contact-btn phoneBtn"><i class="pe-7s-phone"></i></button></a>   
-          </div>
+    <ul class="navbar-nav-bottom-contact">
+          <a href="tel:+{{ $post->user->mobile }}"> <img src="{{ asset('assets/images/icons/telephone-symbol-button-main.png') }}" alt="Cat"></a>
+          <a href="https://api.whatsapp.com/send?phone={{ $post->user->whatsapp }}" target="_blank"> <img src="{{ asset('assets/images/icons/whatsapp-main.png') }}" alt="Cat"></a>
+          <a href="mailto:{{ $post->user->email }}"> <img src="{{ asset('assets/images/icons/email.png') }}" alt="Cat"></a>
     </ul>
   </nav

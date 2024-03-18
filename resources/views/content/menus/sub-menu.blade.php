@@ -53,6 +53,17 @@
                     <div id="floatingInputHelp" class="form-text">Write the name of the menu here</div>
                 </div>
             </div>
+            <div class="col-md-3">
+              <div class="form-floating">
+              <input type="file" name="icon" value="{{ old('icon', $submenu->icon ?? '') }}" class="form-control" id="floatingInput" placeholder="eg: Home" aria-describedby="floatingInputHelp" />
+              <label for="floatingInput">Icon</label>
+              <div id="floatingInputHelp" class="form-text">
+                @if (isset($submenu))
+                <img src="../../../submenu-icon/{{$submenu->icon}}" alt="submenu icon" style="height: auto; width:20px">
+                Update @else choose  @endif the Icon of submenu here
+                </div>
+          </div>
+          </div>
                 {{-- <div class="col-md-3">
                     <div class="form-floating">
 
@@ -61,15 +72,15 @@
                     <div id="floatingInputHelp" class="form-text">Write the Slug of the menu here</div>
             </div>
             </div> --}}
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="form-floating">
 
                     <input type="text"  name="url" value="{{ old('url', $submenu->url ?? '') }}" class="form-control" id="floatingInput" placeholder="eg: https://sahib.af/index" aria-describedby="floatingInputHelp" />
                     <label for="floatingInput">URL</label>
                     <div id="floatingInputHelp" class="form-text">Write the url of the menu here</div>
                 </div>
-            </div>
-                <div class="col-md-1">
+            </div> --}}
+                <div class="col-md-3">
                     <div class="form-floating">
                         <button type="submit" class="btn btn-lg btn-dark">@if (isset($submenu)) Update @else Create @endif</button>
                     </div>
@@ -93,7 +104,7 @@
             <th>Parent Menu</th>
             <th>Title</th>
             <th>Slug</th>
-            <th>Url</th>
+            {{-- <th>Url</th> --}}
             <th>Actions</th>
           </tr>
         </thead>
@@ -103,8 +114,10 @@
           <tr><td>{{$i++}}</td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$submenu->menu->name}}</strong></td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$submenu->name}}</strong></td>
+            <td><img src="../../../submenu-icon/{{$submenu->cover}}" alt="m{{$submenu->cover}}" style="height: auto; width:20px"></td>
+
             <td>{{$submenu->slug}}</td>
-            <td><a href="{{$submenu->url}}" target="_blank" rel="noopener noreferrer">{{$submenu->url}}</a></td>
+            {{-- <td><a href="{{$submenu->url}}" target="_blank" rel="noopener noreferrer">{{$submenu->url}}</a></td> --}}
             <td>
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

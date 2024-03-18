@@ -97,8 +97,8 @@
             <th>Icon</th>
             <th>Name</th>
             <th>Top Menu</th>
-            <th>Slug</th>
-            <th>Url</th>
+            {{-- <th>Slug</th>
+            <th>Url</th> --}}
             <th>Actions</th>
           </tr>
         </thead> @php
@@ -111,8 +111,8 @@
             <td><img src="../../../menu-icon/{{$menu->icon}}" alt="menu icon" style="height: auto; width:20px"></td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$menu->name}}</strong></td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$menu->topMenu->name}}</strong></td>
-            <td>{{$menu->slug}}</td>
-            <td><a href="{{$menu->url}}" target="_blank" rel="noopener noreferrer">{{$menu->url}}</a></td>
+            {{-- <td>{{$menu->slug}}</td>
+            <td><a href="{{$menu->url}}" target="_blank" rel="noopener noreferrer">{{$menu->url}}</a></td> --}}
             <td>
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

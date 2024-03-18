@@ -1,8 +1,6 @@
 <div class="header section">
  
-        <span  class="overlay-logo">
-            <img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" />
-        </span>
+      
        
   <!-- Header Top Start -->
   <div class="header-top bg-light">
@@ -13,7 +11,7 @@
             <div class="col d-none d-lg-block">
                 <div class="header-top-lan-curr-link">
                     <div class="header-top-lan dropdown">
-                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown" id="have-main-color">English <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
                             <li><a class="dropdown-item" href="#">English</a></li>
                             <li><a class="dropdown-item" href="#">فارسی</a></li>
@@ -49,7 +47,7 @@
                     @endguest
             </div>
             <!-- Header Top Message End -->
-
+  
         </div>
     </div>
 </div>
@@ -59,9 +57,14 @@
         <!-- Header Top Start -->
         <div class="container-fluid mt-2 ">
             <div class="row">
-                <div class="container col-md-2"></div>
+                <div class="container col-md-2">
+                    <span  class="overlay-logo" id="scrollDisplay">
+                        
+                        <a href="/"> <img src="{{asset('assets/images/logo/sahib_logo.png')}}" alt="Sahib.af Logo" /></a>
+                     </span>
+                </div>
                      <div class="container col-md-7">
-                        <form action="/search" method="post" >@csrf
+                        <form action="/search" method="get" >
                           <span class="all-search-box" style="margin-right: 40px">
                               <input  type="search" name="query" id="autocomplete" placeholder="search anything here..." class="input-with-icon">
                               <button type="submit" class="search-button">Search</button>
@@ -72,7 +75,7 @@
                          <div class="col-md-2" >
                               <!-- Header Action Start -->
 
-                            <div class="header-actions ">
+                            <div class="header-actions " id="hideme">
 
    
                                 @if(Auth::check())
@@ -86,8 +89,7 @@
                                 @endif
                                 <!-- User Account Header Action Button End -->
                                 <!-- Shopping Cart Header Action Button Start -->
-                                <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-wishlist">
-                                    
+                                <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-wishlist">     
                                     <i class="pe-7s-like"></i>
                                 @if (Auth::check())
                                   @if (count($wishlists)>=1)
@@ -123,9 +125,9 @@
 
                     <!-- Header Logo Start -->
                     <div class="col-xl-1 col-6">
-                        <div class="header-logo">
-                            <a href="/"  ><img src="{{asset('assets/images/logo/logo_2.png')}}" alt="Sahib.af Logo" /></a>
-                        </div>
+                        <div class="my-header-logo mt-1 mr-0" >
+                            <a href="/"> <img src="{{asset('assets/images/logo/sahib_logo.png')}}" alt="Sahib.af Logo" /></a>
+                          </div>
                     </div>
                     <!-- Header Logo End -->
 
@@ -133,24 +135,20 @@
                       <div class=" col-md-10 col-xl-10 d-none d-xl-block">
                         <div class="main-menu position-relative container" >
                             <ul>
-                                
-
                                 @foreach ($topMenus as $topMenu )
 
-                               
                                 @if ($topMenu->menu)
                                 {{-- {{count($topMenu->menu) >0 ? "has" : "not"}} --}}
                                 @if (count($topMenu->menu) >0)
-                                     <li class="has-children position-static"  > <a href="#"><span>{{$topMenu->name}}</span> <i class="fa fa-angle-down"></i></a>
+                                     <li class="has-children position-static"  >
+                                         <a href="#"><span>{{$topMenu->name}}</span>
+                                             <i class="fa fa-angle-down"></i></a>
                                 @else
-                                    <li ><a href="{{$topMenu->url}}"><span>{{$topMenu->name}}</span></a>
+                                    <li ><a href="#"><span>{{$topMenu->name}}</span></a>
                                 @endif
-                               
-                                   
-                                    
-                                    <ul class="mega-menu row"  >
-                                        <div class="col-md-8" >
-                                            <div class="row" >
+                                  <ul class="mega-menu row">
+                                        <div class="col-md-8">
+                                            <div class="row">
                                                 @foreach ( $topMenu->menu as $menu)
                                                 <li class="col-md-4"  >
                                                     <h4 class="mega-menu-title">{{$menu->name}} </h4>
@@ -200,8 +198,6 @@
                                     </ul>
                                    
                                 </li> --}}
-                               
-   
                                 {{-- <li><a href="contact.html"><span>Contact</span></a></li> --}}
                                 @endforeach
                             </ul>
@@ -210,15 +206,34 @@
                     <!-- Header Menu End -->
                     <!-- Header Action Start -->
                     <div class="col-xl-1 col-6">
-                        <div class="header-actions" style="margin-top: -20px">
+                        <div class="header-actions " style="margin-top: -40px">
 
-
-                            <!-- Mobile Menu Hambarger Action Button Start -->
+                          <span class="navabr_bottom_action">
+                            <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-wishlist ">     
+                                <i class="pe-7s-like"></i>
+                            @if (Auth::check())
+                              @if (count($wishlists)>=1)
+                                <span class="header-action-num">{{count($wishlists)}}</span>
+                              @endif
+                              <!-- Mobile Menu Hambarger Action Button Start -->
+                            @endif  
+                            </a>    
+                        </span>   
+                        @if (Auth::check())
+                         <!-- Mobile Menu Hambarger Action Button Start -->
                             <a href="javascript:void(0)" class="header-action-btn header-action-btn-menu d-xl-none d-lg-block">
-                                <i class="fa fa-bars"></i>
+                                @if (Auth::user()->dp_image==null)
+                                <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="No-Image" style="height: 40px;width:40px;border-radius:10px"/>
+                                    @else
+                                    {{ Str::limit(Auth::user()->name, 10) }}  <img src="../../../dp_images/{{ Auth::user()->dp_image }}" alt="User-DP" style="height: 40px;width:40px;border-radius:10px"/>
+                                @endif
                             </a>
-                            <!-- Mobile Menu Hambarger Action Button End -->
-
+                            @else
+                            <a href="/login" id="have-main-color" class="header-action-btn  d-xl-none d-lg-block">
+                            Login <img src="{{ asset('assets/images/icons/nav-user-icon.png') }}" alt="No-Image" style="height: 40px;width:40px;border-radius:10px"/>
+                            </a>
+                            @endif 
+                            <!-- Mobile Menu Hambarger Action Button End --> 
                         </div>
                     </div>
                     <!-- Header Action End -->
@@ -231,7 +246,7 @@
     <!-- Header Bottom End -->
 
     <!-- Mobile Menu Start -->
-    <div class="mobile-menu-wrapper">
+    <div class="mobile-menu-wrapper" >
         <div class="offcanvas-overlay"></div>
 
         <!-- Mobile Menu Inner Start -->
@@ -246,116 +261,104 @@
             <!-- Mobile Menu Start -->
             <div class="mobile-navigation">
                 <nav>
-                    <ul class="mobile-menu">
-                        <li class="has-children">
-                            <a href="#">Home <i class="fa fa-angle-down"></i></a>
+                    <ul class="mobile-menu" >
+                        @foreach ($topMenus as $topMenu )
+                        @if ($topMenu->menu)
+                        @if (count($topMenu->menu) >0)
+                             <li class="has-children"><a href="#"><span id="have-white-color">{{$topMenu->name}}</span> <i id="have-white-color" class="fa fa-angle-down"></i></a>
+                        @else
+                            <li ><a href="#"><span id="have-white-color">{{$topMenu->name}}</span></a>
+                        @endif
                             <ul class="dropdown">
-                                <li><a href="index.html">Home One</a></li>
-                                <li><a href="index-2.html">Home Two</a></li>
+                                @foreach ( $topMenu->menu as $menu)
+                                  @if (count($menu->submenu) >0)
+                                   <li class="has-children" ><a href="#"><span id="have-white-color">{{$menu->name}}</span> <i id="have-white-color" class="fa fa-angle-down"></i></a>
+                                  @else
+                                   <li><a href="#"><span id="have-white-color">{{$menu->name}}</span></a>
+                                  @endif
+                                    <ul class="dropdown">
+                                        @foreach ($menu->submenu as $submenu)
+                                        <li style="padding-left: 20px"><a id="have-white-color" href="/show-all-subcategory-posts/{{$menu->name}}/{{$submenu->slug}}">{{$submenu->name}}</a></li> 
+                                        @endforeach 
+                                    </ul>
+                                </li>
+                                @endforeach
                             </ul>
+
                         </li>
-                        <li class="has-children">
-                            <a href="#">Shop <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="shop-grid.html">Shop Grid</a></li>
-                                <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
-                                <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                <li><a href="shop-list-fullwidth.html">Shop List Fullwidth</a></li>
-                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
-                                <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
-                                <li><a href="/my-wishlist">Wishlist</a></li>
-                                <li><a href="cart.html">Shopping Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="compare.html">Compare</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a href="#">Product <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="single-product.html">Single Product</a></li>
-                                <li><a href="single-product-sale.html">Single Product Sale</a></li>
-                                <li><a href="single-product-group.html">Single Product Group</a></li>
-                                <li><a href="single-product-normal.html">Single Product Normal</a></li>
-                                <li><a href="single-product-affiliate.html">Single Product Affiliate</a></li>
-                                <li><a href="single-product-slider.html">Single Product Slider</a></li>
-                                <li><a href="single-product-gallery-left.html">Gallery Left</a></li>
-                                <li><a href="single-product-gallery-right.html">Gallery Right</a></li>
-                                <li><a href="single-product-tab-style-left.html">Tab Style Left</a></li>
-                                <li><a href="single-product-tab-style-right.html">Tab Style Right</a></li>
-                                <li><a href="single-product-sticky-left.html">Sticky Left</a></li>
-                                <li><a href="single-product-sticky-right.html">Sticky Right</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a href="#">Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="faq.html">Faq</a></li>
-                                <li><a href="404-error.html">Error 404</a></li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="login-register.html">Loging | Register</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a href="#">Blog <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
-                                <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        @endif
+                        @endforeach
+                        <hr>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
             <!-- Mobile Menu End -->
 
             <!-- Language, Currency & Link Start -->
+            {{-- <div class="offcanvas-lag-curr mb-6">
+                <h2 class="title">Languages</h2>
+                <div class="header-top-lan-curr-link">
+                    <div class="header-top-lan dropdown">
+                        <button id="have-white-color" class="dropdown-toggle " data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
+                            <li><a class="dropdown-item" href="#">فارسی</a></li>
+                            <li><a class="dropdown-item" href="#">پشتو</a></li>
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> --}}
             <div class="offcanvas-lag-curr mb-6">
                 <h2 class="title">Languages</h2>
                 <div class="header-top-lan-curr-link">
                     <div class="header-top-lan dropdown">
-                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown"  style="color:white">English <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
-                            <li><a class="dropdown-item" href="#">English</a></li>
-                            <li><a class="dropdown-item" href="#">Japanese</a></li>
-                            <li><a class="dropdown-item" href="#">Arabic</a></li>
-                            <li><a class="dropdown-item" href="#">Romanian</a></li>
+                            <li><a class="dropdown-item" href="#">Engalish</a></li>
+                            <li><a class="dropdown-item" href="#">فارسی</a></li>
+                            <li><a class="dropdown-item" href="#">پشتو</a></li>
                         </ul>
                     </div>
+                    @guest
                     <div class="header-top-curr dropdown">
-                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i class="fa fa-angle-down"></i></button>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown"  style="color:white">Login <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
-                            <li><a class="dropdown-item" href="#">USD</a></li>
-                            <li><a class="dropdown-item" href="#">Pound</a></li>
+                            <li><a class="dropdown-item" href="/login">Login</a></li>
+                            <li><a class="dropdown-item" href="/ask-to-register">Register</a></li>
                         </ul>
                     </div>
+                        @else
+                        <div class="header-top-curr dropdown">
+                            <button class="dropdown-toggle" data-bs-toggle="dropdown"> Welcome: <b id="user-name">{{ Auth::user()->name }}</b> <i class="fa fa-angle-down"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
+                                <li><a class="dropdown-item"  style="color:white" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }} </a></li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
+                            </ul>
+                        </div>
+
+                    @endguest
+                  
                 </div>
             </div>
             <!-- Language, Currency & Link End -->
-
             <!-- Contact Links/Social Links Start -->
             <div class="mt-auto">
 
                 <!-- Contact Links Start -->
                 <ul class="contact-links">
-                    <li><i class="fa fa-phone"></i><a href="#"> +012 3456 789 123</a></li>
-                    <li><i class="fa fa-envelope-o"></i><a href="#"> info@example.com</a></li>
-                    <li><i class="fa fa-clock-o"></i> <span>Monday - Sunday 9.00 - 18.00</span> </li>
+                    <li><i class="fa fa-phone"></i><a href="tel:+93785655511" id="have-white-color"> (+93) 785-655-511 </a></li>
+                    <li><i class="fa fa-envelope-o"></i><a href="mailto:info@sahib.af" id="have-white-color"> info@sahib.af</a></li> <a href="tel:+"></a>
+                    <li><i class="fa fa-clock-o"></i> <span>Wazir-akbar-khan, Kabul Afghanistan</span> </li>
                 </ul>
                 <!-- Contact Links End -->
 
                 <!-- Social Widget Start -->
                 <div class="widget-social">
-                    <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
-                    <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
-                    <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-                    <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
-                    <a title="Vimeo" href="#"><i class="fa fa-vimeo"></i></a>
+                    <a title="Facebook" href="#"><i id="have-white-color" class="fa fa-facebook-f"></i></a>
+                    <a title="Twitter" href="#"><i  id="have-white-color" class="fa fa-twitter"></i></a>
+                    <a title="instagram" href="#"><i id="have-white-color" class="fa fa-instagram"></i></a>
                 </div>
                 <!-- Social Widget Ende -->
             </div>

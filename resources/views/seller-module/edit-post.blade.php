@@ -160,6 +160,8 @@
                                         <input class="input-item"  name="title_desc[]" type="text" placeholder="description" value="{{$title_desc[$key]}}">
                                     </div>
                                 </div>
+
+                                
                                 <div class="col-md-2 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                                         <br>
                                         <a href="javascript:void(0)"  class="btn btn-dark btn-hover-success rounded-0 removeFeature">-</a>
@@ -175,7 +177,20 @@
             {{-- <div class="card ">
                 <h5 class="card-header"><b>More informations:</h5>
                 <div class="card-body pr-4" > --}}
-                <div class=" card contact-form-wrapper contact-form">
+                    <div class=" card contact-form-wrapper contact-form">
+                        <h5 class="card-header">Update short Description</h5>
+                            <div class=" aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                                <div class="input-item mb-8">
+                                    {{-- <label for="name"><small>More informations:</small></label> --}}
+                                    <textarea style="margin-right: 20px" class="textarea-item" name="short_description"  placeholder="Message" style="height: 200px;">
+                                        {!! $posts->short_description !!}
+                                    </textarea>
+                                </div>
+                            </div>
+    
+                   </div> <br>
+
+                   <div class=" card contact-form-wrapper contact-form">
                     <h5 class="card-header">Update Description</h5>
                         <div class=" aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
                             <div class="input-item mb-8">

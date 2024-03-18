@@ -14,6 +14,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('posts:update-status')->daily();
+        
+        $schedule->call(function () {
+            // Delete videos older than one day
+            ShortVideo::where('created_at', '<', now()->subDay())->delete();
+        })->daily();
     }
 
     /**
@@ -25,6 +30,10 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    // protected $commands = [
+    //     Commands\DeleteOldVideos::class,
+    // ];
 
     
 }

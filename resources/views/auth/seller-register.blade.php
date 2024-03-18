@@ -130,6 +130,22 @@
                             </div>
                             <!-- Input Password End -->
 
+                            <div class="col-md-12 mb-3">
+                                <div class="country-select">
+                                    <select name="seller_type" class="myniceselect nice-select wide rounded-0" required style="display: none;">
+                                        <option >Select Category </option>
+                                        <option value="1">I have a factory </option>
+                                        <option value="2">I am a wholesaller </option>
+                                    
+                                    </select> 
+                                </div>
+                            </div>
+                                    <!-- Input First Name End -->
+
+                              <!-- Input Password Start -->
+                        
+                            <!-- Input Password End -->
+
                             <!-- Checkbox & Subscribe Label Start -->
                             {{-- <div class="single-input-item mb-3">
                                 <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -186,6 +202,10 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="subscription" class="custom-control-input" id="rememberMe-2">
                                         <label class="custom-control-label" for="rememberMe-2">Subscribe For Beast Offers And Our Newsletter</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        {{-- <input type="checkbox" name="subscription" class="custom-control-input" id="rememberMe-2"> --}}
+                                        <label class="custom-control-label" for="rememberMe-2">Already have an account <a href="/login">login</a></label>
                                     </div>
                                 </div>
                             </div>

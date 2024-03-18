@@ -169,6 +169,17 @@
                         </div> <br>
 
                         <div class="card mb-4">
+                            <h5 class="card-header">Write short Description</h5>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <div class="col-md-12">
+                                        <textarea class="tinymce-editor form-control" name="short_description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
                             <h5 class="card-header">Write Description</h5>
                             <div class="card-body">
                                 <div class="mb-3 row">

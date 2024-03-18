@@ -19,6 +19,7 @@ class Posts extends Model
         'user_id',
         'sub_menu_id',
         'name',
+        'category_type',
         'slug',
         'cover',
         'puuid',
@@ -28,6 +29,7 @@ class Posts extends Model
         'title',
         'title_desc',
         'description',
+        'short_description',
         'note',
         'expired_at',
     ];
@@ -79,6 +81,7 @@ class Posts extends Model
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
+            'short_description' => 'required|max:300',
         ]);
 
         $slug = Str::slug($validatedData['name']);
@@ -113,6 +116,7 @@ class Posts extends Model
             "title" => $title = json_encode($request->title),
             "title_desc" => $title_desc = json_encode($request->title_desc),
              "description" =>$request->description,
+             "short_description" =>$request->short_description,
              
         ]);
 
@@ -132,13 +136,16 @@ class Posts extends Model
     }
     public function store(Request $request)
     {
+        $user = Auth::user();
+        // dd($user->seller_type);
         // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
+            'short_description' => 'required|max:300',
         ]);
 
-        $note = Str::limit(strip_tags($validatedData['description']),50);
+        $note = Str::limit(strip_tags($validatedData['short_description']),10);
         $slug = Str::slug($validatedData['name']);
         $originalSlug = $slug;
         $count = 1;
@@ -159,6 +166,7 @@ class Posts extends Model
                    "menu_id" => $request->category_id,
                    "sub_menu_id" => $request->sub_category_id,
                    "name" => $request->name,
+                   "category_type"=>$user->seller_type,
                    "slug" => $slug.'-'.time(),
                    "note" =>$note,
                    "cover" =>$cover,
@@ -169,6 +177,7 @@ class Posts extends Model
                    "title" => $title = json_encode($request->title),
                    "title_desc" => $title_desc = json_encode($request->title_desc),
                     "description" =>$request->description,
+                    "short_description" =>$request->short_description,
                     "expired_at"=>$expiration_date,                 
                 ]);
                 // dd($posts);
@@ -187,6 +196,7 @@ class Posts extends Model
     
                     }
                 }
+              
         //   return redirect('/user/post')->with('success', 'Todos Has Been Created Successfully.');
         return back();
 

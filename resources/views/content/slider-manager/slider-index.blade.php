@@ -10,8 +10,9 @@
 @section('content')
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">Slider Manager / </span> Slider List
-
     </h4>
+
+
     @if (session('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
             {{ session('success') }}
@@ -19,6 +20,8 @@
             </button>
         </div>
     @endif
+
+
     <div class="row">
         <div class="card mb-4">
             <div class="card-body">
@@ -77,6 +80,8 @@
                         </div>
                     </form>
                 </div>
+
+
                 {{-- Create Slider --}}
                 <div class="collapse {{isset($slid)? 'show' : ''}}" id="collapseCreate" >
                   @if (isset($slid))
@@ -101,10 +106,14 @@
                                     <input class="form-control" type="text" placeholder="https://sahib.af/xxx"
                                         name="url" value="{{ old('url', $slid->url ?? '') }}">
                                 </div>
-                                    <div class="col-md-6">
-                                        <label for="formFile" class="form-label">Choose Cover 600/400px</label>
-                                        <input class="form-control" type="file" id="formFile" name="cover">
-                                    </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Choose Cover For Web 600px W/400px H</label>
+                                    <input class="form-control" type="file" id="formFile" name="cover">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Choose Cover For Mobile 300px W/150px H</label>
+                                    <input class="form-control" type="file" id="formFile" name="mobileCover">
+                                </div>
                                 
                                     <div class="col-md-6">
                                         <label for="name"><small>Slider Offer % *:</small></label>
@@ -114,7 +123,7 @@
                                         <label for="name"><small>old Price:</small></label>
                                         <input class="form-control" value="{{ old('old_price', $slid->old_price ?? '') }}" type="text" placeholder="30%" name="old_price">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="name"><small>new Price:</small></label>
                                         <input class="form-control" value="{{ old('new_price', $slid->new_price ?? '') }}"type="text" placeholder="30%" name="new_price">
                                     </div>
@@ -123,10 +132,23 @@
                                         
                                     
                                     <div class="col-md-6">
-                                      <label for="name"><small>Current Cover:</small></label>
-                                      <img src="../../../cover/slider/{{ $slid->cover }}" alt="slid image"
-                                      style="height: auto; width:auto">
-                                    </div>
+                                        <label for="name"><small>Current Cover:</small></label>
+                                        <img src="../../../cover/slider/{{ $slid->cover }}" alt="slid image"
+                                        style="height: auto; width:auto">
+                                      </div>
+                                      
+                                    @else
+                                    <b>No Image</b>
+                                    @endif
+                                    @if ($slid->cover!= null)
+                                        
+                                    
+                                    <div class="col-md-6">
+                                        <label for="name"><small>Current Mobile Cover:</small></label>
+                                        <img src="../../../mobileCover/slider/{{ $slid->mobileCover }}" alt="slid image"
+                                        style="height: auto; width:auto">
+                                      </div>
+                                      
                                     @else
                                     <b>No Image</b>
                                     @endif
@@ -169,8 +191,8 @@
                             <th>Slid ID</th>
                             <th>Made by</th>
                             <th>Cover</th>
+                            <th>Mobile Cover</th>
                             <th>Name</th>
-                            <th>Slug</th>
                             <th>Price</th>
                             <th>Offer</th>
                             <th>Poblished at</th>
@@ -189,10 +211,9 @@
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                     <strong>{{ $slid->user->name }}</strong>
                                 </td>
-                                <td><img src="../../../cover/slider/{{ $slid->cover }}" alt="slid image"
-                                        style="height: auto; width:40px"></td>
+                                <td><img src="../../../cover/slider/{{ $slid->cover }}" alt="slid image"style="height: auto; width:40px"></td>
+                                <td><img src="../../../mobileCover/slider/{{ $slid->mobileCover }}" alt="slid image"style="height: auto; width:40px"></td>
                                 <td>{{ $slid->name }}</td>
-                                <td>{{ $slid->slug }}</td>
                                 <td>{{ $slid->new_price }}</td>
                                 <td>{{ $slid->offer }}</td>
                                 <td>{{ $slid->updated_at }}</td>
@@ -245,6 +266,5 @@
             {{ $slider->links() }}
             <br>
         </div>
-
-        <!--/ Striped Rows -->
+    <!--/ Striped Rows -->
     @endsection

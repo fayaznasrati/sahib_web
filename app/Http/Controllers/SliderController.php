@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\toggleIsActive;
 use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SliderController extends Controller
 {
@@ -37,9 +38,11 @@ class SliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {    $slid = new Slider();
-        $slid->store($request);
+    public function store(Request $request){
+        
+        // dd($request->all());
+        $slid = new Slider();
+         $slid->store($request);
          return redirect('/admin/slider')->with("success"," slid Created Successfully");
     }
 

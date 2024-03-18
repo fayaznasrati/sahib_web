@@ -85,10 +85,13 @@ class SellerBrandController extends Controller
                        "zip_code" => $request->zip_code,
                        "brand_certificate_no" => $request->brand_certificate_no,
                        "brand_found_date" => $request->brand_found_date,
-                       "brand_polices" => $request->brand_polices,
+                       "brand_policy" => $request->brand_policy,
+                       "delivery_policy" => $request->delivery_policy,
+                       "return_policy" => $request->return_policy,
+                       "security_policy" => $request->security_policy,
                        "about" => $request->about,
                     ]);
-                    // dd($brand);
+                   
                    $brand->user_id = Auth::id();
                    $brand->save();
             
@@ -174,7 +177,10 @@ class SellerBrandController extends Controller
                     "zip_code" => $request->zip_code,
                     "brand_certificate_no" => $request->brand_certificate_no,
                     "brand_found_date" => $request->brand_found_date,
-                    "brand_polices" => $request->brand_polices,
+                    "brand_policy" => $request->brand_policy,
+                    "delivery_policy" => $request->delivery_policy,
+                    "return_policy" => $request->return_policy,
+                    "security_policy" => $request->security_policy,
                     "about" => $request->about,
                      
                 ]);

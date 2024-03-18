@@ -106,6 +106,7 @@ class RegisterController extends Controller
             ]);
             $create =  User::create([
                 'name' => $data['name'],
+                'seller_type' => $data['seller_type'],
                 'role' => $data['role'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
@@ -117,10 +118,11 @@ class RegisterController extends Controller
             $create =  User::create([
                 'name' => $data['name'],
                 'role' => $data['role'],
+                'seller_type' => $data['seller_type'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
-            $this->varication($data);
+            $this->varication($data); //disabled for testing mode only 
 
         }
 

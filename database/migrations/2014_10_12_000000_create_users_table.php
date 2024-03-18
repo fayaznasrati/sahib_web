@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('role')->default(0);   // 0 user, 1 admin 2 sub admin
+            $table->string('seller_type')->default(0);   //2 wholeSaller 1 factory  0 user, 
             $table->string('name');
             $table->int('status')->default(1);   // 0 in-active, 1 active
             $table->string('dp_image')->nullable();;

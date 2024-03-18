@@ -37,14 +37,56 @@
       "url": "posts",
       "submenu": [
         {
-          "url": "/admin/posts-manager",
-          "name": "Posts Manager",
-          "slug": "posts-manager"
-        },
+          "url": "/admin/seller-posts-manager",
+          "name": "Seller Post",
+          "slug": "seller-post"
+        }
+        ,
+        {
+          "url": "/admin/factories-posts-manager",
+          "name": "Factories Post",
+          "slug": "factories-post"
+        }
+        ,
         {
           "url": "/admin/admin-post-create",
           "name": "Create Post",
           "slug": "create-post"
+        }
+      ]
+    },
+    {
+      "name": "services",
+      "icon": "menu-icon tf-icons bx bx-detail",
+      "slug": "services",
+      "url": "/admin/services"
+      
+    },
+    {
+      "name": "Manage Services",
+      "icon": "menu-icon tf-icons bx bx-collection",
+      "slug": "mange-hotels",
+      "url": "hotels",
+      "submenu": [
+        {
+          "url": "/admin/services-brand",
+          "name": "Create Services Brand",
+          "slug": "create-brand"
+        },
+        {
+          "url": "/admin/hotels",
+          "name": "Hotels",
+          "slug": "hotels"
+        },
+        {
+          "url": "/admin/wedding-halls-manager",
+          "name": "Wedding Halls",
+          "slug": "wedding-halls"
+        },
+        {
+          "url": "/admin/reastorans-manager",
+          "name": "Rasturants & Cafe",
+          "slug": "reastorants-cafe"
         }
       ]
     },
@@ -56,13 +98,32 @@
 
     },
     {
+      "name": "Mange Ad Banners",
+      "icon": "menu-icon tf-icons bx bxs-user-account", 
+      "slug": "mange-banner",
+      "url": "/admin/banner"
+
+    },{
       "name": "Mange Users",
       "icon": "menu-icon tf-icons bx bxs-user-account", 
-      "slug": "mange-users",
-      "url": "/admin/users-manager"
-
-    },
-    {
+      "slug": "users",
+      "submenu": [
+        {
+          "url": "/admin/users-manager",
+          "name": "Admin",
+          "slug": "admin"
+        },
+        {
+          "url": "/admin/users-manager-sellers",
+          "name": "Sellers",
+          "slug": "sellers"
+        },{
+          "url": "/admin/users-manager-buyer",
+          "name": "Buyers",
+          "slug": "buyer"
+        }
+      ]
+    },{
       "name": "Tearm and Condations",
       "icon": "menu-icon tf-icons bx bx-detail",
       "slug": "Tearm",
