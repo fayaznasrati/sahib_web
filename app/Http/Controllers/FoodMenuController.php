@@ -1,23 +1,20 @@
 <?php
 
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\BrandGalleryImage;
-use App\Models\ServicesBrand;
+use App\Models\FoodMenuImage;
+use App\Models\FoodMenu;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Models\toggleIsActive;
-use App\Models\Posts\updatePost;
+use App\Models\FoodMenu\updateFoodMenu;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Models\ServiceName;
-use App\Models\FoodMenu;
-use App\Models\FoodMenuImage;
-class ServiceBrandController extends Controller
+
+class FoodMenuController extends Controller
 {
 
     // public function __construct()
@@ -36,13 +33,13 @@ class ServiceBrandController extends Controller
     // }
 
     // public function services_manager(){
-        public function services_manager(){
-        $services=ServicesBrand::latest()->paginate(5);
-        $services_name = ServiceName::get()->all();
-        $users = User::get()->all();
+    //     public function services_manager(){
+    //     $services=ServicesBrand::latest()->paginate(5);
+    //     $services_name = ServiceName::get()->all();
+    //     $users = User::get()->all();
 
-        return view('content.services-manager.service-index',compact('services','services_name','users'));  
-    }
+    //     return view('content.services-manager.service-index',compact('services','services_name','users'));  
+    // }
 
     // public function seller_posts_manager(){
     //     $name = 'seller';
@@ -92,9 +89,6 @@ class ServiceBrandController extends Controller
          return redirect('/admin/services-brand')->with("success"," Service Brand Created Successfully");
     }
 
-
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -123,17 +117,15 @@ class ServiceBrandController extends Controller
     //      return view('seller-module.show-ad', compact('posts', 'category', 'subCategory','currentUrl'));
     // }
 
-    // public function adminPostshow(string $id){
+    public function adminPostshow(string $id){
 
-    //     $posts=Posts::findOrFail($id);
-    //     $menus = Menu::all();
-    //     $afgCity = AfgCity::all();
-    //     $submenus = Submenu::all();
-    //      return view('content.posts-manager.posts-show', compact('posts', 'menus', 'submenus','afgCity'));
-    // }
+        $posts=Posts::findOrFail($id);
+        $menus = Menu::all();
+        $afgCity = AfgCity::all();
+        $submenus = Submenu::all();
+         return view('content.posts-manager.posts-show', compact('posts', 'menus', 'submenus','afgCity'));
+    }
 
-
-   
     /**
      * Show the form for editing the specified resource.
      */
@@ -177,28 +169,8 @@ class ServiceBrandController extends Controller
     public function adminServiceBrandShow(String $id){
         $service=servicesBrand::findOrFail($id);
         // dd($service);
-        $foodMenus=FoodMenu::where('service_brand_id', $id)->get();
-        // dd($foodMenus);
-         return view('content.services-manager.service-show', compact('service','foodMenus'));
-    }
-    public function adminServiceBrandFoodMenuStore(Request $request){
-        $foodMenu = new FoodMenu();
-        $foodMenu->store($request);
-         return redirect()->back()->with("success"," Food Menu Created Successfully");
-    }
-
-    public function adminServiceBrandFoodMenuEdit(String $id){
-        $food=FoodMenu::findOrFail($id);
-        // $images=FoodMenuImages::where("food_menu_id",$food->id)->get();
-        // dd($food);
-        // return redirect()->back()->with('food', $food);
-        return view('content.services-manager.test', compact('food'));
-    }
+         return view('content.services-manager.service-show', compact('service'));
     
-    public function adminServiceBrandFoodMenuUpdate(Request $request,$id){
-        $foodMenu = new FoodMenu();
-        $foodMenu->updateFoodMenu($request,$id);
-         return redirect()->back()->with("success"," Food Menu Update Successfully");
     }
 
     public function deleteBrand($id){
@@ -240,34 +212,13 @@ class ServiceBrandController extends Controller
 
     //    dd($id);
         $logo=ServicesBrand::findOrFail($id)->logo;
+        // dd($logo);
         if (File::exists("service-brand/logo/".$logo)) {
         File::delete("service-brand/logo/".$logo);
         }
        return back();
     }
 
-
-
-
-    public function adminServiceBrandFoodMenuImageDelete($id){
-        // dd($id);
-        $images=FoodMenuImage::findOrFail($id);
-        if (File::exists("service-brand/food-menu-images/".$images->image)) {
-           File::delete("service-brand/food-menu-images/".$images->image);
-       }
- 
-       FoodMenuImage::find($id)->delete();
-       return back();
-    }
-
-    public function adminServiceBrandFoodMenuCoverDelete($id){
-    $cover=FoodMenu::findOrFail($id)->cover;
-    // dd($cover);
-    if (File::exists("service-brand/food-menu-cover/".$cover)) {
-    File::delete("service-brand/food-menu-cover/".$cover);
-    }
-    return back();
-    }
 
 }
 

@@ -117,10 +117,19 @@ Auth::routes();
 Route::prefix('admin')->middleware('is_admin')->group(function () {
   Route::resource('services', ServiceNameController::class );
 
-  // Route::resource('services-brand', ServiceBrandController::class );
+  // Route::resource('services-brand', ServiceBrandController::class ); service-brand-food-menu-edit
   Route::get('/services-brand', [App\Http\Controllers\ServiceBrandController::class, 'services_manager'])->name('services-manger');
   Route::get('/service-brand-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandShow'])->name('service-brand-show');
   Route::post('/service-brand-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandStore'])->name('service-brand-store');
+  
+  Route::post('/service-brand-food-menu-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuStore'])->name('service-brand-food-menu-store');
+  Route::get('/service-brand-food-menu-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuShow'])->name('service-brand-food-menu-show');
+  Route::get('/service-brand-food-menu-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuEdit'])->name('service-brand-food-menu-edit');
+  Route::put('/service-brand-food-menu-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuUpdate'])->name('service-brand-food-menu-update');
+  Route::delete('/service-brand-food-menu-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuDelete'])->name('service-brand-food-menu-delete');
+  Route::delete('/service-brand-food-menu-image-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuImageDelete'])->name('service-brand-food-menu-image-delete');
+  Route::delete('/service-brand-food-menu-cover-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuCoverDelete'])->name('service-brand-food-menu-cover-delete');
+ 
   Route::get('/service-brand-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandEdit'])->name('service-brand-edit');
   Route::put('/service-brand-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandUpdate'])->name('service-brand-update');
   Route::delete('/service-brand-delete-image/{id}', [App\Http\Controllers\ServiceBrandController::class, 'servceBrandDeleteImage'])->name('service-brand-delete-image');

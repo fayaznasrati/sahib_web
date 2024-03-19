@@ -98,7 +98,7 @@ class ServicesBrand extends Model
 
 
 // =======================Stor Function ========================================
-    public function store(Request $request){
+public function store(Request $request){
 
         // dd($request->all());
     $validatedData = $request->validate([
@@ -163,9 +163,9 @@ class ServicesBrand extends Model
 
 
         // public function brandGalleryImage(){
-
         //     return $this->hasMany(BrandGalleryImage::class);
         // }
+        
         public function brandGalleryImages()
         {
             return $this->hasMany('App\Models\BrandGalleryImage', 'service_brand_id');

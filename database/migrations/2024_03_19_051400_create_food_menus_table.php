@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_room_hall', function (Blueprint $table) {
+        Schema::create('food_menus', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('service_brand_id');
-            $table->string('room_hall_name');
-            $table->text('description')->nullable();
-            $table->json('images')->nullable();
-            $table->Integer('price')->nullable();
+            $table->foreign('service_brand_id')->references('id')->on('services_brands')->onDelete('cascade');
+            $table->string('name');
+            $table->text('description');
+            $table->string('price');
+            $table->string('slug');
+            $table->string('cover');
+            $table->tinyinteger('status')->defualt(0);
             $table->timestamps();
-
-            // Assuming service_id references service_brand table
-            $table->foreign('service_brand_id')->references('id')->on('service_brand')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_room_hall');
+        Schema::dropIfExists('food_menus');
     }
 };
