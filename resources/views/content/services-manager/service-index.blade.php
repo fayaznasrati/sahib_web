@@ -281,8 +281,8 @@
                                 <td>{{ $service->updated_at }}</td>
                                 <td>
                                     <div class="form-check form-switch mb-2">
-                                        <input data-bid="{{ $service->id }}"
-                                            class="form-check-input admin_service_status_btn" type="checkbox"
+                                        <input data-sbid="{{ $service->id }}"
+                                            class="form-check-input admin_service_brand_status_btn" type="checkbox"
                                             id="flexSwitchCheckChecked" {{ $service->status == 1 ? 'checked' : '' }}>
                                     </div>
                                     <input type="hidden" name="serviceid" value="{{ $service->id }}">
@@ -322,7 +322,7 @@
 
         <!--/ Striped Rows -->
 
-        <script>
+        {{-- <script>
             // Get reference to the form and the delete button
             const form = document.getElementById('deleteForm');
             const deleteButton = document.getElementById('deleteButton');
@@ -334,5 +334,5 @@
                 // Submit the form
                 form.submit();
             });
-        </script>
+        </script> --}}
     @endsection

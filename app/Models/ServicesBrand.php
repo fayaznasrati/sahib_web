@@ -174,6 +174,11 @@ public function store(Request $request){
         {
             return $this->belongsTo(User::class);
         }
-
+        
+        public function toggleIsActive()
+        {
+               $this->status = !$this->status;
+               return $this;
+        }
        
 }

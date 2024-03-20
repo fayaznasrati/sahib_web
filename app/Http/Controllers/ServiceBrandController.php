@@ -46,6 +46,14 @@ class ServiceBrandController extends Controller
         return view('content.services-manager.service-index',compact('services','services_name','users'));  
     }
 
+    public function serviceBrandStatus(request $request){
+        $sbId = $request->input('id');
+        $sb=ServicesBrand::where('id',$sbId)->first();
+        $sb->toggleIsActive()->save();
+        return response()->json(['success' => true])->with('success',"status Updated");
+    
+    }
+
     // public function seller_posts_manager(){
     //     $name = 'seller';
     //     $posts=Posts::latest()->where('category_type',2)->paginate(5);

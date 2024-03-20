@@ -206,5 +206,11 @@ public function store(Request $request)
         public function HotelRoomAndHallImages(){
             return $this->hasMany(HotelRoomAndHallImage::class);
         }
+
+        public function toggleIsActive()
+        {
+               $this->status = !$this->status;
+               return $this;
+        }
         
 }

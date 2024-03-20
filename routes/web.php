@@ -123,7 +123,8 @@ Route::prefix('admin')->middleware('is_admin')->group(function () {
   Route::get('services-brand', [App\Http\Controllers\ServiceBrandController::class, 'services_manager'])->name('services-manger');
   Route::get('/service-brand-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandShow'])->name('service-brand-show');
   Route::post('/service-brand-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandStore'])->name('service-brand-store');
-  
+  Route::POST('/service-brand-status', [App\Http\Controllers\ServiceBrandController::class, 'serviceBrandStatus'])->name('service-brand-status');
+
   Route::post('/service-brand-food-menu-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuStore'])->name('service-brand-food-menu-store');
   Route::get('/service-brand-food-menu-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuShow'])->name('service-brand-food-menu-show');
   Route::get('/service-brand-food-menu-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuEdit'])->name('service-brand-food-menu-edit');

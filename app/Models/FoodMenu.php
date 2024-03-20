@@ -147,5 +147,11 @@ class FoodMenu extends Model
         public function foodMenuImages(){
             return $this->hasMany(FoodMenuImage::class);
         }
+
+        public function toggleIsActive()
+        {
+               $this->status = !$this->status;
+               return $this;
+        }
         
 }
