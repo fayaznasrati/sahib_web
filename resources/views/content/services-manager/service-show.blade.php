@@ -28,10 +28,13 @@
                   role="button" aria-expanded="false" aria-controls="collapseExample">
                   Create New Food Menu
               </a>
+              @if ($service->service_id == 8 OR  $service->service_id  == 9)
+              @else
               <a class="btn btn-success me-1 collapsed" data-bs-toggle="collapse" href="#collapseCreate"
                   role="button" aria-expanded="false" aria-controls="collapseCreate">
                  Create New Roome/Hall
               </a>
+              @endif
           </p>
 
           {{-- Create Food Menu --}}
@@ -52,7 +55,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <label for="name"><small>Name *:</small></label>
-                    <input class="form-control" type="text" placeholder="Hall or Room Name" name="name"
+                    <input class="form-control" type="text" placeholder="Food Name" name="name"
                         value="{{ old('name', $food->name ?? '') }}">
                 </div>
                 <div class="col-md-12">
@@ -89,154 +92,61 @@
             </form>
 
             <br><br>
-            @if (isset($food))
-                <div class="row">
-                  
-                    <div class="col-md-4" >
-                        @if ($serv->logo != null)
-                            <label for="name"><small>Current Logo:</small></label>
-
-                            <form action="/admin/service-brand-delete-logo/{{ $food->id }}" method="post">
-                                <button class="btn text-danger">X</button>
-                                @csrf
-                                @method('delete')
-                            </form>
-                            <img src="../../service-brand/logo/{{ $food->logo }}" style="width: 100%">
-                        @else
-                            No Logo Yet
-                        @endif
-                    </div>
-                    <div class="col-md-8" >
-                        @if (count($food->brandGalleryImages) > 0)
-
-                            <label for="name"><small>Current Gallery Banners:</small></label>
-                            <div class="row">
-                                @foreach ($food->brandGalleryImages as $img)
-                                    <div class="images-child col-md-4">
-                                        <form action="/admin/service-brand-delete-image/{{ $img->id }}"
-                                            method="post">
-                                            <button class="btn text-danger">X</button>
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                        <div class="col-md-4" style="width:100%">
-                                            <img src="../../service-brand/gallery/{{ $img->image }}"
-                                                style="width: 100%">
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @else
-                          No Gallery Banners
-                        @endif
-                    </div>
-                
-
-                </div>
-
-            @endif
           </div>
 
-          {{-- Create Slider --}}
+          {{-- Create hotel roome --}}
           <div class="collapse {{ isset($serv) ? 'show' : '' }}" id="collapseCreate">
             <hr><center ><h3 style="color: green" >Create Hote Rooms/Halls</h3></center><hr> 
-              {{-- @if (isset($serv))
-                  <form action="{{ route('service-brand-update', $serv->id) }}" method="POST" enctype="multipart/form-data">
-                      @method('PUT')
-                      @csrf
-                  @else
-              <form action="{{ route('service-brand-store') }}" method="POST" enctype="multipart/form-data">
-               @csrf
-              @endif --}}
+            @if (isset($food))
+            <form action="{{ route('service-brand-update', $food->id) }}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+            @else
+        <form action="{{ route('service-brand-hotel-store') }}" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="service_brand_id" value="{{ $service->id }}">
+        @csrf
+        @endif
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label for="name"><small>Name *:</small></label>
-                      <input class="form-control" type="text" placeholder="Hall or Room Name" name="name"
-                          value="{{ old('name', $serv->name ?? '') }}">
-                  </div>
-                  <div class="col-md-12">
-                      <label for="formFile" class="form-label">Cover 200px W/200px H</label>
-                      <input class="form-control" type="file" id="formFile" name="cover">
-                  </div>
-                  <div class="col-md-12">
-                      <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px H</label>
-                      <input class="form-control" type="file" id="formFile" name="images[]" multiple>
-                  </div>
-                  <div class="col-md-12">
-                      <label for="name"><small>price:</small></label>
-                      <input class="form-control" type="number" placeholder="100" name="price"
-                          value="{{ old('price', $serv->price ?? '') }}">
-                  </div>
-                
-                  </div>
-                </div>
-                <div class="col-md-8">
-                    <label for="name"><small>Description:</small></label>
-                    <textarea class="form-control" type="text" placeholder="worite description of room or hall here..."
-                        name="description">{{ old('description', $serv->description ?? '') }}</textarea>
-                </div>
-                 
-              </div>
-              <br>
-              <center>
-                  <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                      <button type="submit" id="submit" name="submit"
-                          class="btn btn-dark btn-hover-primary rounded-0">{{ isset($serv) ? 'Update' : 'Create' }}</button>
-                  </div>
-              </center>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="name"><small>Name *:</small></label>
+                <input class="form-control" type="text" placeholder="Hall or Room Name" name="name"
+                    value="{{ old('name', $food->name ?? '') }}">
+            </div>
+            <div class="col-md-12">
+                <label for="formFile" class="form-label">Cover 200px W/200px H</label>
+                <input class="form-control" type="file" id="formFile" name="cover">
+            </div>
+            <div class="col-md-12">
+                <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px H</label>
+                <input class="form-control" type="file" id="formFile" name="images[]" multiple>
+            </div>
+            <div class="col-md-12">
+                <label for="name"><small>price:</small></label>
+                <input class="form-control" type="number" placeholder="100" name="price"
+                    value="{{ old('price', $food->price ?? '') }}">
+            </div>
+          
+            </div>
+          </div>
+          <div class="col-md-8">
+              <label for="name"><small>Description:</small></label>
+              <textarea class="form-control" type="text" placeholder="worite description of room or hall here..."
+                  name="description">{{ old('description', $food->description ?? '') }}</textarea>
+          </div>
+          
+        </div>
+        <br>
+        <center>
+            <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                <button type="submit" id="submit" name="submit"
+                    class="btn btn-dark btn-hover-primary rounded-0">{{ isset($food) ? 'Update' : 'Create' }}</button>
+            </div>
+        </center>
 
-              </form>
-
-              <br><br>
-              @if (isset($serv))
-                  <div class="row">
-                     
-                      <div class="col-md-4" >
-                          @if ($serv->logo != null)
-                              <label for="name"><small>Current Logo:</small></label>
-
-                              <form action="/admin/service-brand-delete-logo/{{ $serv->id }}" method="post">
-                                  <button class="btn text-danger">X</button>
-                                  @csrf
-                                  @method('delete')
-                              </form>
-                              <img src="../../service-brand/logo/{{ $serv->logo }}" style="width: 100%">
-                          @else
-                              No Logo Yet
-                          @endif
-                      </div>
-                      <div class="col-md-8" >
-                          @if (count($serv->brandGalleryImages) > 0)
-
-                              <label for="name"><small>Current Gallery Banners:</small></label>
-                              <div class="row">
-                                  @foreach ($serv->brandGalleryImages as $img)
-                                      <div class="images-child col-md-4">
-                                          <form action="/admin/service-brand-delete-image/{{ $img->id }}"
-                                              method="post">
-                                              <button class="btn text-danger">X</button>
-                                              @csrf
-                                              @method('delete')
-                                          </form>
-                                          <div class="col-md-4" style="width:100%">
-                                              <img src="../../service-brand/gallery/{{ $img->image }}"
-                                                  style="width: 100%">
-                                          </div>
-                                      </div>
-                                  @endforeach
-                              </div>
-                          @else
-                             No Gallery Banners
-                          @endif
-                      </div>
-                   
-
-                  </div>
-
-              @endif
+        </form>
           </div>
       </div>
   </div>
@@ -325,111 +235,201 @@
     </div>
     <br><hr>
 
+         @if (count($foodMenus)>0)
          <!-- Striped Rows -->
-    <div class="row">
-      <div class="card">
-          <h5 class="card-header">Food Menu List</h5>
-          <div class="table-responsive text-nowrap">
-              <table class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th>#No</th>
-                          <th>Name</th>
-                          <th>Price</th>
-                          <th>Cover</th>
-                          <th>Banner Img</th>
-                          <th>Poblished at</th>
-                          <th>Status</th>
-                          <th>Actions</th>
-                      </tr>
-                  </thead>
-
-                  <tbody class="table-border-bottom-0">
-                      @php $i = 1 @endphp
-                      @foreach ($foodMenus as $foodMenu)
-                          <tr>
-                              <td>{{ $i++ }}</td>
-                              <td>{{ $foodMenu->name }}</td>
-                              <td>{{ $foodMenu->price }}</td>
-                              <td><img src="../../service-brand/food-menu-cover/{{ $foodMenu->cover }}" alt="post image"
-                                      style="height: auto; width:40px"></td>
-                              <td>
-                                  <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
-                                      @if (count($foodMenu->foodMenuImages) != null)
-                                          @foreach ($foodMenu->foodMenuImages as $img)
-                                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                  data-bs-placement="top" class="avatar avatar-xs pull-up"
-                                                  title="{{ $foodMenu->brand_name }}">
-                                                  <img src="../../service-brand/food-menu-images/{{ $img->image }}"
-                                                      alt="brand image" style="height: 40px; width:60px">
-                                              </li>
-                                          @endforeach
-                                      @endif
-                                  </ul>
-                              </td>
-                              <td>{{ $foodMenu->updated_at }}</td>
-                              <td>
-                                  <div class="form-check form-switch mb-2">
-                                      <input data-bid="{{ $foodMenu->id }}"
-                                          class="form-check-input admin_service_status_btn" type="checkbox"
-                                          id="flexSwitchCheckChecked" {{ $foodMenu->status == 1 ? 'checked' : '' }}>
-                                  </div>
-                                  <input type="hidden" name="foodmenuid" value="{{ $foodMenu->id }}">
-                              </td>
-                              <td>
-                                  <div class="dropdown">
-                                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                          data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                                      <div class="dropdown-menu">
-                                          <a class="dropdown-item"
-                                              href="{{ route('service-brand-food-menu-edit', $foodMenu->id) }}"><i
-                                                  class="bx bx-edit-alt me-1"></i> Edit</a>
-                                          <a class="dropdown-item"
-                                              href="{{ route('service-brand-food-menu-show', $foodMenu->id) }}"><i
-                                                  class="bx bx-show-alt me-1"></i> View</a>
-                                          <form id="delete-form"
-                                              action="{{ route('service-brand-food-menu-delete', $foodMenu->id) }}"
-                                              method="post">
-                                              @csrf
-                                              @method('DELETE')
-                                              <button class="dropdown-item" type="submit"><i
-                                                      class="bx bx-trash me-1"></i>Delete</button>
-                                          </form>
-                                      </div>
-                                  </div>
-                              </td>
-                          </tr>
-                      @endforeach
-                  </tbody>
-              </table>
-
-          </div>
-          {{-- {{ $services->links() }} --}}
-         
-      </div>
-    </div>
-    <br>
-    <hr>
-        <!-- SKU Start -->
-        <div class="col-md">
+         <div class="row">
             <div class="card">
-              <h5 class="card-header">Woner Details</h5>
-                <div class="card-body">
-                  
-                    <div class="sku mb-3">
-                        <span><b>Author Name:</b>{{ $service->user->name }}</span> <br>
-                        <span><b>Mobile:</b> <a href="tel:{{ $service->user->mobile }}">{{ $service->user->mobile }}</a></span><br>
-                        <span><b>WhatsApp:</b> <a href="https://wa.me/{{ $service->user->whatsapp }}">{{ $service->user->whatsapp }}</a></span><br>
-                        <span><b>Email:</b> <a href="mailto:{{ $service->user->email }}">{{ $service->user->email }}</a></span><br>                        
-                        <span><b>Address:</b> {{ $service->user->name }}</span><br>
-                        <span><b>City:</b> {{ $service->user->afgCity }}</span><br>
-                        {{-- <span><b>zip code:</b> {{$service->user->zip_code}}</span><br> --}}
+                <h5 class="card-header">Food Menu List</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#No</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Cover</th>
+                                <th>Banner Img</th>
+                                <th>Poblished at</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+      
+                        <tbody class="table-border-bottom-0">
+                            @php $i = 1 @endphp
+                            @foreach ($foodMenus as $foodMenu)
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $foodMenu->name }}</td>
+                                    <td>{{ $foodMenu->price }}</td>
+                                    <td><img src="../../service-brand/food-menu-cover/{{ $foodMenu->cover }}" alt="post image"
+                                            style="height: auto; width:40px"></td>
+                                    <td>
+                                        <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
+                                            @if (count($foodMenu->foodMenuImages) != null)
+                                                @foreach ($foodMenu->foodMenuImages as $img)
+                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                        data-bs-placement="top" class="avatar avatar-xs pull-up"
+                                                        title="{{ $foodMenu->brand_name }}">
+                                                        <img src="../../service-brand/food-menu-images/{{ $img->image }}"
+                                                            alt="brand image" style="height: 40px; width:60px">
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </td>
+                                    <td>{{ $foodMenu->updated_at }}</td>
+                                    <td>
+                                        <div class="form-check form-switch mb-2">
+                                            <input data-bid="{{ $foodMenu->id }}"
+                                                class="form-check-input admin_service_status_btn" type="checkbox"
+                                                id="flexSwitchCheckChecked" {{ $foodMenu->status == 1 ? 'checked' : '' }}>
+                                        </div>
+                                        <input type="hidden" name="foodmenuid" value="{{ $foodMenu->id }}">
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('service-brand-food-menu-edit', $foodMenu->id) }}"><i
+                                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('service-brand-food-menu-show', $foodMenu->id) }}"><i
+                                                        class="bx bx-show-alt me-1"></i> View</a>
+                                                <form id="delete-form"
+                                                    action="{{ route('service-brand-food-menu-delete', $foodMenu->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item" type="submit"><i
+                                                            class="bx bx-trash me-1"></i>Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+      
+                </div>
+                {{-- {{ $services->links() }} --}}
+               
+            </div>
+          </div>
+          <br>
+          <hr>
+        @endif
+
+          @if (count($hotelRooms)> 0)
+            <!-- Striped Rows -->
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">Hotel Rooms List</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#No</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Cover</th>
+                                <th>Banner Img</th>
+                                <th>Poblished at</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody class="table-border-bottom-0">
+                            @php $i = 1 @endphp
+                            @foreach ($hotelRooms as $hotelRoom)
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $hotelRoom->name }}</td>
+                                    <td>{{ $hotelRoom->price }}</td>
+                                    <td><img src="../../service-brand/hotel-room-cover/{{ $hotelRoom->cover }}" alt="post image"
+                                            style="height: auto; width:40px"></td>
+                                    <td>
+                                        <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
+                                            @if (count($hotelRoom->HotelRoomAndHallImages) != null)
+                                                @foreach ($hotelRoom->HotelRoomAndHallImages as $img)
+                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                        data-bs-placement="top" class="avatar avatar-xs pull-up"
+                                                        title="{{ $hotelRoom->brand_name }}">
+                                                        <img src="../../service-brand/hotel-room-images/{{ $img->image }}"
+                                                            alt="brand image" style="height: 40px; width:60px">
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </td>
+                                    <td>{{ $hotelRoom->updated_at }}</td>
+                                    <td>
+                                        <div class="form-check form-switch mb-2">
+                                            <input data-bid="{{ $hotelRoom->id }}"
+                                                class="form-check-input admin_service_status_btn" type="checkbox"
+                                                id="flexSwitchCheckChecked" {{ $hotelRoom->status == 1 ? 'checked' : '' }}>
+                                        </div>
+                                        <input type="hidden" name="hotelRoomid" value="{{ $hotelRoom->id }}">
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('service-brand-hotel-edit', $hotelRoom->id) }}"><i
+                                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('service-brand-hotel-show', $hotelRoom->id) }}"><i
+                                                        class="bx bx-show-alt me-1"></i> View</a>
+                                                <form id="delete-form"
+                                                    action="{{ route('service-brand-hotel-delete', $hotelRoom->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item" type="submit"><i
+                                                            class="bx bx-trash me-1"></i>Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+    
+                </div>
+                {{-- {{ $services->links() }} --}}
+            
+            </div>
+        </div>
+        <br>
+        <hr>
+            <!-- SKU Start -->
+            <div class="col-md">
+                <div class="card">
+                <h5 class="card-header">Woner Details</h5>
+                    <div class="card-body">
+                    
+                        <div class="sku mb-3">
+                            <span><b>Author Name:</b>{{ $service->user->name }}</span> <br>
+                            <span><b>Mobile:</b> <a href="tel:{{ $service->user->mobile }}">{{ $service->user->mobile }}</a></span><br>
+                            <span><b>WhatsApp:</b> <a href="https://wa.me/{{ $service->user->whatsapp }}">{{ $service->user->whatsapp }}</a></span><br>
+                            <span><b>Email:</b> <a href="mailto:{{ $service->user->email }}">{{ $service->user->email }}</a></span><br>                        
+                            <span><b>Address:</b> {{ $service->user->name }}</span><br>
+                            <span><b>City:</b> {{ $service->user->afgCity }}</span><br>
+                            {{-- <span><b>zip code:</b> {{$service->user->zip_code}}</span><br> --}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- SKU End -->
+            <!-- SKU End -->
 
-    </div>
+        </div>
+        @endif
 
 @endsection

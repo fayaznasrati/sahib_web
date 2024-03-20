@@ -112,13 +112,15 @@ Route::get('/code', function () {
 
 Auth::routes();
 
-
+// Route::get('/myservice', function(){
+//   return "this is service test";
+// });
 // ===============================this is the admin panle routes==========================================================================
 Route::prefix('admin')->middleware('is_admin')->group(function () {
   Route::resource('services', ServiceNameController::class );
 
-  // Route::resource('services-brand', ServiceBrandController::class ); service-brand-food-menu-edit
-  Route::get('/services-brand', [App\Http\Controllers\ServiceBrandController::class, 'services_manager'])->name('services-manger');
+  // Route::resource('services-brand', ServiceBrandController::class ); //service-brand-food-menu-edit
+  Route::get('services-brand', [App\Http\Controllers\ServiceBrandController::class, 'services_manager'])->name('services-manger');
   Route::get('/service-brand-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandShow'])->name('service-brand-show');
   Route::post('/service-brand-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandStore'])->name('service-brand-store');
   
@@ -129,6 +131,14 @@ Route::prefix('admin')->middleware('is_admin')->group(function () {
   Route::delete('/service-brand-food-menu-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuDelete'])->name('service-brand-food-menu-delete');
   Route::delete('/service-brand-food-menu-image-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuImageDelete'])->name('service-brand-food-menu-image-delete');
   Route::delete('/service-brand-food-menu-cover-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuCoverDelete'])->name('service-brand-food-menu-cover-delete');
+  
+  Route::post('/service-brand-hotel-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelStore'])->name('service-brand-hotel-store');
+  Route::get('/service-brand-hotel-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelShow'])->name('service-brand-hotel-show');
+  Route::get('/service-brand-hotel-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelEdit'])->name('service-brand-hotel-edit');
+  Route::put('/service-brand-hotel-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelUpdate'])->name('service-brand-hotel-update');
+  Route::delete('/service-brand-hotel-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelDelete'])->name('service-brand-hotel-delete');
+  Route::delete('/service-brand-hotel-image-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelImageDelete'])->name('service-brand-hotel-image-delete');
+  Route::delete('/service-brand-hotel-cover-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandHotelCoverDelete'])->name('service-brand-hotel-cover-delete');
  
   Route::get('/service-brand-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandEdit'])->name('service-brand-edit');
   Route::put('/service-brand-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandUpdate'])->name('service-brand-update');

@@ -16,11 +16,13 @@ use App\Models\Posts\updatePost;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\ServiceName;
 use App\Models\FoodMenu;
+use App\Models\HotelRoomAndHall;
+use App\Models\HotelRoomAndHallImage;
 use App\Models\FoodMenuImage;
 class ServiceBrandController extends Controller
 {
 
-    // public function __construct()
+    // public function __construct() 
     // {
     //     $this->middleware('auth');
     // }
@@ -178,21 +180,37 @@ class ServiceBrandController extends Controller
         $service=servicesBrand::findOrFail($id);
         // dd($service);
         $foodMenus=FoodMenu::where('service_brand_id', $id)->get();
+        $hotelRooms=HotelRoomAndHall::where('service_brand_id', $id)->get();
         // dd($foodMenus);
-         return view('content.services-manager.service-show', compact('service','foodMenus'));
+         return view('content.services-manager.service-show', compact('service','foodMenus','hotelRooms'));
     }
+
     public function adminServiceBrandFoodMenuStore(Request $request){
         $foodMenu = new FoodMenu();
         $foodMenu->store($request);
          return redirect()->back()->with("success"," Food Menu Created Successfully");
     }
 
+    public function adminServiceBrandHotelStore(Request $request){
+        $hotelRoom = new HotelRoomAndHall();
+        $hotelRoom->store($request);
+         return redirect()->back()->with("success"," Hotel Room/ Hall Created Successfully");
+    }
+
+    public function adminServiceBrandHotelEdit(String $id){
+        $hotelRoom=HotelRoomAndHall::findOrFail($id);
+        return view('content.services-manager.hotel-room-edit', compact('hotelRoom'));
+    }
+
+    public function adminServiceBrandHotelUpdate(Request $request,$id){
+        $hotelRoom = new HotelRoomAndHall();
+        $hotelRoom->updateHotelRoomAndHall($request,$id);
+         return redirect()->back()->with("success"," Food Menu Update Successfully");
+    }
+
     public function adminServiceBrandFoodMenuEdit(String $id){
         $food=FoodMenu::findOrFail($id);
-        // $images=FoodMenuImages::where("food_menu_id",$food->id)->get();
-        // dd($food);
-        // return redirect()->back()->with('food', $food);
-        return view('content.services-manager.test', compact('food'));
+        return view('content.services-manager.food-menu-edit', compact('food'));
     }
     
     public function adminServiceBrandFoodMenuUpdate(Request $request,$id){
@@ -200,6 +218,8 @@ class ServiceBrandController extends Controller
         $foodMenu->updateFoodMenu($request,$id);
          return redirect()->back()->with("success"," Food Menu Update Successfully");
     }
+
+
 
     public function deleteBrand($id){
         $this->destroy($id);
@@ -260,7 +280,8 @@ class ServiceBrandController extends Controller
        return back();
     }
 
-    public function adminServiceBrandFoodMenuCoverDelete($id){
+
+   public function adminServiceBrandFoodMenuCoverDelete($id){
     $cover=FoodMenu::findOrFail($id)->cover;
     // dd($cover);
     if (File::exists("service-brand/food-menu-cover/".$cover)) {
@@ -268,6 +289,30 @@ class ServiceBrandController extends Controller
     }
     return back();
     }
+
+    public function adminServiceBrandHotelImageDelete($id){
+        // dd($id);
+        $images=HotelRoomAndHallImage::findOrFail($id);
+        if (File::exists("service-brand/hotel-room-images/".$images->image)) {
+           File::delete("service-brand/hotel-room-images/".$images->image);
+       }
+ 
+       HotelRoomAndHallImage::find($id)->delete();
+       return back();
+    }
+
+    public function adminServiceBrandHotelCoverDelete($id){
+        // dd($id);
+
+        $cover=HotelRoomAndHall::findOrFail($id)->cover;
+        // dd($cover);
+        if (File::exists("service-brand/hotel-room-cover/".$cover)) {
+        File::delete("service-brand/hotel-room-cover/".$cover);
+        }
+        return back();
+        }
+    
+    
 
 }
 
