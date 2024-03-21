@@ -12,4 +12,9 @@ class ServiceName extends Model
     protected $fillable = [
         'service_name'
     ];
+
+    public function serviceBrands()
+    {
+        return $this->hasMany(ServicesBrand::class);
+    }
 }

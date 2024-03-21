@@ -66,29 +66,7 @@
       "name": "Manage Services",
       "icon": "menu-icon tf-icons bx bx-collection",
       "slug": "mange-hotels",
-      "url": "hotels",
-      "submenu": [
-        {
-          "url": "/admin/services-brand",
-          "name": "Create Services Brand",
-          "slug": "create-brand"
-        },
-        {
-          "url": "/admin/hotels",
-          "name": "Hotels",
-          "slug": "hotels"
-        },
-        {
-          "url": "/admin/wedding-halls-manager",
-          "name": "Wedding Halls",
-          "slug": "wedding-halls"
-        },
-        {
-          "url": "/admin/reastorans-manager",
-          "name": "Rasturants & Cafe",
-          "slug": "reastorants-cafe"
-        }
-      ]
+      "url": "/admin/services-brand"
     },
     {
       "name": "Mange Slider",

@@ -20,6 +20,7 @@ use App\Models\SellerBrand;
 use App\Models\Wishlist;
 use GuzzleHttp\Client;
 use App\Models\Banner;
+use App\Models\ServicesBrand;
 class UserViewController extends Controller
 {
 
@@ -55,6 +56,21 @@ class UserViewController extends Controller
         }
         return response()->json($data);
     }
+
+
+
+    public function fetchHotelDataByCategory($category)
+    {
+        // if($category == '0'){
+            $data = ServicesBrand::where('status', 1)->get()->all(); 
+        // }else{
+        // Fetch data based on the category
+        // $data = ServicesBrand::where('category_type', $category)->get();
+        // }
+        return response()->json($data);
+    }
+
+
     // to detect user location
     public function index(Request $request)
     {

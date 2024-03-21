@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\ServicesBrand;
 use App\Models\BrandGalleryImage;
 use Carbon\Carbon;
+use App\Models\ServiceName;
 
 class ServicesBrand extends Model
 {
@@ -170,10 +171,26 @@ public function store(Request $request){
         {
             return $this->hasMany('App\Models\BrandGalleryImage', 'service_brand_id');
         }
+
+
+
         public function user()
         {
             return $this->belongsTo(User::class);
         }
+
+        // public function serviceNames()
+        // {
+        //     return $this->belongsTo(ServiceName::class);
+        // }
+
+        /**
+     * Get the service name that belongs to the service brand.
+     */
+    public function serviceName()
+    {
+        return $this->belongsTo(ServiceName::class, 'service_id');
+    }
         
         public function toggleIsActive()
         {

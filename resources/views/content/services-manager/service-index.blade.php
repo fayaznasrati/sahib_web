@@ -35,8 +35,9 @@
 
                 </p>
                 {{-- Filter Slider --}}
-                {{-- <div class="collapse" id="collapseExample">
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                <div class="collapse" id="collapseExample">
+                    {{-- <form action="#" method="POST" enctype="multipart/form-data"> --}}
+                        <form action="{{ route('filter-service-brands') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-floating">
                             <div class="row">
@@ -44,22 +45,23 @@
                                 <div class="col-md-2  ">
                                     <label for="exampleFormControlInput1" class="form-label">Status</label>
                                     <select class="form-control" name="status">
-                                        <option>Select Status</option>
+                                        <option value="">Select Status</option>
                                         <option value="1">Active</option>
                                         <option value="0">De-active</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2  ">
-                                    <label for="exampleFormControlInput1" class="form-label">Slid ID</label>
-                                    <input class="form-control" type="search" value="Search ..." id="html5-search-input">
+                                <div class="col-md-3  ">
+                                    <label for="exampleFormControlInput1" class="form-label">Service Name</label>
+                                    <input class="form-control" name="brand_name" type="search" placeholder="Name of Brand..." id="html5-search-input">
                                 </div>
-                                <div class="col-md-2  ">
-                                    <label for="html5-date-input" class="form-label">From</label>
-                                    <input class="form-control" type="date" value="2022-06-18" id="html5-date-input">
-                                </div>
-                                <div class="col-md-2  ">
-                                    <label for="html5-date-input" class="form-label">To</label>
-                                    <input class="form-control" type="date" value="2023-07-18" id="html5-date-input">
+                                <div class="col-md-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Service Type</label>
+                                    <select class="form-control" name="service_id" id="">
+                                        <option value="" disabled selected> Select Service type</option>
+                                        @foreach ($services_name as $service)
+                                                <option value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-2 mt-3 ">
                                     <div class="d-grid  mx-auto">
@@ -77,7 +79,7 @@
 
                         </div>
                     </form>
-                </div> --}}
+                </div>
 
 
                 {{-- Create Slider --}}
@@ -243,6 +245,7 @@
                         <tr>
                             <th>#No</th>
                             <th>Made by</th>
+                            <th>Service Type</th>
                             <th>Logo</th>
                             <th>Banner Img</th>
                             <th>Name</th>
@@ -253,12 +256,20 @@
                     </thead>
 
                     <tbody class="table-border-bottom-0">
-                        @php $i = 1 @endphp
                         @foreach ($services as $service)
                             <tr>
-                                <td>{{ $i++ }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                     <strong>{{ $service->user->name }}</strong>
+                                </td>
+
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    @if($service->serviceName)
+                                        <strong>{{ $service->serviceName->service_name }}</strong>
+                                    @else
+                                        <em>No Service Name</em>
+                                    @endif
                                 </td>
                                 <td><img src="../../service-brand/logo/{{ $service->logo }}" alt="post image"
                                         style="height: auto; width:40px"></td>
@@ -320,19 +331,4 @@
         </div>
         <!-- Basic Bootstrap Table -->
 
-        <!--/ Striped Rows -->
-
-        {{-- <script>
-            // Get reference to the form and the delete button
-            const form = document.getElementById('deleteForm');
-            const deleteButton = document.getElementById('deleteButton');
-
-            // Add click event listener to the delete button
-            deleteButton.addEventListener('click', function(event) {
-                // Prevent the default form submission behavior
-                event.preventDefault();
-                // Submit the form
-                form.submit();
-            });
-        </script> --}}
     @endsection

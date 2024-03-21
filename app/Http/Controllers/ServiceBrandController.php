@@ -39,11 +39,47 @@ class ServiceBrandController extends Controller
 
     // public function services_manager(){
         public function services_manager(){
-        $services=ServicesBrand::latest()->paginate(5);
+        $services = ServicesBrand::orderBy('service_id')->latest()->paginate(10);
         $services_name = ServiceName::get()->all();
         $users = User::get()->all();
+        
+        // dd($serviceBrands);
+        
 
         return view('content.services-manager.service-index',compact('services','services_name','users'));  
+    }
+
+    public function filerServiceBrand(Request $request)
+    {
+
+        // dd($request->all());
+        $services_name = ServiceName::get()->all();
+        $users = User::get()->all();
+        // Retrieve the form input
+        $status = $request->input('status');
+        $serviceName = $request->input('brand_name');
+        $serviceId = $request->input('service_id');
+    
+        // Constructing the query
+        $query = ServicesBrand::query();
+    
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+    
+        if ($serviceName !== null) {
+            $query->where('brand_name', 'like', "%$serviceName%");
+        }
+    
+        if ($serviceId !== null) {
+            $query->where('service_id', $serviceId);
+        }
+    
+        // Execute the query
+        $services = $query->paginate(10);
+    
+        // Pass the results to the view
+        return view('content.services-manager.service-index',compact('services','services_name','users')); 
     }
 
     public function serviceBrandStatus(request $request){
