@@ -130,9 +130,14 @@
                             <label for="formFile" class="form-label">Logo 200px W/200px H</label>
                             <input class="form-control" type="file" id="formFile" name="logo">
                         </div>
+                        
                         <div class="col-md-4">
-                            <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px H</label>
+                            <label for="formFile" class="form-label">Desktop Brand Slide Show  600px W/400px H</label>
                             <input class="form-control" type="file" id="formFile" name="images[]" multiple>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="formFile" class="form-label">Mobile Brand Slide Show 600px W/400px H</label>
+                            <input class="form-control" type="file" id="formFile" name="mobileImages[]" multiple>
                         </div>
                         <div class="col-md-4">
                             <label for="name"><small>Address:</small></label>
@@ -202,7 +207,7 @@
                             <div class="col-md-8" >
                                 @if (count($serv->brandGalleryImages) > 0)
 
-                                    <label for="name"><small>Current Gallery Banners:</small></label>
+                                    <label for="name"><small>Current desktop Banners:</small></label>
                                     <div class="row">
                                         @foreach ($serv->brandGalleryImages as $img)
                                             <div class="images-child col-md-4">
@@ -220,13 +225,34 @@
                                         @endforeach
                                     </div>
                                 @else
-                                   No Gallery Banners
+                                   No Desktop Banners
                                 @endif
                             </div>
-                         
+                            <div class="col-md-8" >
+                                @if (count($serv->mobileBrandGalleryImages) > 0)
 
+                                    <label for="name"><small>Current mobile Banners:</small></label>
+                                    <div class="row">
+                                        @foreach ($serv->mobileBrandGalleryImages as $img)
+                                            <div class="images-child col-md-4">
+                                                <form action="/admin/service-brand-delete-mobile-image/{{ $img->id }}"
+                                                    method="post">
+                                                    <button class="btn text-danger">X</button>
+                                                    @csrf
+                                                    @method('delete')
+                                                </form>
+                                                <div class="col-md-4" style="width:100%">
+                                                    <img src="../../service-brand/mobile-gallery/{{ $img->image }}"
+                                                        style="width: 100%">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                   No mobile Banners
+                                @endif
+                            </div>
                         </div>
-
                     @endif
                 </div>
             </div>
@@ -247,7 +273,8 @@
                             <th>Made by</th>
                             <th>Service Type</th>
                             <th>Logo</th>
-                            <th>Banner Img</th>
+                            <th>Desktop Banner Img</th>
+                            <th>Mobile Banner Img</th>
                             <th>Name</th>
                             <th>Poblished at</th>
                             <th>Status</th>
@@ -273,20 +300,34 @@
                                 </td>
                                 <td><img src="../../service-brand/logo/{{ $service->logo }}" alt="post image"
                                         style="height: auto; width:40px"></td>
-                                <td>
-                                    <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
-                                        @if (count($service->brandGalleryImages) != null)
-                                            @foreach ($service->brandGalleryImages as $img)
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                    data-bs-placement="top" class="avatar avatar-xs pull-up"
-                                                    title="{{ $service->brand_name }}">
-                                                    <img src="../../service-brand/gallery/{{ $img->image }}"
-                                                        alt="brand image" style="height: 40px; width:60px">
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
-                                </td>
+                                        <td>
+                                            <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
+                                                @if (count($service->brandGalleryImages) != null)
+                                                    @foreach ($service->brandGalleryImages as $img)
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" class="avatar avatar-xs pull-up"
+                                                            title="{{ $service->brand_name }}">
+                                                            <img src="../../service-brand/gallery/{{ $img->image }}"
+                                                                alt="brand image" style="height: 40px; width:60px">
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
+                                                @if (count($service->mobileBrandGalleryImages) != null)
+                                                    @foreach ($service->mobileBrandGalleryImages as $img)
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" class="avatar avatar-xs pull-up"
+                                                            title="{{ $service->brand_name }}">
+                                                            <img src="../../service-brand/mobile-gallery/{{ $img->image }}"
+                                                                alt="brand image" style="height: 40px; width:100pc">
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </td>
                                 <td>{{ $service->brand_name }}</td>
 
                                 <td>{{ $service->updated_at }}</td>

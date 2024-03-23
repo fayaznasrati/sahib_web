@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\BrandGalleryImage;
+use App\Models\MobileBrandGalleryImage;
 use App\Models\ServicesBrand;
 use Carbon\Carbon;
 use App\Models\User;
@@ -37,15 +38,11 @@ class ServiceBrandController extends Controller
 
     // }
 
-    // public function services_manager(){
         public function services_manager(){
         $services = ServicesBrand::orderBy('service_id')->latest()->paginate(10);
         $services_name = ServiceName::get()->all();
         $users = User::get()->all();
         
-        // dd($serviceBrands);
-        
-
         return view('content.services-manager.service-index',compact('services','services_name','users'));  
     }
 
@@ -299,6 +296,17 @@ class ServiceBrandController extends Controller
        BrandGalleryImage::find($id)->delete();
        return back();
    }
+
+   public function servceBrandDeleteMobileImage($id){
+    // dd($id);
+    $images=MobileBrandGalleryImage::findOrFail($id);
+    if (File::exists("service-brand/mobile-gallery/".$images->image)) {
+       File::delete("service-brand/mobile-gallery/".$images->image);
+   }
+
+   MobileBrandGalleryImage::find($id)->delete();
+   return back();
+}
 
     public function deleteBrandLogo($id){
 

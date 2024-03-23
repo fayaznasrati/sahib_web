@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\ServicesBrand;
 use App\Models\BrandGalleryImage;
+use App\Models\MobileBrandGalleryImage;
 use Carbon\Carbon;
 use App\Models\ServiceName;
 
@@ -58,15 +59,10 @@ class ServicesBrand extends Model
         $request['logo']=$serviceBrand->logo;
 
     }
-        // update Gallery Images if present
+        // update desktop banner Images if present
         if ($request->hasFile("images")) {
             $files = $request->file("images");
 
-            foreach($serviceBrand->brandGalleryImages as $img){
-                if (File::exists("service-brand/gallery/".$img->image)) {
-                    File::delete("service-brand/gallery/".$img->image);
-                }
-            }
             foreach ($files as $file) {
                 
                 $imageName = time() . '_' . $file->getClientOriginalName();
@@ -79,6 +75,22 @@ class ServicesBrand extends Model
                 $brandGalleryImage->save();
             }
         }
+              // update mobile Banner Images if present
+              if ($request->hasFile("mobileImages")) {
+                $files = $request->file("mobileImages");
+
+                foreach ($files as $file) {
+                    
+                    $imageName = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path("service-brand/mobile-gallery/"), $imageName);
+        
+                    // Create BrandGalleryImage instance
+                    $mobilBrandGalleryImage = new MobileBrandGalleryImage();
+                    $mobilBrandGalleryImage->service_brand_id = $serviceBrand->id; 
+                    $mobilBrandGalleryImage->image = $imageName;
+                    $mobilBrandGalleryImage->save();
+                }
+            }
         $serviceBrand->update([
             "service_id" => $request->service_id,
             "user_id" => $request->user_id,
@@ -142,7 +154,7 @@ public function store(Request $request){
         $serviceBrand->save();
     }
 
-    // Store Gallery Images if present
+    // Store Desktop banner Images if present
     if ($request->hasFile("images")) {
         $files = $request->file("images");
 
@@ -151,10 +163,26 @@ public function store(Request $request){
             $file->move(public_path("service-brand/gallery/"), $imageName);
 
             // Create BrandGalleryImage instance
-            $brandGalleryImage = new BrandGalleryImage();
+            $brandGalleryImage = new MobileBrandGalleryImage();
             $brandGalleryImage->service_brand_id = $serviceBrand->id; 
             $brandGalleryImage->image = $imageName;
             $brandGalleryImage->save();
+        }
+    }
+
+      // Store mobile Banner Images if present
+      if ($request->hasFile("mobileImages")) {
+        $files = $request->file("mobileImages");
+
+        foreach ($files as $file) {
+            $imageName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path("service-brand/mobile-gallery/"), $imageName);
+
+            // Create mobileBrandGalleryImage instance
+            $mobileBrandGalleryImage = new MobileBrandGalleryImage();
+            $mobileBrandGalleryImage->service_brand_id = $serviceBrand->id; 
+            $mobileBrandGalleryImage->image = $imageName;
+            $mobileBrandGalleryImage->save();
         }
     }
 
@@ -163,13 +191,15 @@ public function store(Request $request){
 }
 
 
-        // public function brandGalleryImage(){
-        //     return $this->hasMany(BrandGalleryImage::class);
-        // }
         
         public function brandGalleryImages()
         {
             return $this->hasMany('App\Models\BrandGalleryImage', 'service_brand_id');
+        }
+
+        public function mobileBrandGalleryImages()
+        {
+            return $this->hasMany('App\Models\MobileBrandGalleryImage', 'service_brand_id');
         }
 
 

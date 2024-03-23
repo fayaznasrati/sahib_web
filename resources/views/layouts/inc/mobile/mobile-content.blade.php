@@ -1,4 +1,4 @@
-<swiper-container class="mySwiper mobile-design" direction="vertical" pagination="true" pagination-clickable="true">
+<swiper-container class="mySwiper mobile-design" direction="vertical" pagination="true" pagination-clickable="true" autoplay="true" :delay="5000"
     @foreach ($slider as $slid)
         <img class="swiper-slide" src="../../../mobileCover/slider/{{ $slid->mobileCover }}" alt="{{ $slid->name }}">
     @endforeach

@@ -149,6 +149,7 @@ Route::prefix('admin')->middleware('is_admin')->group(function () {
   Route::get('/service-brand-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandEdit'])->name('service-brand-edit');
   Route::put('/service-brand-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandUpdate'])->name('service-brand-update');
   Route::delete('/service-brand-delete-image/{id}', [App\Http\Controllers\ServiceBrandController::class, 'servceBrandDeleteImage'])->name('service-brand-delete-image');
+  Route::delete('/service-brand-delete-mobile-image/{id}', [App\Http\Controllers\ServiceBrandController::class, 'servceBrandDeleteMobileImage'])->name('service-brand-delete-mobile-image');
   Route::delete('/service-brand-delete-logo/{id}', [App\Http\Controllers\ServiceBrandController::class, 'deleteBrandLogo'])->name('service-brand-delete-logo');
   Route::delete('/service-brand-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'deleteBrand'])->name('service-brand-delete');
   Route::resource('topMenus', TopMenuController::class);

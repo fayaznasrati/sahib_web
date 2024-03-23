@@ -2,41 +2,48 @@
 @section('title', $brand->brand_name)
 @section("content")
     <!-- Breadcrumb Section Start -->
-
-<div class="section">
-    
-    <div class="hero-slider " >
-        <div  class="swiper-container my-swiper-container  swiper-container-fade swiper-container-initialized swiper-container-horizontal service-brand">
-            <div class="swiper-wrapper" id="swiper-wrapper-105a3492323db0381" aria-live="polite"
-                style="transition: all 0ms ease 0s;">
-                @foreach ($brand->brandGalleryImages as $slid )
-                <!-- Single Hero Slider Item Start -->
-                <div class="hero-slide-item-two swiper-slide swiper-slide-prev swiper-slide-duplicate-next"
-                    data-swiper-slide-index="3" role="group" >
-                    <!-- Hero Slider Background Image Start -->
-                    {{-- <div class="hero-slide-bg" style="object-fit:cover" > --}}
-                        <img  src="../../../service-brand/gallery/{{$slid->image}}" alt="{{$slid->image}}">
-                    {{-- </div>   --}}
+    <div class="pc-design">
+      <div class="section">
+        <div class="hero-slider " >
+            <div  class="swiper-container my-swiper-container  swiper-container-fade swiper-container-initialized swiper-container-horizontal service-brand">
+                <div class="swiper-wrapper" id="swiper-wrapper-105a3492323db0381" aria-live="polite"
+                    style="transition: all 0ms ease 0s;">
+                    @foreach ($brand->brandGalleryImages as $slid )
+                    <!-- Single Hero Slider Item Start -->
+                    <div class="hero-slide-item-two swiper-slide swiper-slide-prev swiper-slide-duplicate-next"
+                        data-swiper-slide-index="3" role="group" >
+                        <!-- Hero Slider Background Image Start -->
+                        {{-- <div class="hero-slide-bg" style="object-fit:cover" > --}}
+                            <img  src="../../../service-brand/gallery/{{$slid->image}}" alt="{{$slid->image}}">
+                        {{-- </div>   --}}
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
+            
+                <!-- Swiper Pagination Start d-md-none -->
+                <div class="swiper-pagination  swiper-pagination-clickable "></div>
+                <!-- Swiper Pagination End -->
+            
+                <!-- Swiper Navigation Start -->
+                <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none" tabindex="0"
+                    role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-105a3492323db0381"><i
+                        class="pe-7s-angle-left"></i></div>
+                <div class="home-slider-next swiper-button-next main-slider-nav d-md-flex d-none" tabindex="0"
+                    role="button" aria-label="Next slide" aria-controls="swiper-wrapper-105a3492323db0381"><i
+                        class="pe-7s-angle-right"></i></div>
+                <!-- Swiper Navigation End -->
+    
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
             </div>
-           
-            <!-- Swiper Pagination Start d-md-none -->
-            <div class="swiper-pagination  swiper-pagination-clickable "></div>
-            <!-- Swiper Pagination End -->
-          
-            <!-- Swiper Navigation Start -->
-            <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none" tabindex="0"
-                role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-105a3492323db0381"><i
-                    class="pe-7s-angle-left"></i></div>
-            <div class="home-slider-next swiper-button-next main-slider-nav d-md-flex d-none" tabindex="0"
-                role="button" aria-label="Next slide" aria-controls="swiper-wrapper-105a3492323db0381"><i
-                    class="pe-7s-angle-right"></i></div>
-            <!-- Swiper Navigation End -->
-  
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
         </div>
-    </div>
+     </div>
+   </div>
+  <div class="mobile-design">
+    <swiper-container class="mySwiper mobile-design" direction="vertical" pagination="true" pagination-clickable="true" autoplay="true" :delay="5000"> <!-- Adjust delay as per your requirement -->
+        @foreach ($brand->mobileBrandGalleryImages as $slid)
+            <img class="swiper-slide" src="../../../service-brand/mobile-gallery/{{$slid->image}}" alt="{{ $slid->name }}">
+        @endforeach
+    </swiper-container>
   </div>
 
        <!-- About Section Start -->
