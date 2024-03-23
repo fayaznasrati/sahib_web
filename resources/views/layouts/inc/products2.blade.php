@@ -24,10 +24,10 @@
                                       <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
                                        </span>
                                        </span><br>
-                                        <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
-                                        {{$post->name}}</a></span><br>
-                                       {{-- <span class="desc">{{$post->name}}</span><br> --}}
-                                     <p>{!! Str::limit($post->note, 30) !!} </p>
+                                        <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}"style="color: green"><br>
+                                        {!! Str::limit($post->name, 50) !!}</a></span><br>
+                                       {{-- <span class="desc">{!! Str::limit($post->name, 30) !!}</span><br> --}}
+                                     {{-- <p>{!! Str::limit($post->note, 30) !!} </p> --}}
                                      {{-- {{ Str::limit($string, 100) }} --}}
                                     </div>
                                   </div>
@@ -72,10 +72,10 @@
                                           <span id="price"> <img src="assets/images/logo/m-afg.png" alt="AFG" > {{$post->new_price}}
                                            </span>
                                            </span><br>
-                                            <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">
-                                            {{$post->name}}</a></span><br>
-                                           {{-- <span class="desc">{{$post->name}}</span><br> --}}
-                                         <p>{!! Str::limit($post->note, 50) !!} </p>
+                                            <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}"style="color: green">
+                                            {!! Str::limit($post->name, 50) !!}</a></span><br>
+                                           {{-- <span class="desc">{!! Str::limit($post->name, 30) !!}</span><br> --}}
+                                          {{-- <p>{!! Str::limit($post->note, 30) !!} </p> --}}
                                          {{-- {{ Str::limit($string, 100) }} --}}
                                         </div>
                                       </div></a>
@@ -126,14 +126,14 @@
                                               </span>
                                               
                                                <br>
-                                                <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" style="color: green">
-                                                {{$post->name}}</a></span><br>
-                                                <span class="ratings">
-                                                  <span class="rating-wrap">
+                                                <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" style="color: green"> <br>
+                                                {!! Str::limit($post->name, 50) !!}</a></span><br>
+                                                {{-- <span class="ratings">
+                                                   <span class="rating-wrap">
                                                     <span class="star" style="width: 67%"></span>
-                                                  </span>
-                                                    <span class="rating-num">(2)</span></span>
-                                             <p>{!! Str::limit($post->note, 50) !!} </p>
+                                                  </span> 
+                                                    <span class="rating-num">(2)</span></span>--}}
+                                             {{-- <p>{!! Str::limit($post->note, 30) !!} </p> --}}
 
                                             </div>
                                           </div></a>

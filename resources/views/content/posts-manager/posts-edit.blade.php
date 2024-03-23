@@ -114,7 +114,7 @@
               {{-- <label for="html5-search-input" class="col-md-2 col-form-label">old Prices and New price:</label> --}}
               <div class="col-md-6">
                 <label for="html5-text-input" class="col-form-label">Old Price:</label>
-                <input class="form-control" type="number" value="100" id="html5-number-input">
+                <input class="form-control" type="number" value="{{$posts->old_price}}" name="old_price" value="100" id="html5-number-input">
               </div>
               <div class="col-md-6">
                <label for="html5-text-input" class="col-form-label">New Price:</label>
@@ -138,34 +138,37 @@
               <button type="button" id="addFeture" class="btn btn-success mt-4">+</button>
             </div>
           </div>
-          
-           @foreach ($title as $key=> $value )
-           <span class="addedinput">
-            <div class="mb-3 row " >
-              <label for="html5-search-input" class="col-md-2 col-form-label">name and description</label>
-              <div class="col-md-4">
-                <label for="name"><small>Name *:</small></label>
-                <input class="form-control" type="text" name="title[]" value="{{$value}}" id="html5-number-input">
-              </div>
-              <div class="col-md-4">
-                <label for="name"><small>Description *:</small></label>
-                <input class="form-control" type="text"  name="title_desc[]" value="{{$title_desc[$key]}}" id="html5-number-input">
-              </div>
-              <div class="col-md-2">
-                <button type="button"  class="btn btn-warning mt-4 removeFeature">-</button>
-                {{-- <button type="button" id="addFeture" class="btn btn-success mt-4">+</button> --}}
-              </div>
-            </div>  
-          </span>
-            @endforeach 
+          @if ($title !=  null)
+          @foreach ($title as $key=> $value )
+
+          <span class="addedinput">
+           <div class="mb-3 row " >
+             <label for="html5-search-input" class="col-md-2 col-form-label">name and description</label>
+             <div class="col-md-4">
+               <label for="name"><small>Name *:</small></label>
+               <input class="form-control" type="text" name="title[]" value="{{$value}}" id="html5-number-input">
+             </div>
+             <div class="col-md-4">
+               <label for="name"><small>Description *:</small></label>
+               <input class="form-control" type="text"  name="title_desc[]" value="{{$title_desc[$key]}}" id="html5-number-input">
+             </div>
+             <div class="col-md-2">
+               <button type="button"  class="btn btn-warning mt-4 removeFeature">-</button>
+               {{-- <button type="button" id="addFeture" class="btn btn-success mt-4">+</button> --}}
+             </div>
+           </div>  
+         </span>
+           @endforeach 
+          @endif
+           
             <span id="moreFeature"></span>
           </div>
         </div>
         <div class="card mb-4">
-          <h5 class="card-header">Update Post short Description</h5>
+          {{-- <h5 class="card-header">Update Post short Description</h5> --}}
           <div class="card-body">
             <div class="mb-3 row">
-              {{-- <label for="html5-search-input" class="col-md-2 col-form-label">name and description</label> --}}
+              <label for="html5-search-input" class="col-md-5 col-form-label">Update Post short Description</label>
               <div class="col-md-12">
                 <textarea class="tinymce-editor form-control" name="short_description">{!! $posts->short_description !!}</textarea>
 
@@ -175,7 +178,7 @@
             </div>
             
             <div class="mb-3 row">
-              {{-- <label for="html5-search-input" class="col-md-2 col-form-label">name and description</label> --}}
+              <label for="html5-search-input" class="col-md-5 col-form-label">Update description</label>
               <div class="col-md-12">
                 <textarea class="tinymce-editor form-control" name="description">{!! $posts->description !!}</textarea>
 

@@ -21,6 +21,8 @@ use App\Models\Wishlist;
 use GuzzleHttp\Client;
 use App\Models\Banner;
 use App\Models\ServicesBrand;
+use App\Models\FoodMenu;
+use App\Models\HotelRoomAndHall;
 class UserViewController extends Controller
 {
 
@@ -31,8 +33,6 @@ class UserViewController extends Controller
      */
     public function redirectToPreviousPage()
     {
-        // Redirect back to the previous page
-        // dd('hi');
         return redirect()->back();
     }
 
@@ -48,12 +48,17 @@ class UserViewController extends Controller
 
     public function fetchDataByCategory($category)
     {
-        if($category == '0'){
-            $data = Posts::get()->all(); 
-        }else{
         // Fetch data based on the category
-        $data = Posts::where('category_type', $category)->get();
-        }
+        $data = Posts::where('category_type', $category)->take(4)->get();
+        return response()->json($data);
+    }
+
+    public function fetchMoreData(Request $request, $category)
+    {
+        $offset = $request->input('offset', 0);
+        $limit = 4; // Adjust as needed
+        $data = Posts::where('category_type', $category)->skip($offset)->take($limit)->get();
+
         return response()->json($data);
     }
 
@@ -61,14 +66,10 @@ class UserViewController extends Controller
 
     public function fetchHotelDataByCategory($category)
     {
-        // if($category == '0'){
             $data = ServicesBrand::where('status', 1)->get()->all(); 
-        // }else{
-        // Fetch data based on the category
-        // $data = ServicesBrand::where('category_type', $category)->get();
-        // }
         return response()->json($data);
     }
+
 
 
     // to detect user location
@@ -271,6 +272,55 @@ class UserViewController extends Controller
         return view('single-product', compact('userx','post','currentUrl','posts'));
         // dd($posts);
     }
+
+    public function showServiceSinglePro($service, $brand, $slug) {
+
+        if($service =='food-menu'){
+
+            $pro = FoodMenu::with('servicesBrand')->where('slug', $slug)->firstOrFail();
+            $foodPro = FoodMenu::get();
+            $images = $pro->foodMenuImage;
+            $brand = $pro->servicesBrand;
+            $filePath = "food-menu-images";
+            $Url = url()->current();
+            $currentUrl=urlencode($Url);
+            return view('service-single-pro', compact('pro','images','filePath','currentUrl','brand','foodPro'));
+
+        }elseif($service =='room-hall'){
+            $pro = HotelRoomAndHall::with('servicesBrand')->where('slug', $slug)->firstOrFail();
+            $roomPro = HotelRoomAndHall::get();
+            $images = $pro -> HotelRoomAndHallImages;
+            $brand = $pro->servicesBrand;
+            $filePath = "hotel-room-images";
+            $Url = url()->current();
+            $currentUrl=urlencode($Url);
+            return view('service-single-pro', compact('pro','images','filePath','currentUrl','brand','roomPro'));
+
+        }
+  
+        //     // Initialize post variable 
+
+        //     $post = null;
+        // // Determine the model based on the service type
+        // switch ($service) {
+        //     case 'room-hall':
+        //         $post = FoodMenu::where('slug', $slug)->firstOrFail();
+        //         dd($post);
+        //         break;
+        //     case 'food-menu':
+        //         $post = HotelRoomAndHall::where('slug', $slug)->firstOrFail();
+        //         dd($post);
+        //         break;
+        //     // Add more cases if needed for different service types
+        //     default:
+        //         // Handle unrecognized service types
+        //         abort(404);
+        // }
+        //     dd($post);
+        // // Return view with the retrieved post
+    }
+
+
     public function goBack() {
         // Your logic here
         return redirect()->back();
@@ -380,6 +430,15 @@ class UserViewController extends Controller
         return view('seller-brand-info', compact('brand','posts'));
     }
 
+    public function serviceBrandInfo($slug)
+    {
+        $brand = ServicesBrand::where('slug', $slug)->first();
+        $posts = Posts::get();
+        // dd($brand);
+
+        return view('service-brand-info', compact('brand','posts'));
+    }
+
 
 
     
@@ -415,7 +474,6 @@ class UserViewController extends Controller
     }
 
     public function deleteMyAccount(request $request, $id)
-
     {
         $validatedData = $request->validate([
             'delete_confirm' => 'required|accepted',

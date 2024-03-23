@@ -207,6 +207,10 @@ public function store(Request $request)
             return $this->hasMany(HotelRoomAndHallImage::class);
         }
 
+        public function servicesBrand(){
+            return $this->belongsTo(ServicesBrand::class,'service_brand_id');
+        }
+
         public function toggleIsActive()
         {
                $this->status = !$this->status;

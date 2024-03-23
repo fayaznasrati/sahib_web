@@ -4,11 +4,12 @@
 
 <!-- Breadcrumb Section Start -->
 <div class="section">
+    <hr>
 {{-- <a href="/redirect-to-previous" style="color: red">Back page</a> --}}
     <!-- Breadcrumb Area Start -->
-    <div class="breadcrumb-area bg-light" >
-        <div class="container-fluid" >
-            <div class="breadcrumb-content text-center">
+    {{-- <div class="breadcrumb-area bg-light" > --}}
+       {{-- <div class="container-fluid" >
+             <div class="breadcrumb-content text-center">
                 <h1 class="title">{{ $post->name }}</h1>
                 <ul>
                     <li>
@@ -17,9 +18,9 @@
                     <li class="active"> Single Product</li>
                     <li class="active"> {{ $post->name }}</li>
                 </ul>
-            </div>
-        </div>
-    </div>
+            </div> 
+        </div>--}}
+    {{-- </div> --}}
     <!-- Breadcrumb Area End -->
 </div>
 <!-- Breadcrumb Section End -->
@@ -181,19 +182,13 @@
                     <!-- Social Shear Start -->
                     <div class="social-share">
                         <span>Share :</span>
-                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ $currentUrl }}"><i
-                                class="fa fa-facebook-square facebook-color"></i></a>
-                        <a target="_blank" href="https://www.instagram.com/sharer/sharer.php?u={{ $currentUrl }}"><i
-                                class="fa fa-instagram facebook-color"></i></a>
-                        <a target="_blank" href="https://twitter.com/share?u={{ $currentUrl }}"><i
-                                class="fa fa-twitter-square twitter-color"></i></a>
-                        <a target="_blank"
-                            href="https://www.linkedin.com/sharing/share-offsite/?u={{ $currentUrl }}"><i
-                                class="fa fa-linkedin-square linkedin-color"></i></a>
-                        <a target="_blank"
-                            href="https://www.pinterest.com/pin/create/button/?u={{ $currentUrl }}"><i
-                                class="fa fa-pinterest-square pinterest-color"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($currentUrl) }}"><i class="fa fa-facebook-square facebook-color"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/share?url={{ urlencode($currentUrl) }}"><i class="fa fa-instagram facebook-color"></i></a>
+                        <a target="_blank" href="https://twitter.com/share?url={{ urlencode($currentUrl) }}"><i class="fa fa-twitter-square twitter-color"></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode($currentUrl) }}"><i class="fa fa-linkedin-square linkedin-color"></i></a>
+                        <a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ urlencode($currentUrl) }}"><i class="fa fa-pinterest-square pinterest-color"></i></a>
                     </div>
+                    
                     <!-- Social Shear End -->
 
                     <!-- Product Delivery Policy Start -->
@@ -235,16 +230,21 @@
                                 <hr>
                                 <table class="table  mb-0">
                                     <tbody>
+                                        
+                                            
+                                        
                                         @php
                                             $title = json_decode($post->title, true);
                                             $title_desc = json_decode($post->title_desc, true);
                                         @endphp
+                                        @if ($title !=null)
                                         @foreach ($title as $key => $value)
                                             <tr>
                                                 <td class="cun-name"><span>{{ $value }}</span></td>
                                                 <td>{{ $title_desc[$key] }}</td>
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                         </div>

@@ -101,11 +101,14 @@ Route::get('/goback', [App\Http\Controllers\UserViewController::class, 'goBack']
 Route::get('/search', [App\Http\Controllers\UserViewController::class, 'search'])->name('search');
 Route::get('/search-ajax', [App\Http\Controllers\UserViewController::class, 'searchAjax'])->name('search-ajax');
 Route::get('seller/comapany-info/{slug}', [App\Http\Controllers\UserViewController::class, 'sellerBrandInfo'])->name('seller-brand-info');
+Route::get('service/brand-info/{slug}', [App\Http\Controllers\UserViewController::class, 'serviceBrandInfo'])->name('service-brand-info');
+Route::get('/show-service-single-pro/{brand}/{service}/{slug}', [App\Http\Controllers\UserViewController::class, 'showServiceSinglePro'])->name('show-service-single-pro');
+
 // routes/web.php
 
 Route::get('/fetch-data/{category}',  [App\Http\Controllers\UserViewController::class, 'fetchDataByCategory'])->name('fetch-data');
 Route::get('/fetch-hotel-data/{category}',  [App\Http\Controllers\UserViewController::class, 'fetchHotelDataByCategory'])->name('fetch-hotel-data');
-
+Route::get('/fetch-more-data/{category}', [App\Http\Controllers\UserViewController::class, 'fetchMoreData'])->name('fetch-more-data');
 
 Route::get('/code', function () {
     dd(Hash::make(1234567890));

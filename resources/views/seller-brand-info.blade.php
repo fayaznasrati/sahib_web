@@ -79,7 +79,7 @@
                                         <span>By : <a href="#">{{$brand->name}}</a></span>
                                         <span>{{ \Carbon\Carbon::parse($post->updated_at)->format('d F Y') }}</span>
                                     </div>
-                                    <h3 class="title"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">{{$post->name}}</a></h3>
+                                    <h3 class="title"><a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}">{{Str::limit($post->name,20)}}</a></h3>
                                     <p>{!! $post->note!!}</p>
                                     <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}" class="link">Read More</a>
                                 </div>

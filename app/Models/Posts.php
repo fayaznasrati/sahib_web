@@ -84,14 +84,7 @@ class Posts extends Model
             'short_description' => 'required|max:300',
         ]);
 
-        $slug = Str::slug($validatedData['name']);
-        // $originalSlug = $slug;
-        // $count = 1;
-
-        // while (Posts::where('slug', $slug)->exists()) {
-        //     $slug = $originalSlug . '-' . $count;
-        //     $count++;
-        // }
+     $slug = Str::slug($validatedData['name']);
      $post = Posts::findOrFail($id);
      if($request->hasFile("cover")){
          if (File::exists("cover/".$post->cover)) {
@@ -119,6 +112,7 @@ class Posts extends Model
              "short_description" =>$request->short_description,
              
         ]);
+        // dd($post);
 
         if($request->hasFile("images")){
             $files=$request->file("images");
@@ -131,6 +125,7 @@ class Posts extends Model
                 Image::create($request->all());
             }
         }
+
         return back();
 
     }

@@ -323,9 +323,9 @@
           <hr>
         @endif
 
-          @if (count($hotelRooms)> 0)
+        @if (count($hotelRooms)> 0)
             <!-- Striped Rows -->
-        <div class="row">
+          <div class="row">
             <div class="card">
                 <h5 class="card-header">Hotel Rooms List</h5>
                 <div class="table-responsive text-nowrap">

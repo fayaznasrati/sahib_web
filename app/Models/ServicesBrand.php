@@ -173,6 +173,17 @@ public function store(Request $request){
         }
 
 
+        public function hotelRoomAndHall()
+        {
+            return $this->hasMany('App\Models\HotelRoomAndHall', 'service_brand_id');
+        }
+
+        public function foodMenu()
+        {
+            return $this->hasMany('App\Models\FoodMenu', 'service_brand_id');
+        }
+
+
 
         public function user()
         {

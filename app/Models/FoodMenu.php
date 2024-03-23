@@ -147,6 +147,15 @@ class FoodMenu extends Model
         public function foodMenuImages(){
             return $this->hasMany(FoodMenuImage::class);
         }
+        public function foodMenuImage(){
+            return $this->hasMany(FoodMenuImage::class);
+        }
+
+        public function servicesBrand(){
+            return $this->belongsTo(ServicesBrand::class,'service_brand_id');
+        }
+
+
 
         public function toggleIsActive()
         {

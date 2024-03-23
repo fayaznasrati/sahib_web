@@ -95,7 +95,7 @@
         <thead>
           <tr>
             <th>#No</th>
-            <th>Post ID</th>
+            {{-- <th>Post ID</th> --}}
             <th>Cover</th>
             <th>Images</th>
             <th>Category</th>
@@ -103,7 +103,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>Poblished at</th>
-            <th>Expires In</th>
+            {{-- <th>Expires In</th> --}}
             <th>Colors</th>
             {{-- <th>Description</th> --}}
             <th>Status</th>
@@ -115,7 +115,7 @@
          @foreach ($posts as $post )
           <tr>
             <td>{{$i++}}</td>
-            <td>{{$post->puuid}}</td>
+            {{-- <td>{{$post->puuid}}</td> --}}
             <td><img src="../cover/{{$post->cover}}" alt="post image" style="height: auto; width:40px"></td>
             <td>
                 <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
@@ -130,17 +130,17 @@
               </td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$post->menu->name}}</strong></td>
             <td>{{$post->subMenu->name}}</td>
-            <td>{{$post->name}}</td>
+            <td>{{Str::limit($post->name, 20) }}</td>
             <td>{{$post->new_price}}</td>
             <td>{{$post->updated_at}}</td>
-             <td>
+             {{-- <td>
               @if (\Carbon\Carbon::now()>= \Carbon\Carbon::parse($post->expired_at))
               <span style="color: red">Expired at {{\Carbon\Carbon::parse($post->expired_at)->format('Y-m-d')}}</span>
                 @else
                Expires in {{ \Carbon\Carbon::parse($post->expired_at)->diffInDays(\Carbon\Carbon::now()) }} days
               @endif
             
-            </td>
+            </td> --}}
             {{-- <td data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="in 30 days will be expired after date of its createtion">{{$post->exprire_at == null ?  \Carbon\Carbon::parse($post->expired_at)->diffInDays(\Carbon\Carbon::now()) : $post->exprire_at}}</td> --}}
             <td>
                 @php $colors = json_decode($post->colors) @endphp

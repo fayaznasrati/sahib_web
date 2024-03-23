@@ -46,14 +46,14 @@ class PostsController extends Controller
 
     public function seller_posts_manager(){
         $name = 'seller';
-        $posts=Posts::latest()->where('category_type',2)->paginate(5);
+        $posts=Posts::latest()->where('category_type',2)->paginate(10);
         $menus = Menu::all();
         return view('content.posts-manager.posts-index',compact('posts','menus','name'));  
     }
 
     public function factories_posts_manager(){
         $name = 'Factories';
-        $posts=Posts::latest()->where('category_type',1)->paginate(5);
+        $posts=Posts::latest()->where('category_type',1)->paginate(10);
         $menus = Menu::all();
         return view('content.posts-manager.posts-index',compact('posts','menus','name')); 
     }
@@ -157,9 +157,11 @@ class PostsController extends Controller
     public function adminPostUpdate(Request $request,$id){
 
         // $$id = Posts::findOrFail($id);
+        // dd($request->all());
         $post = new Posts();
         $post->updatePost($request,$id);
-         return redirect('/admin/posts-manager')->with("success"," Post Updated Successfully");
+        //  return redirect('/admin/posts-manager')->with("success"," Post Updated Successfully");
+         return redirect()->back()->with("success"," Post Updated Successfully");
 
        
     }
