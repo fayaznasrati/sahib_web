@@ -401,6 +401,7 @@ class UserViewController extends Controller
     {
         return view('auth.ask');
     }
+    
     public function getRegisterSeller()
     {
         $tearms = TearmAndCondation::where('tearm_on', 'register')->orderBy('updated_at', 'desc')->take(1)->get();

@@ -47,9 +47,20 @@ class LoginController extends Controller
         // $this->welcomeBackMail();
         if (Auth::check() && Auth::user()->role === '1') {
             return RouteServiceProvider::ADMIN_HOME;
-        } elseif (Auth::check() && Auth::user()->role === '2') {
+
+        } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 1 ) {
             return RouteServiceProvider::SELLER_HOME;
-        }else{
+
+        }elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 2 ) {
+            return RouteServiceProvider::SELLER_HOME;
+
+        } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 3 ) {
+            return RouteServiceProvider::SERVICES_HOME;
+            
+        } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 4 ) {
+            return RouteServiceProvider::SERVICES_HOME;
+        }
+        else{
             return RouteServiceProvider::HOME;
         }
     

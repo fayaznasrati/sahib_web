@@ -7,10 +7,10 @@
         <div class="breadcrumb-area bg-light">
             <div class="container-fluid">
                 <div class="breadcrumb-content text-center">
-                    <h1 class="title"> Register As Seller</h1>
+                    <h1 class="title"> Register As Buyer</h1>
                     <ul>
                         <li>
-                            <a href="index.html">Home </a>
+                            <a href="/">Home </a>
                         </li>
                         <li class="active"> Register</li>
                     </ul>
@@ -78,7 +78,7 @@
 
                             <!-- Input First Name Start -->
                             <div class="single-input-item mb-3">
-                                <input type="text" name="role" hidden value="2">
+                                {{-- <input type="text" placeholder="First Name"> --}}
                                 <input id="name" placeholder="Full Name" type="text"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                     value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -90,7 +90,7 @@
                                 @enderror
                             </div>
                             <!-- Input First Name End -->
-                          
+                            <input type="hidden" name="role" value="0">
                             <!-- Input Email Or Username Start -->
                             <div class="single-input-item mb-3">
                                 {{-- <input type="email" placeholder="Your Email"> --}}
@@ -130,32 +130,8 @@
                             </div>
                             <!-- Input Password End -->
 
-                     
-                            <div class="col-md-12 mb-3">
-                                <div class="country-select">
-                                    <select name="seller_type" class="myniceselect nice-select wide rounded-0" required style="display: none;">
-                                        <option >Select What do you do ? </option>
-                                        <option value="0">I am Buyer </option>
-                                        <option value="1">I have a Factory </option>
-                                        <option value="2">I am a Wholesaller </option>
-                                        <option value="3">I am Hospitale  </option>
-                                        <option value="4">Other services </option>
-                                    </select> 
-                                </div>
-                            </div>
-                            <div class="add-role"></div>
-
-                        <!-- Input Password End -->
-                            <br>
-                            <br>
-                                    <!-- Input First Name End -->
-
-                              <!-- Input Password Start -->
-                        
-                            <!-- Input Password End -->
-
-                            <!-- Checkbox & Subscribe Label Start -->
-                            {{-- <div class="single-input-item mb-3">
+                            {{-- <!-- Checkbox & Subscribe Label Start -->
+                            <div class="single-input-item mb-3">
                                 <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                     <div class="remember-meta mb-3">
                                         <div class="custom-control custom-checkbox">
@@ -167,9 +143,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             <!-- Checkbox & Subscribe Label End -->
-                            {{-- <div id="seller-phone-whatsapp">
+                            <div id="seller-phone-whatsapp">
                                 <!-- Input phone Or Username Start -->
                                 <div class="single-input-item mb-3">
                                     <input type="text" placeholder="Your Phone Number">
@@ -201,19 +177,14 @@
                                 </div>
                                 <!-- Input WhatsApp Number Or Username End -->
                             </div> --}}
-
-                            <!-- Checkbox & Subscribe Label Start -->
                             <br><br>
+                            <!-- Checkbox & Subscribe Label Start -->
                             <div class="single-input-item mb-3">
                             <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                 <div class="remember-meta mb-3">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="subscription" class="custom-control-input" id="rememberMe-2">
                                         <label class="custom-control-label" for="rememberMe-2">Subscribe For Beast Offers And Our Newsletter</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        {{-- <input type="checkbox" name="subscription" class="custom-control-input" id="rememberMe-2"> --}}
-                                        <label class="custom-control-label" for="rememberMe-2">Already have an account <a href="/login">login</a></label>
                                     </div>
                                 </div>
                             </div>

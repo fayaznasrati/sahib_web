@@ -60,11 +60,15 @@ Route::prefix('user')->middleware('auth_activated_and_seller')->group(function (
     Route::delete('/seller/brand/product/{id}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('destroy-products');
     Route::get('/seller/brand/products', [App\Http\Controllers\PostsController::class, 'index'])->name('seller-products');
     Route::get('/seller/create/brand/products', [App\Http\Controllers\PostsController::class, 'create'])->name('seller-create-products');
-  Route::get('/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
+    Route::get('/seller/brand-dashboard', [App\Http\Controllers\SellerBrandController::class, 'brandDashboard'])->name('brand-dashboard');
     Route::post('/seller/create-brand', [App\Http\Controllers\SellerBrandController::class, 'createBrand'])->name('create-brand');
     Route::put('/seller/update-brand-profile/{id}', [App\Http\Controllers\SellerBrandController::class, 'updateBrand'])->name('update-brand');
 
-    // Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
+
+  Route::get('/service-brand-dashboard', [App\Http\Controllers\ServiceBrandController::class, 'serviceBrandDashboard'])->name('service-brand-dashboard');
+    
+  
+  // Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     // Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
     // Route::get('/all', 'App\Http\Controllers\CRUDController@all');
     // Route::post('/create', 'App\Http\Controllers\CRUDController@submit')->name('crud.submit');
@@ -84,9 +88,9 @@ Route::get('/get-sub-category', [App\Http\Controllers\CategoryController::class,
 Route::delete('/deletecover/{id}', [App\Http\Controllers\PostsController::class, 'deletecover']);
 Route::delete('/deleteimage/{id}', [App\Http\Controllers\PostsController::class, 'deleteimage']);
 Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 'updateStatus']);
-Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getRegisterSeller'])->name('get-register-seller');
+// Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getRegisterSeller'])->name('register');
 // Route::post('/register/seller', [App\Http\Controllers\UserViewController::class, 'registerSeller'])->name('register-seller');
-Route::get('/ask-to-register', [App\Http\Controllers\UserViewController::class, 'askToRagisterPage'])->name('ask-to-register');
+// Route::get('/ask-to-register', [App\Http\Controllers\UserViewController::class, 'askToRagisterPage'])->name('ask-to-register');
 Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::get('/user/seller/dashboard', [App\Http\Controllers\UserViewController::class, 'sellerDashboard'])->name('seller-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');

@@ -38,6 +38,10 @@ class ServiceBrandController extends Controller
 
     // }
 
+    public function serviceBrandDashboard(){
+        return dd('serviceBrandDashboard');
+    }
+
         public function services_manager(){
         $services = ServicesBrand::orderBy('service_id')->latest()->paginate(10);
         $services_name = ServiceName::get()->all();

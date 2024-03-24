@@ -35,11 +35,11 @@
                     @elseif(Auth::check() && Auth::user()->role === '1')
                     Adminstrator
                     @else
-                    <a href="/register/seller"><span class="ad-Button">Become a seller</span></a>
+                    <a href="/register"><span class="ad-Button">Become a seller</span></a>
                     @endif
                     @guest
                     <a href="/login">login</a>
-                    <a href="/ask-to-register">Register</a></p>
+                    <a href="/register">Register</a></p>
                     @else
                     Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>

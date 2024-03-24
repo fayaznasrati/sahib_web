@@ -102,7 +102,7 @@
 
                     <!-- Lost Password & Creat New Account Start -->
                     <div class="lost-password">
-                        <a href="/ask-to-register">Create Account</a>
+                        <a href="/register">Create Account</a>
                     </div>
                     <!-- Lost Password & Creat New Account End -->
 
