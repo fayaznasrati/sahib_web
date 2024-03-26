@@ -141,15 +141,13 @@
         @endif
       </div>
             {{-- End Create Brand Profile --}}
-
+            <br><br>
 
       @if (isset($brand))
         <div class="card mb-4">
 
-          <div class="row">
-          {{-- <h5 class="card-header">My Brand Profile Details </h5> --}}
-            {{-- <hr> --}}
-            {{--  --}}
+          <div class="row mb-5">
+
 
             <div class="col-md-5 pt-3">
               <h6 class="card-header">
@@ -250,31 +248,31 @@
                   <img src="../../../brand_certificate_img/{{$brand->brand_certificate_img}}" alt="user-avatar" class="d-block rounded" style="height: 600px; width:100%" />
                   @endif
                 </div>
-                <div class="mb-3 col-md-12 offset-md-2">
+                <div class="mb-3 col-md-12 ">
                   <label for="name" class="form-label">Your Brand about </label>
                   <textarea class="form-control" type="text" id="about" name="about" autofocus>
                     {{ old('about', $brand->about ?? '') }}
                   </textarea>
               </div>
-              <div class="mb-3 col-md-12 offset-md-2">
+              <div class="mb-3 col-md-12 ">
                 <label for="name" class="form-label">Your Brand Privacey And Policy </label>
                 <textarea class="form-control" type="text" id="brand_policy" name="brand_policy" autofocus>
                   {{ old('brand_policy', $brand->brand_policy ?? '') }}
                 </textarea>
             </div>
-            <div class="mb-3 col-md-12 offset-md-2">
+            <div class="mb-3 col-md-12 ">
               <label for="name" class="form-label">Your Brand Security Policy </label>
               <textarea class="form-control" type="text" id="security_policy" name="security_policy" autofocus>
                 {{ old('security_policy', $brand->security_policy ?? '') }}
               </textarea>
           </div>
-          <div class="mb-3 col-md-12 offset-md-2">
+          <div class="mb-3 col-md-12 ">
             <label for="name" class="form-label">Your Brand Delivary Policy </label>
             <textarea class="form-control" type="text" id="delivery_policy" name="delivery_policy" autofocus>
               {{ old('delivery_policy', $brand->delivery_policy ?? '') }}
             </textarea>
         </div>
-        <div class="mb-3 col-md-12 offset-md-2">
+        <div class="mb-3 col-md-12 ">
           <label for="name" class="form-label">Your Brand Return Policy </label>
           <textarea class="form-control" type="text" id="return_policy" name="return_policy" autofocus>
             {{ old('return_policy', $brand->return_policy ?? '') }}

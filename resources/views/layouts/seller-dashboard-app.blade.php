@@ -13,14 +13,16 @@
 </head>
 <body style="background-color: rgb(245 245 249);">
     @include("layouts.inc.seller-dashboard-navbar")
+    <br><br><br>
+   
     @include('sweetalert::alert')
 
     <main class="py-4 ">
         @yield('seller-dashboard-content')
     </main>
 
-    @include("layouts.inc.bottom-navbar")
-    @include("layouts.inc.made-in")
+    {{-- @include("layouts.inc.bottom-navbar") --}}
+    {{-- @include("layouts.inc.made-in") --}}
 </body>
 @include("layouts.inc.footer-links")
 </html>

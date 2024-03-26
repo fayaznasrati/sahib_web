@@ -110,7 +110,7 @@
                 <!-- /Account -->
               </div>
             </form>
-              <div class="card">
+              {{-- <div class="card">
                 <h5 class="card-header">Delete Account</h5>
                 <div class="card-body">
                   <div class="mb-3 col-12 mb-0">
@@ -131,7 +131,7 @@
 
                 
                 </div>
-              </div>
+              </div> --}}
             </div>
           </div>
           

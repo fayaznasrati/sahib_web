@@ -59,6 +59,9 @@ class LoginController extends Controller
             
         } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 4 ) {
             return RouteServiceProvider::SERVICES_HOME;
+
+        } elseif (Auth::check() && Auth::user()->role === '0' && Auth::user()->seller_type === 0 ) {
+        return RouteServiceProvider::HOME;
         }
         else{
             return RouteServiceProvider::HOME;

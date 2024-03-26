@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="name"><small>Name *:</small></label>
-                            <input class="form-control" type="text" placeholder="Air Pro PC" name="brand_name"
+                            <input class="form-control" type="text" placeholder="Brand Name" name="brand_name"
                                 value="{{ old('brand_name', $serv->brand_name ?? '') }}">
                         </div>
                         <div class="col-md-4">
@@ -139,12 +139,7 @@
                             <label for="formFile" class="form-label">Mobile Brand Slide Show 600px W/400px H</label>
                             <input class="form-control" type="file" id="formFile" name="mobileImages[]" multiple>
                         </div>
-                        <div class="col-md-4">
-                            <label for="name"><small>Address:</small></label>
-                            <input class="form-control" type="text"
-                                placeholder="H 15, Line B5, St Wazirakbar khan, Kabul, afg" name="address"
-                                value="{{ old('address', $serv->address ?? '') }}">
-                        </div>
+                       
                         <div class="col-md-4">
                             <label for="name"><small>Phone Number:</small></label>
                             <input class="form-control" type="number" min="0" maxlength="13"
@@ -164,16 +159,59 @@
                             <input class="form-control" type="email" placeholder="example@emaple.com" name="email"
                                 value="{{ old('email', $serv->email ?? '') }}">
                         </div>
+                        <div class="col-md-4">
+                            <label for="name"><small>Brand Certificate No:</small></label>
+                            <input class="form-control" type="number" min="0" maxlength="13"
+                                placeholder="0000" name="brand_certificate_no"
+                                value="{{ old('brand_certificate_no', $serv->brand_certificate_no ?? '') }}"
+                                oninput="javasecript: if(this.value.length> 13) this.value = this.value.slice(0,13);">
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="formFile" class="form-label">Brand Certificate jpg/png 800K</label>
+                            <input class="form-control" accept="image/png, image/jpeg" type="file" id="brand_certificate_img" name="brand_certificate_img">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="name"><small>Brand Founding Date:</small></label>
+                            <input class="form-control" type="date" placeholder="Brand Name" name="brand_found_date"
+                                value="{{ old('brand_found_date', $serv->brand_found_date ?? '') }}">
+                        </div>
 
+                        <div class="col-md-4">
+                            <label for="name"><small>Select City:</small></label>
+                        <select id="city" name="city" class="select2 form-select">
+                            <option >Select City</option>
+                            @foreach ($afg_cities as $city )
+                            @if (isset($serv))
+                            <option {{ $city->name == $serv->city ? 'selected' : 'x' }}
+                                value={{ $city->name }}>{{ $city->name }}</option>
+                                @else
+                                    <option value="{{ $city->name }}">{{ $city->name }}</option>
+                                @endif
+                            @endforeach
+                            
+                          </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="name"><small>Address:</small></label>
+                            <input class="form-control" type="text"
+                                placeholder="H 15, Line B5, St Wazirakbar khan, Kabul, afg" name="address"
+                                value="{{ old('address', $serv->address ?? '') }}">
+                        </div>
                         <div class="col-md-6">
                             <label for="name"><small>About:</small></label>
-                            <textarea class="form-control" type="text" placeholder="worite about your brand here..." name="about"
-                                > {{ old('about', $serv->about ?? '') }}</textarea>
+                            <textarea class="form-control" type="text" placeholder="worite about your brand here..." name="about">
+                                 {{ old('about', $serv->about ?? '') }}</textarea>
                         </div>
                         <div class="col-md-6">
                             <label for="name"><small>Description:</small></label>
                             <textarea class="form-control" type="text" placeholder="worite description of your brand here..."
                                 name="description">{{ old('description', $serv->description ?? '') }}</textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="name"><small>Brand Privacey And Policy:</small></label>
+                            <textarea class="form-control" type="text" placeholder="worite brand policy  here..."
+                                name="brand_policy">{{ old('brand_policy', $serv->brand_policy ?? '') }}</textarea>
                         </div>
                     </div>
                     <br>
@@ -189,8 +227,16 @@
                     <br><br>
                     @if (isset($serv))
                         <div class="row">
-                           
-                            <div class="col-md-4" >
+                            <div class="mb-3 col-md-12">
+                                <label for="zipCode" class="form-label">Brand Certificate</label>
+                                @if ($serv->brand_certificate_img==null)
+                                <img src="{{asset('assets/img/avatars/no-user-img.png')}}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                @else
+                                <img src="../../../service-brand/brand_certificate_img//{{$serv->brand_certificate_img}}" alt="user-avatar" class="d-block rounded" style="height: 500px; width:100%" />
+                                @endif
+                              </div>
+
+                            <div class="col-md-12" >
                                 @if ($serv->logo != null)
                                     <label for="name"><small>Current Logo:</small></label>
 
@@ -199,12 +245,12 @@
                                         @csrf
                                         @method('delete')
                                     </form>
-                                    <img src="../../service-brand/logo/{{ $serv->logo }}" style="width: 100%">
+                                    <img src="../../service-brand/logo/{{ $serv->logo }}" style="width: 100%; max-width:200px" >
                                 @else
                                     No Logo Yet
                                 @endif
                             </div>
-                            <div class="col-md-8" >
+                            <div class="col-md-12" >
                                 @if (count($serv->brandGalleryImages) > 0)
 
                                     <label for="name"><small>Current desktop Banners:</small></label>
@@ -219,7 +265,7 @@
                                                 </form>
                                                 <div class="col-md-4" style="width:100%">
                                                     <img src="../../service-brand/gallery/{{ $img->image }}"
-                                                        style="width: 100%">
+                                                        style="width: 100% max-height:400px">
                                                 </div>
                                             </div>
                                         @endforeach
@@ -228,7 +274,7 @@
                                    No Desktop Banners
                                 @endif
                             </div>
-                            <div class="col-md-8" >
+                            <div class="col-md-12" >
                                 @if (count($serv->mobileBrandGalleryImages) > 0)
 
                                     <label for="name"><small>Current mobile Banners:</small></label>
@@ -298,8 +344,7 @@
                                         <em>No Service Name</em>
                                     @endif
                                 </td>
-                                <td><img src="../../service-brand/logo/{{ $service->logo }}" alt="post image"
-                                        style="height: auto; width:40px"></td>
+                                <td><img src="../../service-brand/logo/{{ $service->logo }}" alt="post image" style="height: auto; width:40px"></td>
                                         <td>
                                             <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
                                                 @if (count($service->brandGalleryImages) != null)

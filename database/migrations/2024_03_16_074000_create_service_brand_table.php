@@ -19,12 +19,16 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->string('logo')->nullable();
             $table->string('brand_name');
+            $table->string('city')->nullable();
             $table->string('address');
             $table->string('phone_number');
             $table->string('whatsapp_number');
             $table->string('email');
-            $table->json('image_gallery')->nullable();
+            $table->string('brand_found_date')->nullable();
             $table->text('about')->nullable();
+            $table->string('brand_certificate_no')->nullable();
+            $table->string('brand_certificate_img')->nullable();
+            $table->text('brand_policy')->nullable();
             $table->text('description');
             $table->timestamps();
 

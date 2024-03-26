@@ -17,6 +17,7 @@ use App\Models\Posts\updatePost;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\ServiceName;
 use App\Models\FoodMenu;
+use App\Models\AfgCity;
 use App\Models\HotelRoomAndHall;
 use App\Models\HotelRoomAndHallImage;
 use App\Models\FoodMenuImage;
@@ -38,16 +39,36 @@ class ServiceBrandController extends Controller
 
     // }
 
-    public function serviceBrandDashboard(){
-        return dd('serviceBrandDashboard');
+    public function createServiceBrand(Request $request ){
+            // dd($request->all());
+            $servicebrand = new ServicesBrand();
+            $servicebrand->store($request);
+             return redirect('/user/service-brand-dashboard')->with("success"," Service Brand Created Successfully");
     }
+
+    public function serviceBrandDashboard(){
+    $user = User::find(Auth::id());
+    $brand = ServicesBrand::where('user_id', Auth::id())->latest()->first();
+    $afg_cities = AfgCity::get();
+    $services_name = ServiceName::get();
+    // dd($brand);
+    return view('services-module.index', compact('user','afg_cities','brand','services_name'));
+    }
+
+    public function createServiceBrandProduct(){
+        $brand = ServicesBrand::where('user_id', Auth::id())->latest()->first();
+        $services_name = ServiceName::get();
+        // dd($brand);
+        return view('services-module.create-service-pro', compact('brand','services_name'));
+        }
+    
 
         public function services_manager(){
         $services = ServicesBrand::orderBy('service_id')->latest()->paginate(10);
         $services_name = ServiceName::get()->all();
         $users = User::get()->all();
-        
-        return view('content.services-manager.service-index',compact('services','services_name','users'));  
+        $afg_cities = AfgCity::get();
+        return view('content.services-manager.service-index',compact('services','services_name','users','afg_cities'));  
     }
 
     public function filerServiceBrand(Request $request)
@@ -78,9 +99,9 @@ class ServiceBrandController extends Controller
     
         // Execute the query
         $services = $query->paginate(10);
-    
+        $afg_cities = AfgCity::get();
         // Pass the results to the view
-        return view('content.services-manager.service-index',compact('services','services_name','users')); 
+        return view('content.services-manager.service-index',compact('services','services_name','users','afg_cities')); 
     }
 
     public function serviceBrandStatus(request $request){
@@ -195,10 +216,10 @@ class ServiceBrandController extends Controller
      public function adminServiceBrandEdit(string $id){
         $services=ServicesBrand::latest()->paginate(5);
         $serv=servicesBrand::findOrFail($id);
-        // dd($serv);
+        $afg_cities = AfgCity::get();
         $users = User::all();
         $services_name = ServiceName::get()->all();
-         return view('content.services-manager.service-index', compact('serv', 'users', 'services_name','services'));
+         return view('content.services-manager.service-index', compact('serv', 'users', 'services_name','services','afg_cities'));
     }
 
 
@@ -207,8 +228,13 @@ class ServiceBrandController extends Controller
         $servicebrand = new ServicesBrand();
         $servicebrand->updateServiceBrand($request,$id);
          return redirect('/admin/services-brand')->with("success"," Brand  Updated Successfully"); 
+    }
 
-       
+    public function userServiceBrandUpdate(Request $request,$id){
+        // dd($request->all());
+        $servicebrand = new ServicesBrand();
+        $servicebrand->updateServiceBrand($request,$id);
+         return redirect()->back()->with("success"," Brand  Updated Successfully"); 
     }
     /**
      * Update the specified resource in storage.
@@ -289,7 +315,7 @@ class ServiceBrandController extends Controller
         Alert::success('Success', 'post deleted Successfully.');
         return back();
     }
-
+// ===========Delete banner descktop images of serveices=================
     public function servceBrandDeleteImage($id){
         // dd($id);
         $images=BrandGalleryImage::findOrFail($id);
@@ -301,6 +327,16 @@ class ServiceBrandController extends Controller
        return back();
    }
 
+   
+// ===========Delete banner from user side images of serveices=================
+public function userServceBrandDeleteImage($id){
+    $this->servceBrandDeleteImage($id);
+   return back();
+   }
+
+
+// ===========Delete banner Mobile images of serveices=================
+
    public function servceBrandDeleteMobileImage($id){
     // dd($id);
     $images=MobileBrandGalleryImage::findOrFail($id);
@@ -310,8 +346,52 @@ class ServiceBrandController extends Controller
 
    MobileBrandGalleryImage::find($id)->delete();
    return back();
-}
+  } 
 
+// ===========Delete banner Mobile from user side images of serveices=================
+
+   public function userServceBrandDeleteMobileImage($id){
+    $this->servceBrandDeleteMobileImage($id);
+   return back();
+   }
+
+   public function serviceUserProfile()
+   {
+       // $id = Auth::id();
+       $user = User::find(Auth::id());
+       $afg_cities = AfgCity::get();
+       return view('services-module.service-user-profile', compact('user','afg_cities'));
+    }
+    public function updateServiceUserProfile(Request $request,$id)
+    {
+        // dd($request->all());
+     $user = User::findOrFail(Auth::id());
+     $afg_cities = AfgCity::get()->all();
+     if($request->hasFile("dp_image")){
+         if (File::exists("dp_images/".$user->dp_image)) {
+             File::delete("dp_images/".$user->dp_image);
+         }
+         $file=$request->file("dp_image");
+         $user->dp_image=time()."_".$file->getClientOriginalName();
+         $file->move(\public_path("/dp_images"),$user->dp_image);
+         $request['dp_image']=$user->dp_image;
+
+     }
+
+        $user->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "mobile" => $request->mobile,
+            "whatsapp" => $request->whatsapp,
+            "dp_image"=>$user->dp_image,
+            "city_id" =>$request->city_id,
+            "zip_code" =>$request->zip_code,
+            "business" =>$request->business,
+            "address" =>$request->address,
+        ]);
+        return view('services-module.service-user-profile',compact('user','afg_cities'))->with("success","Profile Updated Successfully");
+
+    }
     public function deleteBrandLogo($id){
 
     //    dd($id);

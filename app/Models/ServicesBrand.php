@@ -28,7 +28,11 @@ class ServicesBrand extends Model
         'phone_number',
         'whatsapp_number',
         'email',
-        'images',
+        'brand_certificate_no',
+        'brand_certificate_img',
+        'brand_policy',
+        'brand_found_date',
+        'city',
         'status',
         'about',
         'description',
@@ -49,16 +53,27 @@ class ServicesBrand extends Model
         $serviceBrand = ServicesBrand::findOrFail($id);
         // dd( $serviceBrand);
 
-     if($request->hasFile("logo")){
-        if (File::exists("service-brand/logo/".$serviceBrand->logo)) {
-            File::delete("service-brand/logo/".$serviceBrand->logo);
+        if($request->hasFile("brand_certificate_img")){
+            if (File::exists("service-brand/brand_certificate_img/".$serviceBrand->brand_certificate_img)) {
+                File::delete("service-brand/brand_certificate_img/".$serviceBrand->brand_certificate_img);
+            }
+            $file=$request->file("brand_certificate_img");
+            $serviceBrand->brand_certificate_img=time()."_".$file->getClientOriginalName();
+            $file->move(\public_path("service-brand/brand_certificate_img/"),$serviceBrand->brand_certificate_img);
+            $request['brand_certificate_img']=$serviceBrand->brand_certificate_img;
+    
         }
-        $file=$request->file("logo");
-        $serviceBrand->logo=time()."_".$file->getClientOriginalName();
-        $file->move(\public_path("service-brand/logo/"),$serviceBrand->logo);
-        $request['logo']=$serviceBrand->logo;
 
-    }
+        if($request->hasFile("logo")){
+            if (File::exists("service-brand/logo/".$serviceBrand->logo)) {
+                File::delete("service-brand/logo/".$serviceBrand->logo);
+            }
+            $file=$request->file("logo");
+            $serviceBrand->logo=time()."_".$file->getClientOriginalName();
+            $file->move(\public_path("service-brand/logo/"),$serviceBrand->logo);
+            $request['logo']=$serviceBrand->logo;
+    
+        }
         // update desktop banner Images if present
         if ($request->hasFile("images")) {
             $files = $request->file("images");
@@ -91,9 +106,19 @@ class ServicesBrand extends Model
                     $mobilBrandGalleryImage->save();
                 }
             }
+
+                  // Check if the user role is admin
+        if (auth()->user()->role === '1') {
+            // Get the user ID from the input field
+            $userId = $request->input('user_id');
+        } else {
+            // Get the ID of the logged-in user
+            $userId = auth()->id();
+        }
+
         $serviceBrand->update([
             "service_id" => $request->service_id,
-            "user_id" => $request->user_id,
+            "user_id" => $userId,
             "brand_name" => $request->brand_name,
             "slug" => $slug.'-'.time(),
             "phone_number" => $request->phone_number,
@@ -101,8 +126,13 @@ class ServicesBrand extends Model
             "whatsapp_number" => $request->whatsapp_number,
             "description" => $request->description,
             "about" => $request->about,
+            "city" => $request->city,
+            "brand_certificate_no" => $request->brand_certificate_no,
+            "brand_policy" => $request->brand_policy,
+            "brand_found_date" => $request->brand_found_date,
             "address" => $request->address,
             "logo"=>$serviceBrand->logo,            
+            "brand_certificate_img"=>$serviceBrand->brand_certificate_img,            
         ]);
         return back();
        
@@ -129,11 +159,18 @@ public function store(Request $request){
         $slug = $originalSlug . '-' . $count;
         $count++;
     }
-
+        // Check if the user role is admin
+        if (auth()->user()->role === '1') {
+            // Get the user ID from the input field
+            $userId = $request->input('user_id');
+        } else {
+            // Get the ID of the logged-in user
+            $userId = auth()->id();
+        }
     // Create Service Brand
     $serviceBrand = new ServicesBrand([
         "service_id" => $request->service_id,
-        "user_id" => $request->user_id,
+        "user_id" => $userId,
         "brand_name" => $request->brand_name,
         "slug" => $slug.'-'.time(),
         "phone_number" => $request->phone_number,
@@ -141,9 +178,14 @@ public function store(Request $request){
         "whatsapp_number" => $request->whatsapp_number,
         "description" => $request->description,
         "about" => $request->about,
+        "city" => $request->city,
+        "brand_certificate_no" => $request->brand_certificate_no,
+        "brand_policy" => $request->brand_policy,
+        "brand_found_date" => $request->brand_found_date,
         "address" => $request->address,
     ]);
     $serviceBrand->save();
+
 
     // Store Logo if present
     if ($request->hasFile("logo")) {
@@ -153,6 +195,15 @@ public function store(Request $request){
         $serviceBrand->logo = $logo;
         $serviceBrand->save();
     }
+
+        // Store brand_certificate_img if present
+        if ($request->hasFile("brand_certificate_img")) {
+            $file = $request->file("brand_certificate_img");
+            $brand_certificate_img = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path("service-brand/brand_certificate_img/"), $brand_certificate_img);
+            $serviceBrand->brand_certificate_img = $brand_certificate_img;
+            $serviceBrand->save();
+        }
 
     // Store Desktop banner Images if present
     if ($request->hasFile("images")) {

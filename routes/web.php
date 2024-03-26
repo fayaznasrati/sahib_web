@@ -65,9 +65,17 @@ Route::prefix('user')->middleware('auth_activated_and_seller')->group(function (
     Route::put('/seller/update-brand-profile/{id}', [App\Http\Controllers\SellerBrandController::class, 'updateBrand'])->name('update-brand');
 
 
-  Route::get('/service-brand-dashboard', [App\Http\Controllers\ServiceBrandController::class, 'serviceBrandDashboard'])->name('service-brand-dashboard');
-    
+    Route::get('/service-brand-dashboard', [App\Http\Controllers\ServiceBrandController::class, 'serviceBrandDashboard'])->name('service-brand-dashboard');
+    Route::post('/create-service-brand', [App\Http\Controllers\ServiceBrandController::class, 'createServiceBrand'])->name('create-service-brand');
+    Route::put('/update-service-brand/{id}', [App\Http\Controllers\ServiceBrandController::class, 'userServiceBrandUpdate'])->name('update-service-brand');
+    Route::delete('/user-service-brand-delete-image/{id}', [App\Http\Controllers\ServiceBrandController::class, 'userServceBrandDeleteImage'])->name('user-service-brand-delete-image');
+    Route::delete('/user-service-brand-delete-mobile-image/{id}', [App\Http\Controllers\ServiceBrandController::class, 'userServceBrandDeleteMobileImage'])->name('user-service-brand-delete-mobile-image');
+    Route::get('/service-user-profile', [App\Http\Controllers\ServiceBrandController::class, 'serviceUserProfile'])->name('service-user-profile');
+    Route::put('/update-service-user-profile/{id}', [App\Http\Controllers\ServiceBrandController::class, 'updateServiceUserProfile'])->name('update-service-user-profile');
+    Route::get('/create-service-brand-products', [App\Http\Controllers\ServiceBrandController::class, 'createServiceBrandProduct'])->name('create-service-brand-products');
   
+    // Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
+    
   // Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     // Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
     // Route::get('/all', 'App\Http\Controllers\CRUDController@all');
@@ -115,7 +123,7 @@ Route::get('/fetch-hotel-data/{category}',  [App\Http\Controllers\UserViewContro
 Route::get('/fetch-more-data/{category}', [App\Http\Controllers\UserViewController::class, 'fetchMoreData'])->name('fetch-more-data');
 
 Route::get('/code', function () {
-    dd(Hash::make(1234567890));
+    dd(Hash::make('seller@gmail.com'));
 });
 
 Auth::routes();
