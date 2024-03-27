@@ -191,30 +191,7 @@ class UserViewController extends Controller
       
     
     }
-    // public function index()
-    // {
-    //     $data = null;
-    //     $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
-    //     // dd($slider);
-    //     $menus = Menu::orderBy('id', 'desc')->get();
-    //     $mobileMenus = Menu::orderBy('id', 'desc')->take(9)->get();
-    //     $submenus = SubMenu::All();
-    //     $residentForRent = Posts::get()->where('menu_id',3)->where('status',1)->all();
-    //     $residentForSell = Posts::get()->where('menu_id',4)->where('status',1)->all();
-    //     $motors = Posts::get()->where('menu_id',5)->where('status',1)->all();
-    //     return view('index', 
-    //     compact(
-    //         'data',
-    //         'mobileMenus',
-    //         'menus',
-    //         'slider',
-    //         'submenus',
-    //         'residentForRent',
-    //         'residentForSell',
-    //         'motors',
-            
-    //     ));
-    // }
+
 
     
 // ============Search post ===============

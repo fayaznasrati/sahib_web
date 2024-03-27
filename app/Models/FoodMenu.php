@@ -155,6 +155,24 @@ class FoodMenu extends Model
             return $this->belongsTo(ServicesBrand::class,'service_brand_id');
         }
 
+        public function DeleteFoodMenu($id){
+
+            //   dd($id);
+         $food=FoodMenu::findOrFail($id);
+
+         if (File::exists("service-brand/food-menu-cover/".$food->cover)) {
+             File::delete("service-brand/food-menu-cover/".$food->cover);
+         }
+         $images=FoodMenuImage::where("food_menu_id",$food->id)->get();
+         foreach($images as $image){
+         if (File::exists("service-brand/food-menu-images/".$image->image)) {
+            File::delete("service-brand/food-menu-images/".$image->image);
+        }
+         }
+         $food->delete();
+       
+        return back();
+        }
 
 
         public function toggleIsActive()

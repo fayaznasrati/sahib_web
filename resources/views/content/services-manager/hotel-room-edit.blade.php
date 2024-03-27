@@ -12,7 +12,7 @@
 
  {{-- Create Food Menu --}}
  <div class="collapse {{ isset($hotelRoom) ? 'show' : '' }}" id="collapseExample">
-    <hr><center ><h3 style="color: green" >Update Food Menu</h3></center><hr> 
+    <hr><center ><h3 style="color: green" >Update </h3></center><hr> 
     @if (isset($hotelRoom))
         <form action="{{ route('service-brand-hotel-update', $hotelRoom->id) }}" method="POST" enctype="multipart/form-data">
             @method('PUT')

@@ -8,150 +8,238 @@
 <!-- In your blade template -->
 
 @section('content')
-<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-  Services Manager / </span> services</h4> @if (isset($food))
-  {{$food->name}}
-  @endif
-@if (session('success'))
-  <div class="alert alert-success alert-dismissible" role="alert">
-      {{ session('success') }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-      </button>
-  </div>
-@endif
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
+            Services Manager / </span> services</h4>
+    @if (isset($food))
+        {{ $food->name }}
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    @endif
 
-<div class="row">
-  <div class="card mb-4">
-      <div class="card-body">
-          <p class="demo-inline-spacing">
-              <a class="btn btn-primary me-1 collapsed" data-bs-toggle="collapse" href="#collapseExample"
-                  role="button" aria-expanded="false" aria-controls="collapseExample">
-                  Create New Food Menu
-              </a>
-              @if ($service->service_id == 8 OR  $service->service_id  == 9)
-              @else
-              <a class="btn btn-success me-1 collapsed" data-bs-toggle="collapse" href="#collapseCreate"
-                  role="button" aria-expanded="false" aria-controls="collapseCreate">
-                 Create New Roome/Hall
-              </a>
-              @endif
-          </p>
-
-          {{-- Create Food Menu --}}
-          <div class="collapse {{ isset($food) ? 'show' : '' }}" id="collapseExample">
-            <hr><center ><h3 style="color: green" >Create Food Menu</h3></center><hr> 
-            @if (isset($food))
-                <form action="{{ route('service-brand-update', $food->id) }}" method="POST" enctype="multipart/form-data">
-                    @method('PUT')
-                    @csrf
+    <div class="row">
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="demo-inline-spacing">
+                    @if ($service->service_id == 8 || $service->service_id == 9)
+                    <a class="btn btn-primary me-1 collapsed" data-bs-toggle="collapse" href="#collapseExample"
+                        role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Create New Food Menu
+                    </a>
+                @elseif($service->service_id == 7 || $service->service_id == 10)
+                    <a class="btn btn-primary me-1 collapsed" data-bs-toggle="collapse" href="#collapseExample"
+                        role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Create New Food Menu
+                    </a>
+                    <a class="btn btn-success me-1 collapsed" data-bs-toggle="collapse" href="#collapseCreate"
+                        role="button" aria-expanded="false" aria-controls="collapseCreate">
+                        Create New Room/Hall
+                    </a>
                 @else
-            <form action="{{ route('service-brand-food-menu-store') }}" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="service_brand_id" value="{{ $service->id }}">
-            @csrf
-            @endif
+                    <a class="btn btn-success me-1 collapsed" data-bs-toggle="collapse" href="#createServiceProduct"
+                        role="button" aria-expanded="false" aria-controls="createServiceProduct">
+                        Create Service Products
+                    </a>
+                @endif
+                
+                </p>
 
-            <div class="row">
-              <div class="col-md-4">
-                <div class="row">
-                  <div class="col-md-12">
-                    <label for="name"><small>Name *:</small></label>
-                    <input class="form-control" type="text" placeholder="Food Name" name="name"
-                        value="{{ old('name', $food->name ?? '') }}">
-                </div>
-                <div class="col-md-12">
-                    <label for="formFile" class="form-label">Cover 200px W/200px H</label>
-                    <input class="form-control" type="file" id="formFile" name="cover">
-                </div>
-                <div class="col-md-12">
-                    <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px H</label>
-                    <input class="form-control" type="file" id="formFile" name="images[]" multiple>
-                </div>
-                <div class="col-md-12">
-                    <label for="name"><small>price:</small></label>
-                    <input class="form-control" type="number" placeholder="100" name="price"
-                        value="{{ old('price', $food->price ?? '') }}">
-                </div>
-              
-                </div>
-              </div>
-              <div class="col-md-8">
-                  <label for="name"><small>Description:</small></label>
-                  <textarea class="form-control" type="text" placeholder="worite description of room or hall here..."
-                      name="description">{{ old('description', $food->description ?? '') }}</textarea>
-              </div>
-              
-            </div>
-            <br>
-            <center>
-                <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                    <button type="submit" id="submit" name="submit"
-                        class="btn btn-dark btn-hover-primary rounded-0">{{ isset($food) ? 'Update' : 'Create' }}</button>
-                </div>
-            </center>
+                {{-- Create Service Product --}}
+                <div class="collapse {{ isset($food) ? 'show' : '' }}" id="createServiceProduct">
+                    <hr>
+                    <center>
+                        <h3 style="color: green">Create Service Product</h3>
+                    </center>
+                    <hr>
+                    @if (isset($food))
+                        <form action="{{ route('service-brand-update', $food->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                        @else
+                            <form action="{{ route('service-brand-product-store') }}" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="service_brand_id" value="{{ $service->id }}">
+                                @csrf
+                    @endif
 
-            </form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="name"><small>Name *:</small></label>
+                                    <input class="form-control" type="text" placeholder=" Name" name="name"
+                                        value="{{ old('name', $food->name ?? '') }}">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Cover 200px W/200px H</label>
+                                    <input class="form-control" type="file" id="formFile" name="cover">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px H</label>
+                                    <input class="form-control" type="file" id="formFile" name="images[]" multiple>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="name"><small>price:</small></label>
+                                    <input class="form-control" type="number" placeholder="100" name="price"
+                                        value="{{ old('price', $food->price ?? '') }}">
+                                </div>
+                            </div>
+                        </div>
 
-            <br><br>
-          </div>
+                        <div class="col-md-8">
+                            <label for="name"><small>Description:</small></label>
+                            <textarea class="form-control" type="text" placeholder="worite description of  here..."
+                                name="description">{{ old('description', $food->description ?? '') }}</textarea>
+                        </div>
 
-          {{-- Create hotel roome --}}
-          <div class="collapse {{ isset($serv) ? 'show' : '' }}" id="collapseCreate">
-            <hr><center ><h3 style="color: green" >Create Hote Rooms/Halls</h3></center><hr> 
-            @if (isset($food))
-            <form action="{{ route('service-brand-update', $food->id) }}" method="POST" enctype="multipart/form-data">
-                @method('PUT')
-                @csrf
-            @else
-        <form action="{{ route('service-brand-hotel-store') }}" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="service_brand_id" value="{{ $service->id }}">
-        @csrf
-        @endif
+                    </div>
+                    <br>
+                    <center>
+                        <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                            <button type="submit" id="submit" name="submit"
+                                class="btn btn-dark btn-hover-primary rounded-0">{{ isset($food) ? 'Update' : 'Create' }}</button>
+                        </div>
+                    </center>
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-md-12">
-                <label for="name"><small>Name *:</small></label>
-                <input class="form-control" type="text" placeholder="Hall or Room Name" name="name"
-                    value="{{ old('name', $food->name ?? '') }}">
+                    </form>
+
+                    <br><br>
+                </div>
+
+                {{-- Create Food Menu --}}
+                <div class="collapse {{ isset($food) ? 'show' : '' }}" id="collapseExample">
+                    <hr>
+                    <center>
+                        <h3 style="color: green">Create Food Menu</h3>
+                    </center>
+                    <hr>
+                    @if (isset($food))
+                        <form action="{{ route('service-brand-update', $food->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                        @else
+                            <form action="{{ route('service-brand-food-menu-store') }}" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="service_brand_id" value="{{ $service->id }}">
+                                @csrf
+                    @endif
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="name"><small>Name *:</small></label>
+                                    <input class="form-control" type="text" placeholder="Food Name" name="name"
+                                        value="{{ old('name', $food->name ?? '') }}">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Cover 200px W/200px H</label>
+                                    <input class="form-control" type="file" id="formFile" name="cover">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px
+                                        H</label>
+                                    <input class="form-control" type="file" id="formFile" name="images[]" multiple>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="name"><small>price:</small></label>
+                                    <input class="form-control" type="number" placeholder="100" name="price"
+                                        value="{{ old('price', $food->price ?? '') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="name"><small>Description:</small></label>
+                            <textarea class="form-control" type="text" placeholder="worite description of room or hall here..."
+                                name="description">{{ old('description', $food->description ?? '') }}</textarea>
+                        </div>
+
+                    </div>
+                    <br>
+                    <center>
+                        <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                            <button type="submit" id="submit" name="submit"
+                                class="btn btn-dark btn-hover-primary rounded-0">{{ isset($food) ? 'Update' : 'Create' }}</button>
+                        </div>
+                    </center>
+
+                    </form>
+
+                    <br><br>
+                </div>
+
+                {{-- Create hotel roome --}}
+                <div class="collapse {{ isset($serv) ? 'show' : '' }}" id="collapseCreate">
+                    <hr>
+                    <center>
+                        <h3 style="color: green">Create Hote Rooms/Halls</h3>
+                    </center>
+                    <hr>
+                    @if (isset($food))
+                        <form action="{{ route('service-brand-update', $food->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                        @else
+                            <form action="{{ route('service-brand-hotel-store') }}" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="service_brand_id" value="{{ $service->id }}">
+                                @csrf
+                    @endif
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="name"><small>Name *:</small></label>
+                                    <input class="form-control" type="text" placeholder="Hall or Room Name"
+                                        name="name" value="{{ old('name', $food->name ?? '') }}">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Cover 200px W/200px H</label>
+                                    <input class="form-control" type="file" id="formFile" name="cover">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px
+                                        H</label>
+                                    <input class="form-control" type="file" id="formFile" name="images[]" multiple>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="name"><small>price:</small></label>
+                                    <input class="form-control" type="number" placeholder="100" name="price"
+                                        value="{{ old('price', $food->price ?? '') }}">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="name"><small>Description:</small></label>
+                            <textarea class="form-control" type="text" placeholder="worite description of room or hall here..."
+                                name="description">{{ old('description', $food->description ?? '') }}</textarea>
+                        </div>
+
+                    </div>
+                    <br>
+                    <center>
+                        <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                            <button type="submit" id="submit" name="submit"
+                                class="btn btn-dark btn-hover-primary rounded-0">{{ isset($food) ? 'Update' : 'Create' }}</button>
+                        </div>
+                    </center>
+
+                    </form>
+                </div>
             </div>
-            <div class="col-md-12">
-                <label for="formFile" class="form-label">Cover 200px W/200px H</label>
-                <input class="form-control" type="file" id="formFile" name="cover">
-            </div>
-            <div class="col-md-12">
-                <label for="formFile" class="form-label">Upload Galllery Images 600px W/400px H</label>
-                <input class="form-control" type="file" id="formFile" name="images[]" multiple>
-            </div>
-            <div class="col-md-12">
-                <label for="name"><small>price:</small></label>
-                <input class="form-control" type="number" placeholder="100" name="price"
-                    value="{{ old('price', $food->price ?? '') }}">
-            </div>
-          
-            </div>
-          </div>
-          <div class="col-md-8">
-              <label for="name"><small>Description:</small></label>
-              <textarea class="form-control" type="text" placeholder="worite description of room or hall here..."
-                  name="description">{{ old('description', $food->description ?? '') }}</textarea>
-          </div>
-          
         </div>
         <br>
-        <center>
-            <div class="col-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                <button type="submit" id="submit" name="submit"
-                    class="btn btn-dark btn-hover-primary rounded-0">{{ isset($food) ? 'Update' : 'Create' }}</button>
-            </div>
-        </center>
-
-        </form>
-          </div>
-      </div>
-  </div>
-  <br>
-</div>
+    </div>
 
     <div class="row">
         <!-- Bootstrap carousel -->
@@ -202,7 +290,7 @@
     <div class="row">
         <div class="col-lg">
             <div class="card">
-              <h5 class="card-header">{{ $service->brand_name }}</span> Information</h5>
+                <h5 class="card-header">{{ $service->brand_name }}</span> Information</h5>
                 <div class="card-body">
                     <!-- Product Summery Start -->
                     <div class="product-summery position-relative">
@@ -231,13 +319,14 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
-    <br><hr>
+    <br>
+    <hr>
 
-         @if (count($foodMenus)>0)
-         <!-- Striped Rows -->
-         <div class="row">
+    @if (count($foodMenus) > 0)
+        <!-- Striped Rows -->
+        <div class="row">
             <div class="card">
                 <h5 class="card-header">Food Menu List</h5>
                 <div class="table-responsive text-nowrap">
@@ -254,7 +343,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-      
+
                         <tbody class="table-border-bottom-0">
                             @php $i = 1 @endphp
                             @foreach ($foodMenus as $foodMenu)
@@ -262,8 +351,8 @@
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $foodMenu->name }}</td>
                                     <td>{{ $foodMenu->price }}</td>
-                                    <td><img src="../../service-brand/food-menu-cover/{{ $foodMenu->cover }}" alt="post image"
-                                            style="height: auto; width:40px"></td>
+                                    <td><img src="../../service-brand/food-menu-cover/{{ $foodMenu->cover }}"
+                                            alt="post image" style="height: auto; width:40px"></td>
                                     <td>
                                         <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
                                             @if (count($foodMenu->foodMenuImages) != null)
@@ -290,7 +379,8 @@
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                                data-bs-toggle="dropdown"><i
+                                                    class="bx bx-dots-vertical-rounded"></i></button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
                                                     href="{{ route('service-brand-food-menu-edit', $foodMenu->id) }}"><i
@@ -313,21 +403,22 @@
                             @endforeach
                         </tbody>
                     </table>
-      
+
                 </div>
                 {{-- {{ $services->links() }} --}}
-               
-            </div>
-          </div>
-          <br>
-          <hr>
-        @endif
 
-        @if (count($hotelRooms)> 0)
-            <!-- Striped Rows -->
-          <div class="row">
+            </div>
+        </div>
+        <br>
+        <hr>
+    @endif
+
+    @if (count($hotelRooms) > 0)
+        <!-- Striped Rows -->
+        <div class="row">
             <div class="card">
-                <h5 class="card-header">Hotel Rooms List</h5>
+                <h5 class="card-header"><h5 class="card-header">{{ $service->service_id == 11 ? 'Product List' : 'Hotel Rooms List' }}</h5>
+            </h5>
                 <div class="table-responsive text-nowrap">
                     <table class="table table-striped">
                         <thead>
@@ -342,7 +433,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-    
+
                         <tbody class="table-border-bottom-0">
                             @php $i = 1 @endphp
                             @foreach ($hotelRooms as $hotelRoom)
@@ -350,8 +441,8 @@
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $hotelRoom->name }}</td>
                                     <td>{{ $hotelRoom->price }}</td>
-                                    <td><img src="../../service-brand/hotel-room-cover/{{ $hotelRoom->cover }}" alt="post image"
-                                            style="height: auto; width:40px"></td>
+                                    <td><img src="../../service-brand/hotel-room-cover/{{ $hotelRoom->cover }}"
+                                            alt="post image" style="height: auto; width:40px"></td>
                                     <td>
                                         <ul class="list-unstyled users-list mb-4 avatar-group d-flex align-items-center">
                                             @if (count($hotelRoom->HotelRoomAndHallImages) != null)
@@ -371,14 +462,16 @@
                                         <div class="form-check form-switch mb-2">
                                             <input data-bid="{{ $hotelRoom->id }}"
                                                 class="form-check-input admin_service_status_btn" type="checkbox"
-                                                id="flexSwitchCheckChecked" {{ $hotelRoom->status == 1 ? 'checked' : '' }}>
+                                                id="flexSwitchCheckChecked"
+                                                {{ $hotelRoom->status == 1 ? 'checked' : '' }}>
                                         </div>
                                         <input type="hidden" name="hotelRoomid" value="{{ $hotelRoom->id }}">
                                     </td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                                data-bs-toggle="dropdown"><i
+                                                    class="bx bx-dots-vertical-rounded"></i></button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
                                                     href="{{ route('service-brand-hotel-edit', $hotelRoom->id) }}"><i
@@ -401,35 +494,42 @@
                             @endforeach
                         </tbody>
                     </table>
-    
+
                 </div>
                 {{-- {{ $services->links() }} --}}
-            
+
             </div>
         </div>
         <br>
         <hr>
-            <!-- SKU Start -->
-            <div class="col-md">
-                <div class="card">
+        <!-- SKU Start -->
+        <div class="col-md">
+            <div class="card">
                 <h5 class="card-header">Woner Details</h5>
-                    <div class="card-body">
-                    
-                        <div class="sku mb-3">
-                            <span><b>Author Name:</b>{{ $service->user->name }}</span> <br>
-                            <span><b>Mobile:</b> <a href="tel:{{ $service->user->mobile }}">{{ $service->user->mobile }}</a></span><br>
-                            <span><b>WhatsApp:</b> <a href="https://wa.me/{{ $service->user->whatsapp }}">{{ $service->user->whatsapp }}</a></span><br>
-                            <span><b>Email:</b> <a href="mailto:{{ $service->user->email }}">{{ $service->user->email }}</a></span><br>                        
-                            <span><b>Address:</b> {{ $service->user->name }}</span><br>
-                            <span><b>City:</b> {{ $service->user->afgCity }}</span><br>
-                            {{-- <span><b>zip code:</b> {{$service->user->zip_code}}</span><br> --}}
-                        </div>
+                <div class="card-body">
+
+                    <div class="sku mb-3">
+                        <span><b>Author Name:</b>{{ $service->user->name }}</span> <br>
+                        <span><b>Mobile:</b> <a
+                                href="tel:{{ $service->user->mobile }}">{{ $service->user->mobile }}</a></span><br>
+                        <span><b>WhatsApp:</b> <a
+                                href="https://wa.me/{{ $service->user->whatsapp }}">{{ $service->user->whatsapp }}</a></span><br>
+                        <span><b>Email:</b> <a
+                                href="mailto:{{ $service->user->email }}">{{ $service->user->email }}</a></span><br>
+                        <span><b>Address:</b> {{ $service->user->name }}</span><br>
+                        <span><b>City:</b> {{ $service->user->afgCity }}</span><br>
+                        {{-- <span><b>zip code:</b> {{$service->user->zip_code}}</span><br> --}}
                     </div>
                 </div>
             </div>
-            <!-- SKU End -->
+        </div>
+        <!-- SKU End -->
 
         </div>
-        @endif
+    @endif
+
+    
+
+    
 
 @endsection

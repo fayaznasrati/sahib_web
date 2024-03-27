@@ -72,7 +72,7 @@
                 <div class="border-top" >
                     <div class="row" >
                         <div class="col-12 mt-5">
-                        <h5>Rooms And Halls  <i class="fa fa-arrow-right myCatArrow"  id="arrow-right" style="font-size:16px" aria-hidden="true"></i></h5> 
+                        <h5>products  <i class="fa fa-arrow-right myCatArrow"  id="arrow-right" style="font-size:16px" aria-hidden="true"></i></h5> 
                             <!-- Brand Logo Wrapper Start -->
                             <div class="brand-logo-carousel">
                                 <div class="swiper-container" style="padding-bottom: 15px">
@@ -83,7 +83,7 @@
                                     @foreach ($brand->hotelRoomAndHall as $room)
                                     <div class="swiper-slide single-brand-logo" data-aos="fade-up" data-aos-delay="500">
                                     <div class="polaroid"><a href="/show-single-post/room-hall/{{$brand->brand_name}}/{{$room->slug}}">
-                                        <img src="../../service-brand/hotel-room-cover/{{$room->cover}}" alt="{{$room->cover}}" style="width:100%">
+                                        <img src="../../service-brand/hotel-room-cover/{{$room->cover}}" alt="{{$room->cover}}" style="width:100%; max-height:150px; object-fit:cover">
                                         <div class="container ">
                                             <a href="/show-service-single-pro/room-hall/{{$brand->brand_name}}/{{$room->slug}}"style="color: green"><br>
                                             {!! Str::limit($room->name, 50) !!}</a></span><br>

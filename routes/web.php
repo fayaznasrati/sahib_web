@@ -73,8 +73,12 @@ Route::prefix('user')->middleware('auth_activated_and_seller')->group(function (
     Route::get('/service-user-profile', [App\Http\Controllers\ServiceBrandController::class, 'serviceUserProfile'])->name('service-user-profile');
     Route::put('/update-service-user-profile/{id}', [App\Http\Controllers\ServiceBrandController::class, 'updateServiceUserProfile'])->name('update-service-user-profile');
     Route::get('/create-service-brand-products', [App\Http\Controllers\ServiceBrandController::class, 'createServiceBrandProduct'])->name('create-service-brand-products');
+    Route::post('/user-service-brand-product-store', [App\Http\Controllers\ServiceBrandController::class, 'userServiceProductStore'])->name('user-service-brand-product-store');
   
-    // Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
+    Route::get('/service-product-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'serviceProductEdit'])->name('service-product-edit');
+    Route::get('/service-product-view/{id}', [App\Http\Controllers\ServiceBrandController::class, 'serviceProductView'])->name('service-product-view');
+    Route::delete('/service-product-delete/{id}', [App\Http\Controllers\ServiceBrandController::class, 'serviceProductDelete'])->name('service-product-delete');
+    Route::put('/service-brand-product-update/{id}', [App\Http\Controllers\ServiceBrandController::class, 'ServiceBrandProductUpdate'])->name('service-brand-product-update');
     
   // Route::get('/crud2/{id}/edit', 'App\Http\Controllers\CRUDController@edit2');
     // Route::put('/crud2/{id}', 'App\Http\Controllers\CRUDController@update2')->name('crud.update2');
@@ -142,6 +146,7 @@ Route::prefix('admin')->middleware('is_admin')->group(function () {
   Route::POST('/service-brand-status', [App\Http\Controllers\ServiceBrandController::class, 'serviceBrandStatus'])->name('service-brand-status');
   Route::post('/filter-service-brands', [App\Http\Controllers\ServiceBrandController::class, 'filerServiceBrand'])->name('filter-service-brands');
 
+  Route::post('/service-brand-product-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceProductStore'])->name('service-brand-product-store');
   Route::post('/service-brand-food-menu-store', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuStore'])->name('service-brand-food-menu-store');
   Route::get('/service-brand-food-menu-show/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuShow'])->name('service-brand-food-menu-show');
   Route::get('/service-brand-food-menu-edit/{id}', [App\Http\Controllers\ServiceBrandController::class, 'adminServiceBrandFoodMenuEdit'])->name('service-brand-food-menu-edit');

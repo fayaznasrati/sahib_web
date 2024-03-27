@@ -55,13 +55,7 @@ class ServiceBrandController extends Controller
     return view('services-module.index', compact('user','afg_cities','brand','services_name'));
     }
 
-    public function createServiceBrandProduct(){
-        $brand = ServicesBrand::where('user_id', Auth::id())->latest()->first();
-        $services_name = ServiceName::get();
-        // dd($brand);
-        return view('services-module.create-service-pro', compact('brand','services_name'));
-        }
-    
+
 
         public function services_manager(){
         $services = ServicesBrand::orderBy('service_id')->latest()->paginate(10);
@@ -69,7 +63,7 @@ class ServiceBrandController extends Controller
         $users = User::get()->all();
         $afg_cities = AfgCity::get();
         return view('content.services-manager.service-index',compact('services','services_name','users','afg_cities'));  
-    }
+       }
 
     public function filerServiceBrand(Request $request)
     {
@@ -112,47 +106,6 @@ class ServiceBrandController extends Controller
     
     }
 
-    // public function seller_posts_manager(){
-    //     $name = 'seller';
-    //     $posts=Posts::latest()->where('category_type',2)->paginate(5);
-    //     $menus = Menu::all();
-    //     return view('content.posts-manager.posts-index',compact('posts','menus','name'));  
-    // }
-
-    // public function factories_posts_manager(){
-    //     $name = 'Factories';
-    //     $posts=Posts::latest()->where('category_type',1)->paginate(5);
-    //     $menus = Menu::all();
-    //     return view('content.posts-manager.posts-index',compact('posts','menus','name')); 
-    // }
-
-    // public function adminPostStatus(Request $request)
-    // {
-    //     // dd($request->all());
-    //     $postId = $request->input('postId');
-    //     $post=Posts::where('id',$postId)->first();
-    //     $post->toggleIsActive()->save();
-    //     return response()->json(['success' => true]);
-    // }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create()
-    // {
-    //     $category = Menu::all();
-    //     return view('seller-module.create-ad', ['category' => $category]);
-    // }
-
-
-
-    // public function adminPostCreate()
-    // {
-    //     $menus = Menu::all();
-    //     return view('content.posts-manager.posts-create', ['menus' => $menus]);
-    // }
-
     public function adminServiceBrandStore(Request $request){
         // dd($request->all());
         $servicebrand = new ServicesBrand();
@@ -163,55 +116,6 @@ class ServiceBrandController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-        
-    //         // $$id = Posts::findOrFail($id);
-    //         $post = new Posts();
-    //         $post->store($request);
-    //         Alert::success('Success', 'Post Created Successfully');
-    //         // Alert::warning("warning", "warning capture");
-
-    //          return redirect('/user/post');
-    // }
-     
-    /**
-     * Display the specified resource.
-     */
-    // public function show(string $id)
-    // {
-    //     $posts=Posts::findOrFail($id);
-    //     $category = Menu::all();
-    //     $Url = url()->current();
-    //     $currentUrl=urlencode($Url);
-    //     $subCategory = SubMenu::all();
-    //      return view('seller-module.show-ad', compact('posts', 'category', 'subCategory','currentUrl'));
-    // }
-
-    // public function adminPostshow(string $id){
-
-    //     $posts=Posts::findOrFail($id);
-    //     $menus = Menu::all();
-    //     $afgCity = AfgCity::all();
-    //     $submenus = Submenu::all();
-    //      return view('content.posts-manager.posts-show', compact('posts', 'menus', 'submenus','afgCity'));
-    // }
-
-
-   
-    /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit(string $id)
-    // {
-    //     $posts=Posts::findOrFail($id);
-    //     $menus = Menu::all();
-    //     $submenus = SubMenu::all();
-    //      return view('seller-module.edit-post', compact('posts', 'menus', 'submenus'));
-    //  }
 
      public function adminServiceBrandEdit(string $id){
         $services=ServicesBrand::latest()->paginate(5);
@@ -236,25 +140,56 @@ class ServiceBrandController extends Controller
         $servicebrand->updateServiceBrand($request,$id);
          return redirect()->back()->with("success"," Brand  Updated Successfully"); 
     }
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(Request $request,$id)
-    // {
-    //     $post = new Posts();
-    //     $post->updatePost($request,$id);
-    //     Alert::success('Success', 'Post Updated Successfully');
-    //      return redirect('/user/post')->with("success"," Post Updated Successfully");
 
-    // }
     public function adminServiceBrandShow(String $id){
-        $service=servicesBrand::findOrFail($id);
-        // dd($service);
-        $foodMenus=FoodMenu::where('service_brand_id', $id)->get();
-        $hotelRooms=HotelRoomAndHall::where('service_brand_id', $id)->get();
-        // dd($foodMenus);
+           $service=servicesBrand::findOrFail($id);
+         // dd($service);
+            $hotelRooms=HotelRoomAndHall::where('service_brand_id', $id)->get();
+            $foodMenus=FoodMenu::where('service_brand_id', $id)->get();
+        
+        // dd($hotelRooms);
          return view('content.services-manager.service-show', compact('service','foodMenus','hotelRooms'));
     }
+
+    public function createServiceBrandProduct(){
+        $brand = ServicesBrand::where('user_id', Auth::id())->latest()->first();
+        $services_name = ServiceName::get();
+        $show ='none';
+        $hotelRooms=HotelRoomAndHall::where('service_brand_id', $brand->id)->get();
+        $foodMenus=FoodMenu::where('service_brand_id', $brand->id)->get();
+        // dd($hotelRooms);
+        return view('services-module.create-service-pro', compact('brand','services_name','foodMenus','hotelRooms','show'));
+    }
+    
+
+    public function serviceProductEdit(String $id) {
+        $brand = ServicesBrand::where('user_id', Auth::id())->latest()->first();
+        $services_name = ServiceName::get();
+        
+        $hotelRooms=HotelRoomAndHall::where('service_brand_id', $brand->id)->get();
+        $foodMenus=FoodMenu::where('service_brand_id', $brand->id)->get();
+        $product = HotelRoomAndHall::findOrFail($id);
+        $show = '';
+         return view('services-module.create-service-pro', compact('brand','services_name','foodMenus','hotelRooms','product','show'));
+    }
+
+    public function ServiceBrandProductUpdate(Request $request,$id){
+        // dd($request->all());
+       
+        $hotelRoom = new HotelRoomAndHall();
+        $hotelRoom->updateHotelRoomAndHall($request,$id);
+        return redirect('/user/create-service-brand-products')->with("success"," product Successfully");
+    }
+    
+    public function serviceProductDelete($id){
+        // dd($id);
+        $productDelete = new HotelRoomAndHall();
+        $productDelete->DeleteProduct($id);
+         return redirect()->back()->with('Success','Food Menu Deleted Successfully');
+    }
+// serviceProductEdit
+// serviceProductView
+// serviceProductDelete
 
     public function adminServiceBrandFoodMenuStore(Request $request){
         $foodMenu = new FoodMenu();
@@ -267,6 +202,22 @@ class ServiceBrandController extends Controller
         $hotelRoom->store($request);
          return redirect()->back()->with("success"," Hotel Room/ Hall Created Successfully");
     }
+
+    public function adminServiceProductStore(Request $request){
+        // dd($request->all());
+        $hotelRoom = new HotelRoomAndHall();
+        $hotelRoom->store($request);
+         return redirect()->back()->with("success","Product Created Successfully");
+    }
+
+    public function userServiceProductStore(Request $request){
+        // dd($request->all());
+        $hotelRoom = new HotelRoomAndHall();
+        $hotelRoom->store($request);
+         return redirect()->back()->with("success","Product Created Successfully");
+    }
+
+    
 
     public function adminServiceBrandHotelEdit(String $id){
         $hotelRoom=HotelRoomAndHall::findOrFail($id);
@@ -328,14 +279,15 @@ class ServiceBrandController extends Controller
    }
 
    
-// ===========Delete banner from user side images of serveices=================
-public function userServceBrandDeleteImage($id){
-    $this->servceBrandDeleteImage($id);
-   return back();
-   }
+    // ===========Delete banner from user side images of serveices=================
+    public function userServceBrandDeleteImage($id){
+        $this->servceBrandDeleteImage($id);
+    return back();
+    }
 
 
-// ===========Delete banner Mobile images of serveices=================
+
+   // ===========Delete banner Mobile images of serveices=================
 
    public function servceBrandDeleteMobileImage($id){
     // dd($id);
@@ -392,7 +344,7 @@ public function userServceBrandDeleteImage($id){
         return view('services-module.service-user-profile',compact('user','afg_cities'))->with("success","Profile Updated Successfully");
 
     }
-    public function deleteBrandLogo($id){
+ public function deleteBrandLogo($id){
 
     //    dd($id);
         $logo=ServicesBrand::findOrFail($id)->logo;
@@ -400,7 +352,7 @@ public function userServceBrandDeleteImage($id){
         File::delete("service-brand/logo/".$logo);
         }
        return back();
-    }
+     }
 
 
 
@@ -417,13 +369,14 @@ public function userServceBrandDeleteImage($id){
     }
 
 
-   public function adminServiceBrandFoodMenuCoverDelete($id){
-    $cover=FoodMenu::findOrFail($id)->cover;
-    // dd($cover);
-    if (File::exists("service-brand/food-menu-cover/".$cover)) {
-    File::delete("service-brand/food-menu-cover/".$cover);
-    }
-    return back();
+   public function adminServiceBrandFoodMenuCoverDelete($id)
+   {
+        $cover=FoodMenu::findOrFail($id)->cover;
+        // dd($cover);
+        if (File::exists("service-brand/food-menu-cover/".$cover)) {
+        File::delete("service-brand/food-menu-cover/".$cover);
+        }
+        return back();
     }
 
     public function adminServiceBrandHotelImageDelete($id){
@@ -446,7 +399,14 @@ public function userServceBrandDeleteImage($id){
         File::delete("service-brand/hotel-room-cover/".$cover);
         }
         return back();
-        }
+    }
+
+    public function adminServiceBrandFoodMenuDelete($id){
+        $foodMenu = new FoodMenu();
+        $foodMenu->DeleteFoodMenu($id);
+        Alert::success('Success', 'Food menu deleted Successfully.');
+         return redirect()->back()->with('Success','Food Menu Deleted Successfully');
+    }
     
     
 
