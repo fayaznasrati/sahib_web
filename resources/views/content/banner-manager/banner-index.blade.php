@@ -29,15 +29,15 @@
                 <p class="demo-inline-spacing">
                     <a class="btn btn-primary me-1 collapsed" data-bs-toggle="collapse" href="#collapseExample"
                         role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Filter Slider
+                        Filter Ads
                     </a>
                     <a class="btn btn-success me-1 collapsed" data-bs-toggle="collapse" href="#collapseCreate"
                         role="button" aria-expanded="false" aria-controls="collapseCreate">
-                        Create New Slide
+                        Create New Ad
                     </a>
 
                 </p>
-                {{-- Filter Slider --}}
+                {{-- Filter ads --}}
                 <div class="collapse" id="collapseExample">
                     <form action="#" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-md-2  ">
                                     <label for="exampleFormControlInput1" class="form-label">Slid ID</label>
-                                    <input class="form-control" type="search" value="Search ..." id="html5-search-input">
+                                    <input class="form-control" type="text" value="Search ..." id="html5-search-input">
                                 </div>
                                 <div class="col-md-2  ">
                                     <label for="html5-date-input" class="form-label">From</label>
@@ -83,7 +83,7 @@
                 </div>
 
 
-                {{-- Create Slider --}}
+                {{-- Create ad --}}
                 <div class="collapse {{isset($ban)? 'show' : ''}}" id="collapseCreate" >
                   @if (isset($ban))
                   <form action="{{ route('banner.update',$ban->id) }}" method="POST" enctype="multipart/form-data">
@@ -96,9 +96,23 @@
                   @endif
 
                         <div class="row">
+                            <div class="col-md-6  ">
+                                <label for="exampleFormControlInput1" class="form-label">Location</label>
+                                <select class="form-control" name="category">
+                                    <option value="" disabled selected>Select page Location</option>
+                                  
+                                    @foreach ($banner_category as $category)
+                                    @if (isset($ban))
+                                    <option {{$category['name'] == $ban->category ? 'selected' : "" }} value="{{ $category['name'] }}">{{ $category['name'] }}</option>
+                                    @else
+                                    <option value="{{ $category['name'] }}">{{ $category['name'] }}</option>
+                                    @endif 
+                                    @endforeach
+                                </select>
+                            </div>
                                   <div class="col-md-6">
                                     <label for="name"><small>ad banner Name *:</small></label>
-                                    <input class="form-control" type="text" placeholder="Air Pro PC" name="name" value="{{ old('name', $ban->name ?? '') }}">
+                                    <input class="form-control" type="text" placeholder="ad name" name="name" value="{{ old('name', $ban->name ?? '') }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="name"><small>ad banner Url *:</small></label>
@@ -170,7 +184,8 @@
                     <thead>
                         <tr>
                             <th>#No</th>
-                            <th>banner ID</th>
+                            {{-- <th>banner ID</th> --}}
+                            <th>Category</th>
                             <th>Made by</th>
                             <th>Cover</th>
                             <th>Mobile Cover</th>
@@ -186,7 +201,10 @@
                         @foreach ($banners as $banner)
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{ $banner->banneruuid }}</td>
+                                {{-- <td>{{ $banner->banneruuid }}</td> --}}
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ $banner->category }}</strong>
+                                </td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                     <strong>{{ $banner->user->name }}</strong>
                                 </td>

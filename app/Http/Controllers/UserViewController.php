@@ -22,6 +22,7 @@ use GuzzleHttp\Client;
 use App\Models\Banner;
 use App\Models\ServicesBrand;
 use App\Models\FoodMenu;
+use App\Models\ServiceName;
 use App\Models\HotelRoomAndHall;
 class UserViewController extends Controller
 {
@@ -66,7 +67,7 @@ class UserViewController extends Controller
 
     public function fetchHotelDataByCategory($category)
     {
-            $data = ServicesBrand::where('status', 1)->get()->all(); 
+        $data = ServicesBrand::orderBy('id')->where('service_id', '!=', 11)->where('status', 1)->get()->all();
         return response()->json($data);
     }
 
@@ -90,7 +91,7 @@ class UserViewController extends Controller
         $sellerBrand = SellerBrand::orderBy('id', 'desc')->where('status',1)->get();
         $banners = Banner::orderBy('id', 'desc')->where('status',1)->get();
         $pc_banners = Banner::orderBy('id', 'desc')->where('status',1)->take(4)->get();;
-        $slider = Slider::orderBy('id', 'desc')->where('status',1)->get();
+        $slider = Slider::orderBy('id', 'desc')->where('category','home')->where('status',1)->get();
         // dd($slider);
         $menus = Menu::orderBy('id', 'desc')->get();
         $mobileMenus = Menu::orderBy('id', 'desc')->take(9)->get();
@@ -116,6 +117,56 @@ class UserViewController extends Controller
       
     
     }
+ // to detect user location
+ public function theFactories(Request $request){
+    $menus = Menu::orderBy('id', 'desc')->get();
+
+    $banners = Banner::orderBy('id', 'desc')->where('category','factories')->where('status',1)->get();
+    $pc_banners = Banner::orderBy('id', 'desc')->where('category','factories')->where('status',1)->take(4)->get();;
+    $slider = Slider::orderBy('id', 'desc')->where('category','factories')->where('status',1)->get();
+    $posts = Posts::latest()->where('category_type',1)->where('status',1)->get();
+    // dd($pc_banners);
+    return view('the-factories', compact('banners','pc_banners','slider','posts','menus'));
+ }
+
+ public function theWholesalers(Request $request){
+    $menus = Menu::orderBy('id', 'desc')->get();
+    $banners = Banner::orderBy('id', 'desc')->where('category','wholesalers')->where('status',1)->get();
+    $pc_banners = Banner::orderBy('id', 'desc')->where('category','wholesalers')->where('status',1)->take(4)->get();;
+    $slider = Slider::orderBy('id', 'desc')->where('category','wholesalers')->where('status',1)->get();
+    $posts = Posts::latest()->where('category_type',2)->where('status',1)->get();
+    // dd($pc_banners);
+    return view('the-wholesalers', compact('banners','pc_banners','slider','posts','menus'));
+ }
+
+ public function theHotelAndResturants(Request $request){
+    $services = ServicesBrand::orderBy('service_id')->where('service_id', '!=', 11)->where('status', 1)->get()->all(); 
+    $services_name = ServiceName::get()->all();
+    // dd($services);
+    $menus = Menu::orderBy('id', 'desc')->get();
+    $banners = Banner::orderBy('id', 'desc')->where('category','wholesalers')->where('status',1)->get();
+    $pc_banners = Banner::orderBy('id', 'desc')->where('category','wholesalers')->where('status',1)->take(4)->get();;
+    $slider = Slider::orderBy('id', 'desc')->where('category','wholesalers')->where('status',1)->get();
+   
+    return view('the-hotels-and-resturants', compact('services','banners','pc_banners','slider','menus'));
+ }
+
+ public function theServices(Request $request){
+    $services = ServicesBrand::orderBy('service_id')->where('service_id', 11)->where('status', 1)->get()->all(); 
+    $services_name = ServiceName::get()->all();
+    // dd($services);
+    $menus = Menu::orderBy('id', 'desc')->get();
+    $banners = Banner::orderBy('id', 'desc')->where('category','services')->where('status',1)->get();
+    $pc_banners = Banner::orderBy('id', 'desc')->where('category','services')->where('status',1)->take(4)->get();;
+    $slider = Slider::orderBy('id', 'desc')->where('category','services')->where('status',1)->get();
+   
+    return view('the-services',compact('services','banners','pc_banners','slider','menus'));
+ }
+
+    
+
+
+
 
     public function test(Request $request)
     {
@@ -336,11 +387,11 @@ class UserViewController extends Controller
         return view('my-wishlist',compact('wishlists'));
     }
 
-    public function myShoppingCart(){
-        $wishlists = Wishlist::where('user_id',Auth::id())->get();
-        
-        return view('my-shopping-cart',compact('wishlists'));
-    }
+    // public function myShoppingCart(){
+    //     $wishlists = Wishlist::where('user_id',Auth::id())->get();
+    //     // dd($wishlists);
+    //     return view('my-shopping-cart',compact('wishlists'));
+    // }
 
     public function removeFromWishlist(Request $request)
     {

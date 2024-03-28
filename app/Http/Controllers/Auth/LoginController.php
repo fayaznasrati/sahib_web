@@ -48,20 +48,14 @@ class LoginController extends Controller
         if (Auth::check() && Auth::user()->role === '1') {
             return RouteServiceProvider::ADMIN_HOME;
 
-        } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 1 ) {
+        } elseif (Auth::check() && Auth::user()->role === '2' && (Auth::user()->seller_type === 1 || Auth::user()->seller_type === 2  )) {
             return RouteServiceProvider::SELLER_HOME;
 
-        }elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 2 ) {
-            return RouteServiceProvider::SELLER_HOME;
-
-        } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 3 ) {
+        } elseif (Auth::check() && Auth::user()->role === '2' && (Auth::user()->seller_type === 3 || Auth::user()->seller_type === 4)) {
             return RouteServiceProvider::SERVICES_HOME;
             
-        } elseif (Auth::check() && Auth::user()->role === '2' && Auth::user()->seller_type === 4 ) {
-            return RouteServiceProvider::SERVICES_HOME;
-
         } elseif (Auth::check() && Auth::user()->role === '0' && Auth::user()->seller_type === 0 ) {
-        return RouteServiceProvider::HOME;
+        return RouteServiceProvider::USER_HOME;
         }
         else{
             return RouteServiceProvider::HOME;

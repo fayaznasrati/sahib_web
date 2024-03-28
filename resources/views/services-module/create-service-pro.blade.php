@@ -149,13 +149,9 @@
                         
                                     <br><br>
                                 </div>
-
-                                
                                 <hr>
                                 <br>
-                                
                                 <br>
-                               
                                   <!-- Products Tab Start -->
                                   @if (count($hotelRooms)>0)
                                   <div class="row mydata-contdainer">

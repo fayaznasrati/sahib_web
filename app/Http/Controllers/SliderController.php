@@ -17,9 +17,16 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $slider=Slider::latest()->paginate(5);
+        $banner_category = [
+            ['id' => 1, 'name' => 'home'],
+            ['id' => 2, 'name' => 'factories'],
+            ['id' => 3, 'name' => 'wholesalers'],
+            ['id' => 4, 'name' => 'services'],
+            ['id' => 5, 'name' => 'other']
+            ];
+        $slider=Slider::latest()->paginate(10);
         // dd($slider);
-        return view('content.slider-manager.slider-index',compact('slider'));  
+        return view('content.slider-manager.slider-index',compact('slider','banner_category'));  
     }
 
     /**
@@ -27,10 +34,11 @@ class SliderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('content.slider-manager.slider-create');
-    }
+    // public function create()
+    // {
+
+    //     return view('content.slider-manager.slider-create');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -66,8 +74,15 @@ class SliderController extends Controller
     public function edit($id)
     {   $slid=slider::findOrFail($id); 
         $slider=Slider::latest()->paginate(5);
+        $banner_category = [
+            ['id' => 1, 'name' => 'home'],
+            ['id' => 2, 'name' => 'factories'],
+            ['id' => 3, 'name' => 'wholesalers'],
+            ['id' => 4, 'name' => 'services'],
+            ['id' => 5, 'name' => 'other']
+            ];
 
-         return view('content.slider-manager.slider-index', compact('slid','slider'));
+         return view('content.slider-manager.slider-index', compact('slid','slider','banner_category'));
     }
 
     /**

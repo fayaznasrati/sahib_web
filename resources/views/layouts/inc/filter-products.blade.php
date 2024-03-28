@@ -39,10 +39,12 @@
         <div class="row mydata-contdainer">
             {{-- the list of products come here using Ajax request --}}
         </div>
+        <br>
         <center>
-            <a class="btn btn-outline-dark btn-hover-primary load-more-btn loadbtnfact" href="#" data-category="1">Load More</a>
+            <a class="btn btn-outline-dark btn-hover-primary load-more-btn loadbtnfact " href="#" data-category="1">Load More</a>
             <a class="btn btn-outline-dark btn-hover-primary load-more-btn loadbtnwhol hiddenbtn" href="#" data-category="2">Load More</a>    
         </center>
+        <br><br>
     </div>
 </div>
 <!-- Product Section End -->

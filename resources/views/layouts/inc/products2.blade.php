@@ -25,7 +25,8 @@
                                        </span>
                                        </span><br>
                                         <a href="/show-single-post/{{$post->subMenu->name}}/{{$post->slug}}"style="color: green"><br>
-                                        {!! Str::limit($post->name, 50) !!}</a></span><br>
+                                          {!! strlen($post->name) > 30 ? Str::limit($post->name, 30) : $post->name !!}
+                                        </a></span><br>
                                        {{-- <span class="desc">{!! Str::limit($post->name, 30) !!}</span><br> --}}
                                      {{-- <p>{!! Str::limit($post->note, 30) !!} </p> --}}
                                      {{-- {{ Str::limit($string, 100) }} --}}

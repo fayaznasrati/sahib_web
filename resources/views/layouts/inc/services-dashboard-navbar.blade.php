@@ -46,10 +46,10 @@
         <nav class="service_main_menu">
                 <ul>
                     <li>
-                        <a href="/user/service-brand-dashboard">
+                        <a href="/" target="_balnck">
                             <i class="fa fa-home fa-2x fa-icons"></i>
                             <span class="service_nav_text">
-                              My Brand Profile
+                              Home 
                             </span>
                         </a>
                       
@@ -63,63 +63,23 @@
                         </a>
                         
                     </li>
+                    <li>
+                        <a href="/user/service-brand-dashboard">
+                            <i class="fa fa-cogs fa-2x fa-icons"></i>
+                             <span class="service_nav_text">
+                                Company Profile
+                             </span>
+                         </a>
+                     </li>
+                    
                     <li class="service_has_subnav">
-                        <a href="/user/service/brand/products">
+                        <a href="/user/create-service-brand-products">
                             <i class="fa fa-list fa-2x fa-icons"></i>
                             <span class="service_nav_text">
-                               My Products List
+                               Manage Products 
                             </span>
                         </a>
                         
-                    </li>
-                    <li class="service_has_subnav">
-                        <a href="/user/create-service-brand-products">
-                            <i class="fa fa-pencil fa-2x fa-icons"></i>
-                            <span class="service_nav_text">
-                                Create New Products
-                            </span>
-                        </a>
-                       
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-film fa-2x fa-icons"></i>
-                            <span class="service_nav_text">
-                                Surveying Tutorials
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-book fa-2x fa-icons"></i>
-                            <span class="service_nav_text">
-                               Surveying Jobs
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                       <a href="#">
-                           <i class="fa fa-cogs fa-2x fa-icons"></i>
-                            <span class="service_nav_text">
-                                Tools & Resources
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                       <a href="#">
-                            <i class="fa fa-map-marker fa-2x fa-icons"></i>
-                            <span class="service_nav_text">
-                                Member Map
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                           <i class="fa fa-info fa-2x fa-icons"></i>
-                            <span class="service_nav_text">
-                                Documentation
-                            </span>
-                        </a>
                     </li>
                 </ul>
     
@@ -159,26 +119,6 @@
                         </div>
                     </div>
                     <!-- Header Logo End -->
-
-                    <!-- Header Menu Start -->
-                    <div class="col-xl-8 d-none d-xl-block">
-                        <div class="main-menu position-relative">
-                            <ul>
-                                <li > <a href="/user/seller/brand-dashboard"><span>My Brand Profile</span></a></li>
-                                <li><a href="{{route('seller-products')}}"> <span>My product List</span></a></li>
-                                <li><a class="{{ request()->is(url('/user/post/create')) ? 'active' : '' }}"  href="{{route('seller-create-products')}}"> <span>Create New Product</span></a></li>
-                                {{-- <li><a href="/user/seller/dashboard"> <span>My Profile</span></a></li> --}}
-                                <li class="has-children">
-                                    <a href="#"> <span>More</span></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/user/seller/dashboard">My Profile</a></li>
-                                        <li><a href="my-wishlist">My Wishlist</a></li>
-                                        <li><a href="my-shopping-cart">My Shopping Cart</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <!-- Header Menu End -->
 
                     <!-- Header Action Start -->
@@ -199,6 +139,90 @@
         </div>
     </div>
     <!-- Header Bottom End -->
+  <!-- Mobile Menu Start -->
+  <div class="mobile-menu-wrapper">
+    <div class="offcanvas-overlay"></div>
 
+    <!-- Mobile Menu Inner Start -->
+    <div class="mobile-menu-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="pe-7s-close"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Mobile Menu Start -->
+        <div class="mobile-navigation">
+            <nav>
+                <ul class="mobile-menu">
+                    <li><a href="/user/service-brand-dashboard">My Brand Profile</a></li>
+                    <li><a href="/user/service-user-profile">My Profile</a></li>
+                    <li><a href="/user/create-service-brand-products">Manage Products</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Mobile Menu End -->
+
+        <!-- Language, Currency & Link Start -->
+
+        <div class="offcanvas-lag-curr mb-6">
+            <h2 class="title">Languages</h2>
+            <div class="header-top-lan-curr-link">
+                <div class="header-top-lan dropdown">
+                    <button class="dropdown-toggle" data-bs-toggle="dropdown"  style="color:white">English <i class="fa fa-angle-down"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
+                        <li><a class="dropdown-item" href="#">Engalish</a></li>
+                        <li><a class="dropdown-item" href="#">فارسی</a></li>
+                        <li><a class="dropdown-item" href="#">پشتو</a></li>
+                    </ul>
+                </div>
+                @guest
+                <div class="header-top-curr dropdown">
+                    <button class="dropdown-toggle" data-bs-toggle="dropdown"  style="color:white">Login <i class="fa fa-angle-down"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
+                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <li><a class="dropdown-item" href="/ask-to-register">Register</a></li>
+                    </ul>
+                </div>
+                    @else
+                    <div class="header-top-curr dropdown">
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown" style="color:white"> Welcome: <b id="user-name">{{ Auth::user()->name }}</b> <i class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
+                            <li><a class="dropdown-item"  style="color:rgb(78, 17, 17)" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }} </a></li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
+                        </ul>
+                    </div>
+
+                @endguest
+              
+            </div>
+        </div>
+
+
+        <!-- Contact Links/Social Links Start -->
+        <div class="mt-auto">
+
+            {{-- <!-- Contact Links Start -->
+            <ul class="contact-links">
+                <li><i class="fa fa-phone"></i><a href="#"> +93 987654321</a></li>
+                <li><i class="fa fa-envelope-o"></i><a href="#"> info@sahib.af</a></li>
+                <li><i class="fa fa-clock-o"></i> <span>24/7</span> </li>
+            </ul>
+            <!-- Contact Links End -->
+
+            <!-- Social Widget Start -->
+            <div class="widget-social">
+                <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
+                <a title="Twitter" href="#"><i class="fa fa-instagram"></i></a>
+                <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
+            </div> --}}
+            <!-- Social Widget Ende -->
+        </div>
+        <!-- Contact Links/Social Links End -->
+    </div>
+    <!-- Mobile Menu Inner End -->
+</div>
+<!-- Mobile Menu End -->
 </div>
 

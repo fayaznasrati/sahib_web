@@ -97,6 +97,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
+                                    <div class="col-md-12 ">
+                                        <label for="exampleFormControlInput1" class="form-label">Location</label>
+                                        <select class="form-control" name="category">
+                                            <option value="" disabled selected>Select page Location</option>
+                                          
+                                            @foreach ($banner_category as $category)
+                                            @if (isset($slid))
+                                            <option {{$category['name'] == $slid->category ? 'selected' : "" }} value="{{ $category['name'] }}">{{ $category['name'] }}</option>
+                                            @else
+                                            <option value="{{ $category['name'] }}">{{ $category['name'] }}</option>
+                                            @endif 
+                                            @endforeach
+                                        </select>
+                                    </div>
                                   <div class="col-md-12">
                                     <label for="name"><small>Slider Name *:</small></label>
                                     <input class="form-control" type="text" placeholder="Air Pro PC" name="name" value="{{ old('name', $slid->name ?? '') }}">
@@ -188,13 +202,15 @@
                     <thead>
                         <tr>
                             <th>#No</th>
-                            <th>Slid ID</th>
+                            {{-- <th>Slid ID</th> --}}
+                            <th>Category</th>
+
                             <th>Made by</th>
                             <th>Cover</th>
                             <th>Mobile Cover</th>
                             <th>Name</th>
-                            <th>Price</th>
-                            <th>Offer</th>
+                            {{-- <th>Price</th>
+                            <th>Offer</th> --}}
                             <th>Poblished at</th>
                             <th>Expires at</th>
                             <th>Note</th>
@@ -207,15 +223,18 @@
                         @foreach ($slider as $slid)
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{ $slid->slideruuid }}</td>
+                                {{-- <td>{{ $slid->slideruuid }}</td> --}}
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ $slid->category }}</strong>
+                                </td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                     <strong>{{ $slid->user->name }}</strong>
                                 </td>
                                 <td><img src="../../../cover/slider/{{ $slid->cover }}" alt="slid image"style="height: auto; width:40px"></td>
                                 <td><img src="../../../mobileCover/slider/{{ $slid->mobileCover }}" alt="slid image"style="height: auto; width:40px"></td>
                                 <td>{{ $slid->name }}</td>
-                                <td>{{ $slid->new_price }}</td>
-                                <td>{{ $slid->offer }}</td>
+                                {{-- <td>{{ $slid->new_price }}</td>
+                                <td>{{ $slid->offer }}</td> --}}
                                 <td>{{ $slid->updated_at }}</td>
                                 <td>
                                     @if (\Carbon\Carbon::now() > \Carbon\Carbon::parse($slid->expired_at))
@@ -229,7 +248,7 @@
                                 </td>
                                 {{-- <td data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="in 30 days will be expired after date of its createtion">{{$slid->exprire_at == null ? "in 30 Days": $slid->exprire_at}}</td> --}}
 
-                                <td> <small> {!! Str::limit($slid->note, 50) !!} </small> </td>
+                                <td> <small> {!! Str::limit($slid->note, 10) !!} </small> </td>
                                 <td>
                                     <div class="form-check form-switch mb-2">
                                         <input data-sid="{{ $slid->id }}"

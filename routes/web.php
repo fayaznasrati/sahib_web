@@ -32,7 +32,8 @@ use App\Http\Controllers\ServiceBrandController;
 Route::post('/wishlist/add', [App\Http\Controllers\UserViewController::class, 'wishlistAdd'])->name('wishlist.add');
 Route::post('/wishlist/remove', [App\Http\Controllers\UserViewController::class,'removeFromWishlist'])->name('wishlist.remove');
 Route::get('/my-wishlist', [App\Http\Controllers\UserViewController::class,'myWishlist'])->name('my-wishlist');
-Route::get('/my-shopping-cart', [App\Http\Controllers\UserViewController::class,'myShoppingCart'])->name('my-shopping-cart');
+// Route::get('/my-shopping-cart', [App\Http\Controllers\UserViewController::class,'myShoppingCart'])->name('my-shopping-cart');
+Route::get('/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 
 // Route::prefix('admin')->group(function () {
 //     Route::get('/test', function () {
@@ -86,9 +87,17 @@ Route::prefix('user')->middleware('auth_activated_and_seller')->group(function (
     // Route::post('/create', 'App\Http\Controllers\CRUDController@submit')->name('crud.submit');
 });
 
-
+// <li ><a href="/factories"><span>Factories</span></a>
+// <li ><a href="/wholesalers"><span>Whoelsalers</span></a>
+//     <li ><a href="/hotel-and-resturants"><span>Hotels and Rasturans </span></a>
+//         <li ><a href="/services"><span>Services</span></a>
 
 // ==========================Public Routes=================================
+Route::get('/factories', [App\Http\Controllers\UserViewController::class, 'theFactories'])->name('the-factories');
+Route::get('/wholesalers', [App\Http\Controllers\UserViewController::class, 'theWholesalers'])->name('the-wholesalers');
+Route::get('/hotel-and-resturants', [App\Http\Controllers\UserViewController::class, 'theHotelAndResturants'])->name('the-hotel-and-resturants');
+Route::get('/services', [App\Http\Controllers\UserViewController::class, 'theServices'])->name('the-services');
+
 Route::resource('/short', ShortVideoController::class );
 Route::post('/like', [App\Http\Controllers\ShortVideoController::class, 'likeVideoShort'])->name('like-video');
 Route::get('/short1',  [App\Http\Controllers\ShortVideoController::class, 'short'])->name('short');
@@ -103,7 +112,6 @@ Route::POST('/update-post-status', [App\Http\Controllers\CRUDController::class, 
 // Route::get('/register/seller', [App\Http\Controllers\UserViewController::class, 'getRegisterSeller'])->name('register');
 // Route::post('/register/seller', [App\Http\Controllers\UserViewController::class, 'registerSeller'])->name('register-seller');
 // Route::get('/ask-to-register', [App\Http\Controllers\UserViewController::class, 'askToRagisterPage'])->name('ask-to-register');
-Route::get('/user/dashboard', [App\Http\Controllers\UserViewController::class, 'userDashboard'])->name('user-dashboard');
 Route::get('/user/seller/dashboard', [App\Http\Controllers\UserViewController::class, 'sellerDashboard'])->name('seller-dashboard');
 Route::put('/user/update-my-profile/{id}', [App\Http\Controllers\UserViewController::class, 'updateMyProfile'])->name('update-my-profile');
 Route::delete('/user/delete-my-account/{id}', [App\Http\Controllers\UserViewController::class, 'deleteMyAccount'])->name('delete-my-account');
@@ -127,7 +135,7 @@ Route::get('/fetch-hotel-data/{category}',  [App\Http\Controllers\UserViewContro
 Route::get('/fetch-more-data/{category}', [App\Http\Controllers\UserViewController::class, 'fetchMoreData'])->name('fetch-more-data');
 
 Route::get('/code', function () {
-    dd(Hash::make('seller@gmail.com'));
+    dd(Hash::make('buyer.sharifi@afghan-pay.com'));
 });
 
 Auth::routes();

@@ -17,6 +17,7 @@ class Slider extends Model
     protected $fillable =  [
         'user_id',
         'slideruuid',
+        'category',
         'name',
         'slug',
         'url',
@@ -49,6 +50,7 @@ class Slider extends Model
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'category' => 'required|max:255',
             'name' => 'required|max:255',
             'description' => 'required',
             'cover' => 'required',
@@ -73,6 +75,7 @@ class Slider extends Model
                 $mobileFile->move(\public_path("mobileCover/slider/"),$mobileCover);
                 $expiration_date = Carbon::now()->addDays(30);
                 $slid =new Slider([
+                   "category" => $request->category,
                    "name" => $request->name,
                    "url" => $request->url,
                    "slug" => $slug.'-'.time(),
@@ -100,6 +103,7 @@ class Slider extends Model
         {
             // dd($request->all());
             $validatedData = $request->validate([
+                'category' => 'required|max:255',
                 'name' => 'required|max:255',
                 'description' => 'required',
             ]);
@@ -134,6 +138,7 @@ class Slider extends Model
         }
     
             $slid->update([
+                "category" => $request->category,
                 "name" => $request->name,
                 "url" => $request->url,
                 "slug" => $slug.'-'.time(),

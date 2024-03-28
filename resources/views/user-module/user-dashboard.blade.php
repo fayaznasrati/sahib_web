@@ -78,10 +78,10 @@
                           <input type="text" id="phoneNumber" name="mobile" class="form-control" value="{{ old('mobile', $user->mobile ?? '') }}" placeholder="{{$user->mobile}}" />
                         </div>
                       </div>
-                      <div class="mb-3 col-md-6">
+                      {{-- <div class="mb-3 col-md-6">
                         <label for="business" class="form-label">Business Name</label>
                         <input type="text" class="form-control" id="business" name="business" value="{{ old('business', $user->business ?? '') }}" />
-                      </div>
+                      </div> --}}
                       <div class="mb-3 col-md-6">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $user->address ?? '') }}"  />
@@ -96,10 +96,10 @@
                          
                         </select>
                       </div>
-                      <div class="mb-3 col-md-6">
+                      {{-- <div class="mb-3 col-md-6">
                         <label for="zipCode" class="form-label">Zip Code</label>
                         <input type="text" class="form-control" id="zip_code" name="zip_code"value="{{ old('zip_code', $user->zip_code ?? '') }}" maxlength="6" />
-                      </div>
+                      </div> --}}
                     </div>
                     <div class="mt-2">
                       <button type="submit" class="btn btn-primary me-2">Save changes</button>
@@ -110,7 +110,7 @@
                 <!-- /Account -->
               </div>
             </form>
-              <div class="card">
+              {{-- <div class="card">
                 <h5 class="card-header">Delete Account</h5>
                 <div class="card-body">
                   <div class="mb-3 col-12 mb-0">
@@ -131,7 +131,7 @@
 
                 
                 </div>
-              </div>
+              </div> --}}
             </div>
           </div>
           

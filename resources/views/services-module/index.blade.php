@@ -5,7 +5,7 @@
             {{ $message }}
         </div>
     @enderror
-    <div class="container">
+    <div class="container ">
         <div class="row">
             @if (isset($brand))
             @else
@@ -136,7 +136,7 @@
         </div>
         {{-- ==========================End Create Brand Profile===================== --}}
 
-
+<br><br>
         @if (isset($brand))
             <div class="card mb-4">
 

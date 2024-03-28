@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("banneruuid")->unique();
             $table->unsignedBigInteger('user_id');
+            $table->string('category')->nullable();
             $table->string('name');
             $table->string('url');
             $table->string('slug')->unique();

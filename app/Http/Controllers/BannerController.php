@@ -10,6 +10,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class BannerController extends Controller
 {
+
+    // Create an array with id and name fields
+    public $data_cat = [
+    ['id' => 1, 'name' => 'home'],
+    ['id' => 2, 'name' => 'factories'],
+    ['id' => 3, 'name' => 'wholesalers'],
+    ['id' => 4, 'name' => 'services'],
+    ['id' => 5, 'name' => 'other']
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +26,16 @@ class BannerController extends Controller
      */
     public function index()
     {
+        $banner_category = [
+            ['id' => 1, 'name' => 'home'],
+            ['id' => 2, 'name' => 'factories'],
+            ['id' => 3, 'name' => 'wholesalers'],
+            ['id' => 4, 'name' => 'services'],
+            ['id' => 5, 'name' => 'other']
+            ];
         $banners=Banner::latest()->paginate(5);
         // dd($banner);
-        return view('content.banner-manager.banner-index',compact('banners'));  
+        return view('content.banner-manager.banner-index',compact('banners','banner_category'));  
     }
 
     /**
@@ -27,10 +43,10 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('content.banner-manager.banner-create');
-    }
+    // public function create()
+    // {
+    //     return view('content.banner-manager.banner-create');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -66,8 +82,14 @@ class BannerController extends Controller
     public function edit($id)
     {   $ban=Banner::findOrFail($id); 
         $banners=Banner::latest()->paginate(5);
-
-         return view('content.banner-manager.banner-index', compact('ban','banners'));
+        $banner_category = [
+            ['id' => 1, 'name' => 'home'],
+            ['id' => 2, 'name' => 'factories'],
+            ['id' => 3, 'name' => 'wholesalers'],
+            ['id' => 4, 'name' => 'services'],
+            ['id' => 5, 'name' => 'other']
+            ];
+         return view('content.banner-manager.banner-index', compact('ban','banners','banner_category'));
     }
 
     /**

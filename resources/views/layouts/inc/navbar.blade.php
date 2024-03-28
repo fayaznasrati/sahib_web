@@ -1,7 +1,5 @@
 <div class="header section">
- 
-      
-       
+
   <!-- Header Top Start -->
   <div class="header-top bg-light">
     <div class="container">
@@ -19,7 +17,8 @@
                         </ul>
                     </div>
                     <div class="header-top-links">
-                        <span>Call Us</span><a href="#"> +93 01234567</a>
+                        <a href="tel:+93785655511"><span>Call Us: +93 78 565 5511</span></a>
+
                     </div>
                 </div>
             </div>
@@ -30,8 +29,10 @@
                 
                 <p class="header-top-message">
                   
-                    @if (Auth::check() && Auth::user()->role === '2')
-                    Seller <a href="/user/seller/create/brand/products"><span class="ad-Button">Create Products</span></a>
+                    @if (Auth::check() && Auth::user()->role === '2' && (Auth::user()->seller_type === 1 || Auth::user()->seller_type === 2 ))
+                     <a target="_blank"  href="/user/seller/create/brand/products"><span class="ad-Button">Create Products</span></a>
+                    @elseif(Auth::check() && Auth::user()->role === '2' && (Auth::user()->seller_type === 3 || Auth::user()->seller_type === 4 ) )
+                     <a  target="_blank" href="/user/create-service-brand-products"><span class="ad-Button">Create Products</span></a>
                     @elseif(Auth::check() && Auth::user()->role === '1')
                     Adminstrator
                     @else
@@ -41,7 +42,7 @@
                     <a href="/login">login</a>
                     <a href="/register">Register</a></p>
                     @else
-                    Welcome: <b id="user-name">{{ Auth::user()->name }}</b>
+                     <b id="user-name" class="ml-1">Hi: {{ Auth::user()->name }}</b>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
                     @endguest
@@ -79,31 +80,33 @@
 
    
                                 @if(Auth::check())
-                                @if (Auth::user()->role === '1')
-                                <a href="/admin/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
-                                @elseif (Auth::user()->role === '2')
-                                <a href="/user/seller/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
-                                @else
-                                <a href="/user/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                                @if (Auth::check() && Auth::user()->role === '2' && (Auth::user()->seller_type === 1 || Auth::user()->seller_type === 2 ))
+                                <a target="_blank"  class="header-action-btn d-none d-md-block"  href="/user/seller/dashboard"><i class="pe-7s-user"></i></a>
+                               @elseif(Auth::check() && Auth::user()->role === '2' && (Auth::user()->seller_type === 3 || Auth::user()->seller_type === 4 ) )
+                                <a  target="_blank" class="header-action-btn d-none d-md-block"  href="/user/service-user-profile"><i class="pe-7s-user"></i></a>
+                               @elseif(Auth::check() && Auth::user()->role === '1')
+                               <a href="/admin/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
+                               @else
+                                <a href="/dashboard" class="header-action-btn d-none d-md-block" ><i class="pe-7s-user"></i></a>
                                 @endif
                                 @endif
                                 <!-- User Account Header Action Button End -->
                                 <!-- Shopping Cart Header Action Button Start -->
-                                <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-wishlist">     
+                                {{-- <a href="javascript:void(0)"  id="likedItemSection" class="header-action-btn header-action-btn-wishlist">     
                                     <i class="pe-7s-like"></i>
                                 @if (Auth::check())
                                   @if (count($wishlists)>=1)
                                     <span class="header-action-num">{{count($wishlists)}}</span>
                                 @endif
-                                 {{-- <!-- Shopping Cart Header Action Button Start -->
+                                 <!-- Shopping Cart Header Action Button Start -->
                                  <a href="javascript:void(0)" class="header-action-btn header-action-btn-cart">
                                     <i class="pe-7s-shopbag"></i>
                                     @if (count($wishlists)>=1)
                                     <span class="header-action-num">{{count($wishlists)}}</span>
                                     @endif
                                 </a>
-                                <!-- Shopping Cart Header Action Button End --> --}}
-                                @endif
+                                <!-- Shopping Cart Header Action Button End -->
+                                @endif --}}
                                    
                                 </a>
                             </div>
@@ -135,17 +138,21 @@
                       <div class=" col-md-10 col-xl-10 d-none d-xl-block">
                         <div class="main-menu position-relative container" >
                             <ul>
+                                <li><a href="/" class="top_menu {{ request()->is('/') ? 'active' : '' }}"><span>Home</span></a></li>
                                 @foreach ($topMenus as $topMenu )
 
                                 @if ($topMenu->menu)
                                 {{-- {{count($topMenu->menu) >0 ? "has" : "not"}} --}}
                                 @if (count($topMenu->menu) >0)
-                                     <li class="has-children position-static"  >
-                                         <a href="#"><span>{{$topMenu->name}}</span>
+                                     <li class="has-children position-static  "  >
+                                         <a href="#" class="top_menu"><span>{{$topMenu->name}}</span>
                                              <i class="fa fa-angle-down"></i></a>
                                 @else
                                     <li ><a href="#"><span>{{$topMenu->name}}</span></a>
+                                   
                                 @endif
+                                
+
                                   <ul class="mega-menu row">
                                         <div class="col-md-8">
                                             <div class="row">
@@ -179,6 +186,11 @@
                                    
                                 </li>
                                 @endif
+                                
+                                    <li><a href="/factories" class="top_menu {{ request()->is('factories') ? 'active' : '' }}"><span>Factories</span></a></li>
+                                    <li><a href="/wholesalers" class="top_menu {{ request()->is('wholesalers') ? 'active' : '' }}"><span>Wholesalers</span></a></li>
+                                    <li><a href="/hotel-and-resturants" class="top_menu {{ request()->is('hotel-and-resturants') ? 'active' : '' }}"><span>Hotels and Restaurants</span></a></li>
+                                    <li><a href="/services" class="top_menu {{ request()->is('services') ? 'active' : '' }}"><span>Services</span></a></li>
                                 {{-- <li class="has-children position-static" >
                                     <a href="#"><span>Products B</span> <i class="fa fa-angle-down"></i></a>
                                    
@@ -262,6 +274,7 @@
             <div class="mobile-navigation">
                 <nav>
                     <ul class="mobile-menu" >
+                        <li><a href="/" class="top_menu {{ request()->is('/') ? 'active_menu' : '' }}"><span>Home</span></a></li>
                         @foreach ($topMenus as $topMenu )
                         @if ($topMenu->menu)
                         @if (count($topMenu->menu) >0)
@@ -288,7 +301,11 @@
                         </li>
                         @endif
                         @endforeach
-                        <hr>
+                        <li><a href="/factories" class="top_menu {{ request()->is('factories') ? 'active_menu' : '' }}"><span>Factories</span></a></li>
+                        <li><a href="/wholesalers" class="top_menu {{ request()->is('wholesalers') ? 'active_menu' : '' }}"><span>Wholesalers</span></a></li>
+                        <li><a href="/hotel-and-resturants" class="top_menu {{ request()->is('hotel-and-resturants') ? 'active_menu' : '' }}"><span>Hotels and Restaurants</span></a></li>
+                        <li><a href="/services" class="top_menu {{ request()->is('services') ? 'active_menu' : '' }}"><span>Services</span></a></li>
+                    
                         <li><a href="/about">About</a></li>
                         <li><a href="/contact">Contact</a></li>
                     </ul>
@@ -331,9 +348,9 @@
                     </div>
                         @else
                         <div class="header-top-curr dropdown">
-                            <button class="dropdown-toggle" data-bs-toggle="dropdown"> Welcome: <b id="user-name">{{ Auth::user()->name }}</b> <i class="fa fa-angle-down"></i></button>
+                            <button class="dropdown-toggle" data-bs-toggle="dropdown" style="color:white"> Welcome: <b id="user-name">{{ Auth::user()->name }}</b> <i class="fa fa-angle-down"></i></button>
                             <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
-                                <li><a class="dropdown-item"  style="color:white" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }} </a></li>
+                                <li><a class="dropdown-item"  style="color:rgb(78, 17, 17)" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }} </a></li>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">   @csrf </form>
                             </ul>
                         </div>
@@ -350,7 +367,7 @@
                 <ul class="contact-links">
                     <li><i class="fa fa-phone"></i><a href="tel:+93785655511" id="have-white-color"> (+93) 785-655-511 </a></li>
                     <li><i class="fa fa-envelope-o"></i><a href="mailto:info@sahib.af" id="have-white-color"> info@sahib.af</a></li> <a href="tel:+"></a>
-                    <li><i class="fa fa-clock-o"></i> <span>Wazir-akbar-khan, Kabul Afghanistan</span> </li>
+                    <li><i class="fa fa-map-o"></i> Wazir-akbar-khan, Kabul Afg </li>
                 </ul>
                 <!-- Contact Links End -->
 
@@ -389,7 +406,7 @@
     <!-- Offcanvas Search End -->
 
     <!-- Cart Offcanvas Start -->
-    <div class="cart-offcanvas-wrapper">
+    {{-- <div class="cart-offcanvas-wrapper">
         <div class="offcanvas-overlay"></div>
 
         <!-- Cart Offcanvas Inner Start -->
@@ -507,7 +524,7 @@
 
         </div>
         <!-- Cart Offcanvas Inner End -->
-    </div>
+    </div> --}}
     <!-- Cart Offcanvas End -->
 
 

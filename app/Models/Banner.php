@@ -17,6 +17,7 @@ class Banner extends Model
 
     protected $fillable =  [
         'user_id',
+        'category',
         'name',
         'url',
         'slug',
@@ -46,6 +47,7 @@ class Banner extends Model
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'url' => 'required',
+            'category' => 'required',
             'cover' => 'required',
             'mobileCover' => 'required',
         ]);
@@ -67,6 +69,7 @@ class Banner extends Model
                 $mobileFile->move(\public_path("mobileCover/banner/"),$mobileCover);
                 $expiration_date = Carbon::now()->addDays(30);
                 $banner =new Banner([
+                   "category" => $request->category,
                    "name" => $request->name,
                    "url" => $request->url,
                    "slug" => $slug.'-'.time(),
@@ -121,6 +124,7 @@ class Banner extends Model
           }
             $expiration_date = Carbon::now()->addDays(30);
             $banner->update([
+                "category" => $request->category,
                 "name" => $request->name,
                 "url" => $request->url,
                 "slug" => $slug.'-'.time(),
